@@ -5,3 +5,6 @@ export class BaseModel {
    */
   iid: string = ''
 }
+
+
+let a = 12;
