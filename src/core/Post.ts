@@ -2,6 +2,7 @@ import { objectUtil } from 'bstm-utils'
 import { RequestHeaderEnum, SymbolKeys, AppConfig } from '@/enums'
 
 export const API_MAP = new Map()
+export let POST_URL = ''
 const API_CACHE = new Map()
 
 // todo: 添加缓存时间 添加鉴权
@@ -38,7 +39,9 @@ export function Post(path: string, config?: PostConfig): MethodDecorator {
       const baseUrl = Reflect.getMetadata('path', target.constructor)
       const url = `${baseUrl}${path}`
       API_MAP.set(url, config || {})
-      Reflect.defineMetadata(SymbolKeys.POST_PATH_KEY, url, target.constructor)
+
+      POST_URL = url
+
       if (config?.isCache && API_CACHE.has(url)) {
         const result = API_CACHE.get(url)
         console.log(

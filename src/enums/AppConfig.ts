@@ -1,5 +1,5 @@
 import { name, version } from '../../package.json'
-import { type ApiEncipherMode } from '@/decorators'
+import { type ApiEncipherMode } from '@/core'
 
 const { V_CONTEXT_PATH } = import.meta.env
 

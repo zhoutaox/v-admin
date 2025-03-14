@@ -34,12 +34,7 @@ export function App(app: VueApp, options: AppOptions) {
       AppConfig.ENCRYPT_TYPE = options.apiEncipherMode || 'sm2'
 
       await setupConfig()
-      // api.aiForm.todo()
       await setupComponents(app)
-      // api.app().then((res) => {})
-      api.uploadConfig()
-
-      console.error(api)
 
       app.mount('#app')
     })()

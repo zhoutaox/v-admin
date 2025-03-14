@@ -1,14 +1,13 @@
 <script setup lang="ts">
+import { RouterView } from 'vue-router'
 import { api } from './api'
-import { AiForm } from './api/aiForm/model/AiForm'
 import { useCrud } from './hooks/useCurd'
 
-const { fieldList, formData, isShowModel } = useCrud(api.aiForm, AiForm)
-console.error('fieldList', fieldList, formData)
+
 </script>
 
 <template>
-  <n-button type="success" @click="isShowModel = true"> Success </n-button>
+  <!-- <n-button type="success" @click="isShowModel = true"> Success </n-button>
   <n-modal
     v-model:show="isShowModel"
     title="cc"
@@ -22,7 +21,8 @@ console.error('fieldList', fieldList, formData)
     <template #action>
       <n-button type="success" @click="isShowModel = false"> Success </n-button>
     </template>
-  </n-modal>
+  </n-modal> -->
+  <RouterView />
 </template>
 
 <style scoped>

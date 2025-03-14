@@ -1,10 +1,10 @@
 import { ref, reactive, type Ref, type Reactive, watch } from 'vue'
 import { NForm } from 'naive-ui'
 import { AbstractApi } from '@/core/AbstractApi'
-import { BaseModel } from '@/core/BaseModel'
+import { BaseEntity } from '@/core/BaseEntity'
 import { type FieldProps } from '@/decorators'
 
-interface UseCrudReturn<T extends BaseModel> {
+interface UseCrudReturn<T extends BaseEntity> {
   loading: Ref<boolean>
   formRef: Ref<InstanceType<typeof NForm> | null>
   formData: Reactive<T>
@@ -13,8 +13,8 @@ interface UseCrudReturn<T extends BaseModel> {
   fieldList: FieldProps[]
 }
 
-export function useCrud<T extends BaseModel>(
-  api: AbstractApi,
+export function useCrud<T extends BaseEntity>(
+  api: AbstractApi<T>,
   model: new () => T,
 ): UseCrudReturn<T> {
   /*** refs ***/

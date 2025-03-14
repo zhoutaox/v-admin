@@ -6,8 +6,8 @@ import type {
   InternalAxiosRequestConfig,
 } from 'axios'
 import { secureUtil, type ApiResponse } from 'bstm-utils'
-import { RequestHeaderEnum, SymbolKeys, AppConfig } from '@/enums'
-import { API_MAP, type PostConfig } from '@/decorators'
+import { RequestHeaderEnum, AppConfig } from '@/enums'
+import { API_MAP, type PostConfig, POST_URL } from '@/core'
 
 function sm2Adapter() {
   return {
@@ -84,10 +84,10 @@ export class Request {
           // 下载文件
           return response
         } else {
-          if (data.data) {
-            const adapter = getSecureAdapter()
-            const key: string = adapter.decrypt(response.data.key)
-            data.data = JSON.parse(secureUtil.decryptByAES(data.data, key))
+          if (data) {
+            try {
+              response.data = JSON.parse(secureUtil.decryptBySM4(response.data))
+            } catch (e) {}
           }
 
           if (AppConfig.ENABLE_API_LOG) {
@@ -96,7 +96,7 @@ export class Request {
               'color: #fff;background: #f89898;padding: 2px 4px;border-radius: 6px',
               response.config.url,
               '🍕 ~ ' + '解密结果:',
-              data,
+              response.data,
               '🌮 ~ ' + '请求参数:', // @ts-expect-error 存放信息
               response.config.env!.requestInfo.params,
               '🍔 ~ ' + '请求时间:', // @ts-expect-error 存放信息
@@ -104,7 +104,7 @@ export class Request {
             )
           }
 
-          return data
+          return response.data
         }
       },
       (error) => {
@@ -128,7 +128,8 @@ export class Request {
     params: Record<string, unknown> = {},
     config: AxiosRequestConfig = {},
   ): Promise<ApiResponse> {
-    const url = Reflect.getMetadata(SymbolKeys.POST_PATH_KEY, this.constructor)
+    const url = POST_URL || ''
+
     const apiConfig: PostConfig = API_MAP.get(url)
 
     config = Object.assign(config, {
@@ -137,6 +138,6 @@ export class Request {
       },
     }) // 合并配置
 
-    return this.axiosInstance.post(AppConfig.CONTEXT_PATH + url, params, config)
+    return this.axiosInstance.post(AppConfig.CONTEXT_PATH + url, params.data, config)
   }
 }

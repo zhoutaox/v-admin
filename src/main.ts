@@ -1,6 +1,6 @@
 import 'reflect-metadata'
 import { createApp } from 'vue'
-import { App } from './decorators'
+import { App } from './core'
 import Root from './App.vue'
 
 @App(createApp(Root), {

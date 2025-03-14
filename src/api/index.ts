@@ -1,11 +1,11 @@
 import { type ApiResponse } from 'bstm-utils'
-import { Controller, Post } from '@/decorators'
+import { Controller, Post } from '@/core'
 import { Request } from './helpers/Request'
-import { AiFormApi } from './aiForm'
+import { UserApi } from './user'
 
 @Controller('')
 class Api extends Request {
-  aiForm = new AiFormApi()
+  user = new UserApi()
 
   @Post('/app')
   app(): Promise<ApiResponse> {
