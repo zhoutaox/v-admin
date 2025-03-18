@@ -2,7 +2,7 @@ import { ref, reactive, type Ref, type Reactive, watch } from 'vue'
 import { NForm } from 'naive-ui'
 import { AbstractApi } from '@/core/AbstractApi'
 import { BaseEntity } from '@/core/BaseEntity'
-import { type FieldProps } from '@/decorators'
+import { type FieldProps } from '@/core'
 
 interface UseCrudReturn<T extends BaseEntity> {
   loading: Ref<boolean>

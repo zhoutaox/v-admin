@@ -1,5 +1,7 @@
+import type { PropType } from 'vue'
 import { ComponentEnum } from '@/enums'
 import { type Dict } from '@/types'
+import type { SelectProps } from 'naive-ui'
 
 // 定义不同类型的 props
 interface PasswordProps {
@@ -11,7 +13,7 @@ interface DefaultProps {
 }
 
 // 根据 type 动态决定 props 类型
-type ComponentProps<T> = T extends ComponentEnum.PASSWORD ? PasswordProps : DefaultProps
+type ComponentProps<T> = T extends ComponentEnum.PASSWORD ? SelectProps : DefaultProps
 
 interface FieldComponentProps<T = ComponentEnum> {
   label: string

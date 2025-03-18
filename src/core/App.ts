@@ -1,8 +1,13 @@
 import { type Plugin, type App as VueApp } from 'vue'
 import { createPinia } from 'pinia'
-import { router } from '../router'
-import { api } from '@/api'
+import 'normalize.css'
+import { Router, router } from '@/router'
 import { AppConfig } from '@/enums'
+// iconfont
+import '@/icons/iconfont/iconfont.css'
+import '@/icons/iconfont/iconfont'
+// styles
+import '@/styles/index.scss'
 
 export type ApiEncipherMode = 'sm2' | 'rsa' | 'aes' | 'sm4'
 
@@ -26,8 +31,7 @@ type AppOptions = {
 export function App(app: VueApp, options: AppOptions) {
   return function (target: new (...args: unknown[]) => unknown) {
     ;(async () => {
-      console.log(target)
-
+      setupLoading()
       registerPlugins(app, options?.plugins || [])
 
       AppConfig.ENABLE_API_LOG = options.enableApiLog || false
@@ -39,6 +43,15 @@ export function App(app: VueApp, options: AppOptions) {
       app.mount('#app')
     })()
   }
+}
+
+function setupLoading() {
+  // 加载动画
+  const loadingOverlay = document.createElement('div')
+  loadingOverlay.className = 'bs-loading'
+  loadingOverlay.id = 'bs-loading'
+  loadingOverlay.innerHTML = '<div></div><div></div><div></div><div></div>>'
+  document.getElementById('app')?.appendChild(loadingOverlay)
 }
 
 /**
@@ -69,4 +82,17 @@ async function setupComponents(app: VueApp) {
     const component = module.default
     app.use(component)
   }
+
+  const componentTests = import.meta.glob('@/components/**/__tests__/index.vue')
+
+  for (const path in componentTests) {
+    const name = path.split('/')[3]
+
+    router.addComponentRoute({
+      path: name,
+      component: componentTests[path],
+    })
+  }
+  console.error(router)
+  console.error(router.instance.getRoutes())
 }

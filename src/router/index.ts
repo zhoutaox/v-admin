@@ -1,11 +1,35 @@
 import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
+import Layout from '@/layout/Layout.vue'
+import ComponentLayout from '@/layout/ComponentLayout.vue'
 
 export class Router {
   instance = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes: [],
   })
-  routes: RouteRecordRaw[] = []
+
+  componentRouter: RouteRecordRaw = {
+    path: '/components/test',
+    name: 'components-test',
+    component: ComponentLayout,
+    children: [],
+  }
+
+  routes: RouteRecordRaw[] = [
+    {
+      component: Layout,
+      path: '/',
+      redirect: '/home',
+      children: [
+        {
+          path: 'home',
+          name: 'home',
+          component: () => import('@/views/home/index.vue'),
+        },
+      ],
+    },
+    this.componentRouter,
+  ]
   constructor() {
     this.routes.forEach((route) => {
       this.instance.addRoute(route)
@@ -15,6 +39,10 @@ export class Router {
   addRoute(route: RouteRecordRaw) {
     this.routes.push(route)
     this.instance.addRoute(route)
+  }
+
+  addComponentRoute(route: RouteRecordRaw) {
+    this.componentRouter.children?.push(route)
   }
 
   //todo: removeRoute

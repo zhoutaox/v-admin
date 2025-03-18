@@ -11,9 +11,7 @@ export class User extends BaseEntity {
   @Field({
     label: '密码',
     type: ComponentEnum.PASSWORD,
-    props: {
-      isPassword: true,
-    },
+    props: {},
   })
   password!: string
 

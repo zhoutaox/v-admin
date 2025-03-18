@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { type FieldProps } from '@/decorators'
+import { type FieldProps } from '@/core'
 
 const props = defineProps<{
   modelValue: Record<string, unknown>
