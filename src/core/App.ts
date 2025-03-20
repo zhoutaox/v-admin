@@ -1,13 +1,14 @@
 import { type Plugin, type App as VueApp } from 'vue'
 import { createPinia } from 'pinia'
 import 'normalize.css'
-import { Router, router } from '@/router'
+import { router } from '@/router'
 import { AppConfig } from '@/enums'
 // iconfont
 import '@/icons/iconfont/iconfont.css'
 import '@/icons/iconfont/iconfont'
 // styles
 import '@/styles/index.scss'
+import icon from '@/assets/avatar1.png'
 
 export type ApiEncipherMode = 'sm2' | 'rsa' | 'aes' | 'sm4'
 
@@ -39,6 +40,11 @@ export function App(app: VueApp, options: AppOptions) {
 
       await setupConfig()
       await setupComponents(app)
+
+      const link = document.createElement('link')
+      link.rel = 'icon'
+      link.href = icon
+      document.head.appendChild(link)
 
       app.mount('#app')
     })()
@@ -89,10 +95,9 @@ async function setupComponents(app: VueApp) {
     const name = path.split('/')[3]
 
     router.addComponentRoute({
-      path: name,
+      path: '/' + name,
+      name: name,
       component: componentTests[path],
     })
   }
-  console.error(router)
-  console.error(router.instance.getRoutes())
 }

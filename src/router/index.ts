@@ -1,19 +1,11 @@
-import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
+import { createRouter, type RouteRecordRaw, createWebHashHistory } from 'vue-router'
 import Layout from '@/layout/Layout.vue'
-import ComponentLayout from '@/layout/ComponentLayout.vue'
 
 export class Router {
   instance = createRouter({
-    history: createWebHistory(import.meta.env.BASE_URL),
+    history: createWebHashHistory(import.meta.env.BASE_URL),
     routes: [],
   })
-
-  componentRouter: RouteRecordRaw = {
-    path: '/components/test',
-    name: 'components-test',
-    component: ComponentLayout,
-    children: [],
-  }
 
   routes: RouteRecordRaw[] = [
     {
@@ -28,7 +20,6 @@ export class Router {
         },
       ],
     },
-    this.componentRouter,
   ]
   constructor() {
     this.routes.forEach((route) => {
@@ -37,12 +28,11 @@ export class Router {
   }
 
   addRoute(route: RouteRecordRaw) {
-    this.routes.push(route)
     this.instance.addRoute(route)
   }
 
   addComponentRoute(route: RouteRecordRaw) {
-    this.componentRouter.children?.push(route)
+    this.instance.addRoute(route)
   }
 
   //todo: removeRoute
@@ -53,9 +43,3 @@ export class Router {
 }
 
 export const router = new Router()
-
-router.addRoute({
-  path: '/login',
-  name: 'login',
-  component: () => import('@/views/login/index.vue'),
-})

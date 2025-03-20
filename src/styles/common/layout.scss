@@ -1,0 +1,68 @@
+.v-layout {
+  min-height: 100vh;
+
+  .n-layout-sider {
+    min-height: 100vh;
+    width: 200px !important;
+    box-shadow: 2px 0 8px 0 rgb(29 35 41 / 5%);
+    position: relative;
+    z-index: 13;
+    transition: all 0.2s ease-in-out;
+  }
+
+  .n-layout-header {
+    height: 68px;
+    color: #000000d9;
+    line-height: 68px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 1px 4px #00152914;
+  }
+
+  .v-layout-main {
+    padding: 0 12px;
+    display: flex;
+    flex: auto;
+    flex-direction: column;
+    min-height: 100vh;
+    background: #f0f2f5;
+
+    .v-layout-content {
+      background: #f0f2f5;
+    }
+  }
+
+  .n-menu-item-content__icon {
+    margin-right: 6px !important;
+  }
+
+  .v-layout-tabs-tag {
+    margin-right: 6px;
+    background-color: #fff;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+
+  .tabs-view {
+    margin-top: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-right: 4px;
+  }
+}
+
+.v-app-dark {
+  .v-layout-main {
+    background-color: #101014;
+
+    .v-layout-content {
+      background: #101014;
+    }
+
+    .v-layout-tabs-tag {
+      background-color: rgb(24, 24, 28);
+    }
+  }
+}
