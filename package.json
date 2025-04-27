@@ -42,8 +42,11 @@
   "dependencies": {
     "@vicons/ionicons5": "^0.13.0",
     "@vueuse/core": "^13.0.0",
+    "async-validator": "^4.2.5",
     "axios": "1.7.9",
     "bstm-utils": "^0.1.12",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.1",
     "echarts": "^5.6.0",
     "naive-ui": "^2.41.0",
     "normalize.css": "^8.0.1",

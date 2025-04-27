@@ -4,9 +4,12 @@ import { initMenu } from '@/router/initMenu'
 import { type MenuOption } from 'naive-ui'
 import { Menu } from '@/api/menu/entities/Menu'
 import { renderIcon } from '@/utils'
+import { useRoute, useRouter } from 'vue-router'
 
 const menus = initMenu()
 const { theme } = useThemeStore()
+const route = useRoute()
+const router = useRouter()
 
 function convertMenuToMenuOptions(menus: Menu[]): MenuOption[] {
   return menus.map((menu) => {
@@ -24,6 +27,10 @@ function convertMenuToMenuOptions(menus: Menu[]): MenuOption[] {
   })
 }
 
+function clickMenuItem(key: string) {
+  router.push(key)
+}
+
 const menuOptions = convertMenuToMenuOptions(menus)
 </script>
 
@@ -34,6 +41,8 @@ const menuOptions = convertMenuToMenuOptions(menus)
     :collapsed-width="60"
     :collapsed-icon-size="22"
     :options="menuOptions"
+    :value="route.path"
+    @update:value="clickMenuItem"
   />
 </template>
 

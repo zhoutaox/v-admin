@@ -58,4 +58,9 @@ export enum ComponentEnum {
    * # 树形选择
    */
   TREE_SELECT = 11,
+
+  /**
+   * # 评分
+   */
+  RATE = 12,
 }

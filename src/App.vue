@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useThemeVars, darkTheme, lightTheme, type GlobalThemeOverrides } from 'naive-ui'
+import { useThemeVars, darkTheme, lightTheme, type GlobalThemeOverrides, zhCN } from 'naive-ui'
 import { RouterView } from 'vue-router'
 import { useThemeStore } from './stores'
 
@@ -16,6 +16,7 @@ const themeOverrides: GlobalThemeOverrides = {
 <template>
   <n-config-provider
     class="v-app"
+    :locale="zhCN"
     :class="theme.isDark ? 'v-app-dark' : 'v-app-light'"
     :theme="theme.isDark ? darkTheme : lightTheme"
     :theme-overrides="themeOverrides"

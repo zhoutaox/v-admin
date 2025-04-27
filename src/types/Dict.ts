@@ -1,5 +1,5 @@
 export type Dict = {
   label: string
-  value: string
+  value: string | number
   children?: Dict[]
 }

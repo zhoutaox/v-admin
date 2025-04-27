@@ -2,10 +2,13 @@
 import { computed } from 'vue'
 import { type FieldProps } from '@/core'
 
-const props = defineProps<{
-  modelValue: Record<string, unknown>
-  field: FieldProps[]
-}>()
+const props = withDefaults(
+  defineProps<{
+    modelValue: Record<string, unknown>
+    field: FieldProps[]
+  }>(),
+  {},
+)
 
 const formData = computed(() => {
   return props.modelValue
