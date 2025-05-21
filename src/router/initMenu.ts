@@ -1,6 +1,5 @@
 import { stringUtil } from 'bstm-utils'
 import { Menu } from '@/api/menu/entities/Menu'
-import { router } from './index'
 
 export function initMenu() {
   const menu1 = new Menu()
@@ -61,9 +60,6 @@ export function initMenu() {
   m2_c3.icon = 'gongyinglianfuwu'
 
   menu2.children = [m2_c1, m2_c2, m2_c3]
-
-  router.addLayoutRoutes([menu1, menu2])
-  console.error(router.instance.getRoutes())
 
   return [menu1, menu2]
 }

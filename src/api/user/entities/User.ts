@@ -1,4 +1,4 @@
-import { IsNotEmpty, Length } from 'class-validator'
+import { IsNotEmpty, Length, IsEmail } from 'class-validator'
 import { api } from '@/api'
 import { BaseEntity, Field, Form } from '@/core'
 import { ComponentEnum } from '@/enums'
@@ -8,6 +8,14 @@ import { ComponentEnum } from '@/enums'
   crud: api.user,
 })
 export class User extends BaseEntity {
+  @IsNotEmpty({ message: '登录名不能为空' })
+  @Length(2, 20, { message: '登录名长度在2到20个字符之间' })
+  @Field({
+    label: '登录名',
+    type: ComponentEnum.INPUT,
+  })
+  loginName!: string
+
   @IsNotEmpty({ message: '用户名不能为空' })
   @Length(2, 20, { message: '用户名长度在2到20个字符之间' })
   @Field({
@@ -24,6 +32,12 @@ export class User extends BaseEntity {
   })
   password!: string
 
+  @IsEmail(
+    {},
+    {
+      message: '邮箱格式不正确',
+    },
+  )
   @Field({
     label: '邮箱',
     type: ComponentEnum.INPUT,
@@ -38,7 +52,7 @@ export class User extends BaseEntity {
   phone!: string
 
   @Field({
-    label: '用户邮箱',
+    label: '用户头像',
   })
   avatar!: string
 

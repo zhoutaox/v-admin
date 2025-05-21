@@ -2,10 +2,10 @@ import { ref, reactive, type Ref, type Reactive, watch } from 'vue'
 import { NForm } from 'naive-ui'
 import Schema from 'async-validator'
 import { type RuleItem } from 'async-validator'
-import { getMetadataStorage } from 'class-validator'
+import { getMetadataStorage, isEmail, equals, notEquals } from 'class-validator'
 import { AbstractApi } from '@/core/AbstractApi'
 import { BaseEntity } from '@/core/BaseEntity'
-import { type FieldProps } from '@/core'
+import { type FieldProps, getFormConfig } from '@/core'
 import { message } from '@/utils'
 import type { ValidationMetadata } from 'class-validator/types/metadata/ValidationMetadata'
 
@@ -28,8 +28,14 @@ export function useCrud<T extends BaseEntity>(model: new () => T): UseCrudReturn
   const title = ref('') // 标题
   const isShowModel = ref(false) // 是否显示弹窗
   const fieldList: FieldProps[] = Object.getPrototypeOf(formModel).fields || [] // 字段列表
+  const formConfig = getFormConfig(model) // 表单配置
+  console.error('formConfig', formConfig)
+
   const metadataStorage = getMetadataStorage()
+
   const validationMetaList = metadataStorage.getTargetValidationMetadatas(model, '', true, true)
+
+  console.error('validationMetaList', validationMetaList)
 
   function getNaiveUiRules(rules: ValidationMetadata[]) {
     const nativeUiRules: Record<string, RuleItem[]> = {}
@@ -66,6 +72,30 @@ export function useCrud<T extends BaseEntity>(model: new () => T): UseCrudReturn
         validatorRule.min = constraints[0]
         validatorRule.max = constraints[1]
         break
+      case 'isEmail':
+        validatorRule.validator = (_, value: string) => {
+          if (value) {
+            return isEmail(value)
+          }
+          return true
+        }
+        break
+      case 'equals':
+        validatorRule.validator = (_, value: string) => {
+          if (value) {
+            return equals(value, constraints[0])
+          }
+          return true
+        }
+        break
+      case 'notEquals':
+        validatorRule.validator = (_, value: string) => {
+          if (value) {
+            return notEquals(value, constraints[0])
+          }
+          return true
+        }
+        break
     }
 
     validatorRule.message = message as string
@@ -74,8 +104,6 @@ export function useCrud<T extends BaseEntity>(model: new () => T): UseCrudReturn
   }
 
   function submit() {
-    console.error('提交表单', formRef)
-
     formRef.value?.validate((errors) => {
       if (!errors) {
         message.success('验证成功')

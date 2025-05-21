@@ -6,8 +6,6 @@ import { User } from './entities/User'
 export class UserApi extends AbstractApi<User> {
   @Post('/login')
   login(userLoginDto: UserLoginDto) {
-    console.log('userLoginDto', userLoginDto)
-
     return this.post({
       data: userLoginDto,
     })

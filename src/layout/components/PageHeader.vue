@@ -1,30 +1,51 @@
 <script setup lang="ts">
 import { useFullscreen } from '@vueuse/core'
-import { renderIcon } from '@/utils'
-import { useThemeStore } from '@/stores'
 import { storeToRefs } from 'pinia'
+import type { DropdownOption } from 'naive-ui'
+import { Password } from '@/api/user/entities/Password'
+import { User } from '@/api/user/entities/User'
+import { renderIcon, openForm } from '@/utils'
+import { useThemeStore } from '@/stores'
 
 const { isFullscreen, toggle } = useFullscreen()
 const themeStore = useThemeStore()
 const { theme, avatar } = storeToRefs(themeStore)
 
+const Config = {
+  PROFILE: 'profile',
+  EDIT_PROFILE: 'editProfile',
+  LOGOUT: 'logout',
+}
+
 const options = [
   {
     label: '个人设置',
-    key: 'profile',
+    key: Config.PROFILE,
     icon: renderIcon('customer-official'),
   },
   {
     label: '修改密码',
-    key: 'editProfile',
+    key: Config.EDIT_PROFILE,
     icon: renderIcon('edit'),
   },
   {
     label: '退出登录',
-    key: 'logout',
+    key: Config.LOGOUT,
     icon: renderIcon('tuichu'),
   },
 ]
+
+function handleDropdownSelect(key: string | number, options: DropdownOption) {
+  if (key === Config.PROFILE) {
+    // Navigate to profile page
+    openForm(User)
+  } else if (key === Config.EDIT_PROFILE) {
+    // Navigate to edit profile page
+    openForm(Password)
+  } else if (key === Config.LOGOUT) {
+    // Handle logout
+  }
+}
 </script>
 
 <template>
@@ -53,7 +74,7 @@ const options = [
           <v-icon :icon="isFullscreen ? 'compress' : 'fullscreen'" color="#767c82" />
         </template>
       </n-button>
-      <n-dropdown :options="options">
+      <n-dropdown :options="options" :on-select="handleDropdownSelect">
         <n-avatar round size="medium" :src="avatar" />
       </n-dropdown>
     </div>

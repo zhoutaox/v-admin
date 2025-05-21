@@ -38,7 +38,7 @@ export abstract class AbstractApi<T extends BaseEntity = BaseEntity> extends Req
   }
 
   @Post('/list')
-  list(): Promise<ApiResponse> {
+  list(): Promise<ApiResponse<T[]>> {
     return this.post({})
   }
 }

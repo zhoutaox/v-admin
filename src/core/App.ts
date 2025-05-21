@@ -1,5 +1,7 @@
 import { type Plugin, type App as VueApp } from 'vue'
 import { createPinia } from 'pinia'
+import { createPersistedState } from 'pinia-plugin-persistedstate'
+import { useRouterStore } from '@/stores'
 import 'normalize.css'
 import { router } from '@/router'
 import { AppConfig } from '@/enums'
@@ -34,6 +36,7 @@ export function App(app: VueApp, options: AppOptions) {
     ;(async () => {
       setupLoading()
       registerPlugins(app, options?.plugins || [])
+      setupRouter(app)
 
       AppConfig.ENABLE_API_LOG = options.enableApiLog || false
       AppConfig.ENCRYPT_TYPE = options.apiEncipherMode || 'sm2'
@@ -66,10 +69,44 @@ function setupLoading() {
  * @param plugins 插件列表
  */
 function registerPlugins(app: VueApp, plugins: Plugin[]) {
-  app.use(createPinia()).use(router.instance)
+  /**
+   * pinia 持久化插件
+   */
+  const persist = createPersistedState({
+    // 存储key的前缀
+    key: (id: string) => `${AppConfig.PRODUCT_NAME}_${id}`.toLocaleUpperCase(),
+
+    // 自动恢复状态
+    auto: true,
+
+    // 存储方式，默认是 localStorage
+    storage: window.localStorage,
+
+    /**
+     * 序列化数据
+     * @param data 需要序列化的数据
+     */
+    serializer: {
+      deserialize: JSON.parse,
+      serialize: JSON.stringify,
+    },
+  })
+
+  app.use(createPinia().use(persist))
   if (plugins.length) {
     plugins.forEach((plugin) => app.use(plugin))
   }
+}
+
+/**
+ * # 设置路由
+ * @param app vue实例
+ */
+function setupRouter(app: VueApp) {
+  const { addRoute } = useRouterStore()
+  addRoute()
+
+  app.use(router.instance)
 }
 
 async function setupConfig() {

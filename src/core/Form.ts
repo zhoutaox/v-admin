@@ -32,6 +32,11 @@ interface FormOptions extends Partial<FormProps> {
   crud?: AbstractApi
 
   /**
+   * # 提交函数
+   */
+  submitFn?: (form: BaseEntity) => Promise<void>
+
+  /**
    * # 标题
    */
   title?: string

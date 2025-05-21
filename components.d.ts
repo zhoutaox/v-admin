@@ -36,6 +36,7 @@ declare module 'vue' {
     NSelect: typeof import('naive-ui')['NSelect']
     NSpace: typeof import('naive-ui')['NSpace']
     NTag: typeof import('naive-ui')['NTag']
+    NWatermark: typeof import('naive-ui')['NWatermark']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     Src: typeof import('./src/components/form/src/index.vue')['default']

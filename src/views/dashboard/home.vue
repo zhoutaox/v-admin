@@ -1,14 +1,7 @@
-<script setup lang="ts">
-import { User } from '@/api/user/entities/User'
-import { openForm } from '@/utils'
-</script>
+<script setup lang="ts"></script>
 
 <template>
-  <div>
-    home1
-
-    <n-button type="primary" @click="openForm(User)"> Primary </n-button>
-  </div>
+  <div></div>
 </template>
 
 <style scoped></style>
