@@ -2,11 +2,10 @@
 import { useThemeVars, darkTheme, lightTheme, type GlobalThemeOverrides, zhCN } from 'naive-ui'
 import { RouterView } from 'vue-router'
 import { dateUtil } from 'bstm-utils'
-import { useThemeStore, useAppStore } from './stores'
-import { AppConfig } from './enums'
-import { onUnmounted } from 'vue'
+import { useAppStore } from './stores'
+import { AppConfig, YesNoEnum } from './enums'
+import { onUnmounted, ref } from 'vue'
 
-const { theme } = useThemeStore()
 const themeVars = useThemeVars()
 const appStore = useAppStore()
 
@@ -29,8 +28,8 @@ onUnmounted(() => {
   <n-config-provider
     class="v-app"
     :locale="zhCN"
-    :class="theme.isDark ? 'v-app-dark' : 'v-app-light'"
-    :theme="theme.isDark ? darkTheme : lightTheme"
+    :class="appStore.app.isDark ? 'v-app-dark' : 'v-app-light'"
+    :theme="appStore.app.isDark ? darkTheme : lightTheme"
     :theme-overrides="themeOverrides"
   >
     <n-watermark

@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { useThemeStore } from '@/stores'
+import { useAppStore } from '@/stores'
 import { storeToRefs } from 'pinia'
 
-const { theme, avatar } = storeToRefs(useThemeStore())
+const { app, avatar } = storeToRefs(useAppStore())
 </script>
 
 <template>
   <div class="logo">
     <n-avatar round size="large" :src="avatar" />
-    <h2 v-show="!theme.isCollapsed">V-Admin-Plus</h2>
+    <h2 v-show="!app.isCollapsed">V-Admin-Plus</h2>
   </div>
 </template>
 

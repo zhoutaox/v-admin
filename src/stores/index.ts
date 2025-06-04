@@ -1,5 +1,4 @@
 export * from './dict'
-export * from './theme'
 export * from './router'
 export * from './user'
 export * from './app'

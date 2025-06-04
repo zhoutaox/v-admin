@@ -5,13 +5,13 @@ import type { DropdownOption } from 'naive-ui'
 import { Password } from '@/api/user/entities/Password'
 import { User } from '@/api/user/entities/User'
 import { renderIcon, openForm } from '@/utils'
-import { useThemeStore } from '@/stores'
+import { useAppStore } from '@/stores'
 import { useRoute } from 'vue-router'
 
 const { isFullscreen, toggle } = useFullscreen()
 const routes = useRoute()
-const themeStore = useThemeStore()
-const { theme, avatar } = storeToRefs(themeStore)
+const appStore = useAppStore()
+const { app, avatar } = storeToRefs(appStore)
 
 const Config = {
   PROFILE: 'profile',
@@ -66,9 +66,9 @@ function handleDropdownSelect(key: string | number, options: DropdownOption) {
           <v-icon icon="search" color="#767c82" />
         </template>
       </n-button>
-      <n-button class="btn" circle tertiary @click="themeStore.toggleTheme">
+      <n-button class="btn" circle tertiary @click="appStore.toggleTheme">
         <template #icon>
-          <v-icon :icon="theme.isDark ? 'daytime-mode-fill' : 'night-mode-fill'" color="#767c82" />
+          <v-icon :icon="app.isDark ? 'daytime-mode-fill' : 'night-mode-fill'" color="#767c82" />
         </template>
       </n-button>
       <n-button class="btn btn-last" circle tertiary @click="toggle">

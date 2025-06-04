@@ -1,7 +1,9 @@
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 import { dateUtil } from 'bstm-utils'
 import { AppConfig } from '@/enums'
+import avatar1 from '@/assets/avatar1.png'
+import avatar2 from '@/assets/avatar2.png'
 
 export const useAppStore = defineStore(
   'app',
@@ -9,6 +11,16 @@ export const useAppStore = defineStore(
     const watermark = ref(AppConfig.PRODUCT_NAME + '\n' + dateUtil.format(new Date()))
 
     const app = ref({
+      /**
+       * # 是否为深色模式
+       */
+      isDark: false,
+
+      /**
+       * # 是否为折叠状态
+       */
+      isCollapsed: false,
+
       /**
        * # 是否显示水印
        */
@@ -28,9 +40,29 @@ export const useAppStore = defineStore(
        * # 是否显示多标签图标
        */
       isShowTagIcon: true,
+
+      /**
+       * # 主题
+       */
+      theme: {
+        common: {
+          /**
+           * # 主要颜色
+           */
+          primaryColor: '#409eff',
+        },
+      },
     })
 
-    return { app, watermark }
+    const avatar = computed(() => {
+      return app.value.isDark ? avatar2 : avatar1
+    })
+
+    function toggleTheme() {
+      app.value.isDark = !app.value.isDark
+    }
+
+    return { app, watermark, avatar, toggleTheme }
   },
   {
     persist: {

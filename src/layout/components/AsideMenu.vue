@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useThemeStore, useTabStore } from '@/stores'
+import { useAppStore, useTabStore } from '@/stores'
 import { initMenu } from '@/router/initMenu'
 import { type MenuOption } from 'naive-ui'
 import { Menu } from '@/api/menu/entities/Menu'
@@ -7,7 +7,7 @@ import { renderIcon } from '@/utils'
 import { useRoute, useRouter } from 'vue-router'
 
 const menus = initMenu()
-const { theme } = useThemeStore()
+const { app } = useAppStore()
 const { addTab } = useTabStore()
 const route = useRoute()
 const router = useRouter()
@@ -36,7 +36,7 @@ const menuOptions = convertMenuToMenuOptions(menus)
 
 <template>
   <n-menu
-    :collapsed="theme.isCollapsed"
+    :collapsed="app.isCollapsed"
     :indent="24"
     :collapsed-width="60"
     :collapsed-icon-size="22"
