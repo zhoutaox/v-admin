@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useThemeStore } from '@/stores'
+import { useThemeStore, useTabStore } from '@/stores'
 import { initMenu } from '@/router/initMenu'
 import { type MenuOption } from 'naive-ui'
 import { Menu } from '@/api/menu/entities/Menu'
@@ -8,15 +8,14 @@ import { useRoute, useRouter } from 'vue-router'
 
 const menus = initMenu()
 const { theme } = useThemeStore()
+const { addTab } = useTabStore()
 const route = useRoute()
 const router = useRouter()
 
 function convertMenuToMenuOptions(menus: Menu[]): MenuOption[] {
   return menus.map((menu) => {
-    console.error(menu)
-
     const menuOption: MenuOption = {
-      label: menu.name,
+      label: menu.title,
       key: menu.path,
       icon: renderIcon(menu.icon),
     }
@@ -27,7 +26,8 @@ function convertMenuToMenuOptions(menus: Menu[]): MenuOption[] {
   })
 }
 
-function clickMenuItem(key: string) {
+function clickMenuItem(key: string, item: MenuOption) {
+  addTab(item)
   router.push(key)
 }
 

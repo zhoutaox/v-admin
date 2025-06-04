@@ -1,4 +1,4 @@
-import { type Plugin, type App as VueApp } from 'vue'
+import { type Plugin, type App as VueApp, type Directive } from 'vue'
 import { createPinia } from 'pinia'
 import { createPersistedState } from 'pinia-plugin-persistedstate'
 import { useRouterStore } from '@/stores'
@@ -11,6 +11,8 @@ import '@/icons/iconfont/iconfont'
 // styles
 import '@/styles/index.scss'
 import icon from '@/assets/avatar1.png'
+
+import { Menu } from '@/api/menu'
 
 export type ApiEncipherMode = 'sm2' | 'rsa' | 'aes' | 'sm4'
 
@@ -41,6 +43,7 @@ export function App(app: VueApp, options: AppOptions) {
       AppConfig.ENABLE_API_LOG = options.enableApiLog || false
       AppConfig.ENCRYPT_TYPE = options.apiEncipherMode || 'sm2'
 
+      setupDirectives(app)
       await setupConfig()
       await setupComponents(app)
 
@@ -127,14 +130,36 @@ async function setupComponents(app: VueApp) {
   }
 
   const componentTests = import.meta.glob('@/components/**/__tests__/index.vue')
+  const componentMenu = new Menu()
+  componentMenu.title = '组件'
 
   for (const path in componentTests) {
     const name = path.split('/')[3]
+    const menu = new Menu()
+    menu.title = name
+    menu.path = '/components/' + name
+    menu.componentUrl = path.replace('/__tests__/index.vue', '')
+    menu.icon = 'component'
+    componentMenu.children.push(menu)
 
-    router.addComponentRoute({
-      path: '/' + name,
-      name: name,
-      component: componentTests[path],
-    })
+    // router.addComponentRoute({
+    //   path: '/components/' + name,
+    //   name: name,
+    //   component: componentTests[path],
+    // })
+  }
+  router.addLayoutRoutes([componentMenu])
+  router.addComponentRoutes([componentMenu])
+}
+
+function setupDirectives(app: VueApp) {
+  const modules = import.meta.glob('@/directives/*.ts', { eager: true })
+  for (const path in modules) {
+    const directive = modules[path] as {
+      default: Directive
+    }
+    if (directive.default) {
+      app.directive(path.split('/').pop()?.replace('.ts', '') || '', directive.default)
+    }
   }
 }

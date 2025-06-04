@@ -5,7 +5,7 @@ export class Menu extends BaseEntity {
   @Field({
     label: '菜单名称',
   })
-  name!: string
+  title!: string
 
   @Field({
     label: '菜单路径',
@@ -35,5 +35,10 @@ export class Menu extends BaseEntity {
   @Field({
     label: '子菜单',
   })
-  children!: Menu[]
+  children: Menu[] = []
+
+  /**
+   * # 面包屑
+   */
+  breadcrumb: string[] = []
 }

@@ -1,12 +1,20 @@
 <script setup lang="ts">
+import { ref } from 'vue'
+import { RouterView } from 'vue-router'
+import { useThemeStore } from '@/stores'
+import { useFullscreen } from '@vueuse/core'
 import Logo from './components/Logo.vue'
 import AsideMenu from './components/AsideMenu.vue'
 import PageHeader from './components/PageHeader.vue'
 import TabsView from './components/TabsView.vue'
-import { RouterView } from 'vue-router'
-import { useThemeStore } from '@/stores'
 
 const { theme } = useThemeStore()
+const viewRef = ref<HTMLElement | null>(null)
+
+const { isFullscreen, toggle } = useFullscreen(viewRef)
+function fullscreenView() {
+  toggle()
+}
 </script>
 
 <template>
@@ -26,13 +34,19 @@ const { theme } = useThemeStore()
       <AsideMenu />
     </n-layout-sider>
     <n-layout class="v-layout-main">
-      <n-layout-header>
-        <PageHeader />
-      </n-layout-header>
-      <n-layout-content class="v-layout-content">
-        <TabsView />
-        <RouterView></RouterView>
-      </n-layout-content>
+      <n-scrollbar style="max-height: 100%">
+        <n-layout-header position="static">
+          <PageHeader />
+        </n-layout-header>
+        <n-layout-content class="v-layout-content">
+          <TabsView :fullscreen="fullscreenView" />
+          <div ref="viewRef" class="v-layout-view" :class="isFullscreen && 'v-layout-open-view'">
+            <n-scrollbar style="max-height: 84vh">
+              <RouterView></RouterView>
+            </n-scrollbar>
+          </div>
+        </n-layout-content>
+      </n-scrollbar>
     </n-layout>
   </n-layout>
 </template>

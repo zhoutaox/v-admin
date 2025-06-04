@@ -1,4 +1,4 @@
-import { createRouter, type RouteRecordRaw, createWebHashHistory } from 'vue-router'
+import { createRouter, type RouteRecordRaw, createWebHashHistory, type RouteMeta } from 'vue-router'
 import Layout from '@/layout/Layout.vue'
 import type { Menu } from '@/api/menu/entities/Menu'
 
@@ -9,6 +9,7 @@ export class Router {
   })
 
   layoutModules = import.meta.glob('/src/views/**/*.vue')
+  componentTestsModules = import.meta.glob('/src/components/**/__tests__/index.vue')
 
   layoutRoute: RouteRecordRaw = {
     name: 'layout', // 添加名称以便后续操作
@@ -35,7 +36,7 @@ export class Router {
   ]
   constructor() {
     // 初始化默认路由
-    this.initDefaultRoutes()
+    // this.initDefaultRoutes()
 
     this.routes.forEach((route) => {
       this.instance.addRoute(route)
@@ -71,8 +72,9 @@ export class Router {
         if (this.layoutModules[`/src/views${route.componentUrl}.vue`]) {
           const currRoute: RouteRecordRaw = {
             path: route.path,
-            name: route.name,
+            name: route.title,
             component: this.layoutModules[`/src/views${route.componentUrl}.vue`],
+            meta: route as unknown as RouteMeta,
           }
           this.layoutRoute.children?.push(currRoute)
         }
@@ -86,6 +88,31 @@ export class Router {
     // 重新注册布局路由
     this.instance.removeRoute('layout')
     this.instance.addRoute(this.layoutRoute)
+  }
+
+  addComponentRoutes(routes: Menu[]) {
+    routes.forEach((route) => {
+      if (route.componentUrl) {
+        if (
+          this.componentTestsModules[`/src/components/${route.componentUrl}/__tests__/index.vue`]
+        ) {
+          const currRoute: RouteRecordRaw = {
+            path: route.path,
+            name: route.title,
+            component:
+              this.componentTestsModules[
+                `/src/components/${route.componentUrl}/__tests__/index.vue`
+              ],
+            meta: route as unknown as RouteMeta,
+          }
+          this.layoutRoute.children?.push(currRoute)
+        }
+      }
+
+      if (route.children?.length > 0) {
+        this.addLayoutRoutes(route.children)
+      }
+    })
   }
 }
 export const router = new Router()

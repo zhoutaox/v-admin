@@ -1,38 +1,5 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import iconJson from '@/icons/iconfont/iconfont.json'
-
-const list = [
-  {
-    icon_id: '1114667',
-    name: '图标',
-    font_class: 'tubiao',
-    unicode: 'e630',
-    unicode_decimal: 58928,
-  },
-  {
-    icon_id: '8776631',
-    name: 'view',
-    font_class: 'icon-test',
-    unicode: 'e633',
-    unicode_decimal: 58931,
-  },
-  {
-    icon_id: '8776676',
-    name: 'view_off',
-    font_class: 'icon-test1',
-    unicode: 'e634',
-    unicode_decimal: 58932,
-  },
-]
-
-//todo: 生成图标提示
-const fontClasses = computed(() => list.map((item) => item.font_class))
-
-// 如果需要类型推导
-type IconName = (typeof fontClasses.value)[number]
-
-const na: IconName = 'xx'
 
 const props = defineProps({
   icon: {
@@ -60,6 +27,9 @@ const iconName = computed(() => {
   return ''
 })
 
+/**
+ * 获取图标大小
+ */
 const iconSize = computed(() => {
   const size = Number(props.size)
   if (size >= 10 && size <= 100) {
@@ -70,6 +40,7 @@ const iconSize = computed(() => {
 
 defineOptions({
   name: 'v-icon',
+  menuIcon: 'bs-icon',
 })
 </script>
 

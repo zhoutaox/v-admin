@@ -1,7 +1,13 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div></div>
+  <div class="home">11111</div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.home {
+  width: 100%;
+  height: 400px;
+  background-color: #fff;
+}
+</style>

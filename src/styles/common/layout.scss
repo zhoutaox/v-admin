@@ -46,11 +46,20 @@
 
   .tabs-view {
     margin-top: 6px;
+    margin-bottom: 6px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding-right: 4px;
   }
+}
+
+.v-layout-view {
+  overflow: auto;
+}
+
+.v-layout-open-view {
+  background-color: #f0f2f5 !important;
 }
 
 .v-app-dark {

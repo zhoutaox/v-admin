@@ -6,8 +6,10 @@ import { Password } from '@/api/user/entities/Password'
 import { User } from '@/api/user/entities/User'
 import { renderIcon, openForm } from '@/utils'
 import { useThemeStore } from '@/stores'
+import { useRoute } from 'vue-router'
 
 const { isFullscreen, toggle } = useFullscreen()
+const routes = useRoute()
 const themeStore = useThemeStore()
 const { theme, avatar } = storeToRefs(themeStore)
 
@@ -53,9 +55,9 @@ function handleDropdownSelect(key: string | number, options: DropdownOption) {
     <div class="left">
       <n-button tertiary round type="primary" class="btn1">常用</n-button>
       <n-breadcrumb>
-        <n-breadcrumb-item> 北京总行 </n-breadcrumb-item>
-        <n-breadcrumb-item> 天津分行 </n-breadcrumb-item>
-        <n-breadcrumb-item> 平山道支行 </n-breadcrumb-item>
+        <n-breadcrumb-item v-for="breadcrumb in routes.meta.breadcrumb" :key="breadcrumb">{{
+          breadcrumb
+        }}</n-breadcrumb-item>
       </n-breadcrumb>
     </div>
     <div class="right">
