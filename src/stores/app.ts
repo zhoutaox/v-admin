@@ -1,4 +1,4 @@
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 import { defineStore } from 'pinia'
 import { dateUtil } from 'bstm-utils'
 import { AppConfig } from '@/enums'
@@ -9,8 +9,7 @@ export const useAppStore = defineStore(
   'app',
   () => {
     const watermark = ref(AppConfig.PRODUCT_NAME + '\n' + dateUtil.format(new Date()))
-
-    const app = ref({
+    const config = {
       /**
        * # 是否为深色模式
        */
@@ -49,10 +48,20 @@ export const useAppStore = defineStore(
           /**
            * # 主要颜色
            */
-          primaryColor: '#409eff',
+          primaryColor: '#409EFF',
         },
       },
-    })
+    }
+
+    const app = ref(config)
+
+    watch(
+      () => app.value.isDark,
+      (isDark) => {
+        document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light')
+      },
+      { immediate: true, deep: true },
+    )
 
     const avatar = computed(() => {
       return app.value.isDark ? avatar2 : avatar1
@@ -62,7 +71,11 @@ export const useAppStore = defineStore(
       app.value.isDark = !app.value.isDark
     }
 
-    return { app, watermark, avatar, toggleTheme }
+    function reset() {
+      app.value = config
+    }
+
+    return { app, watermark, avatar, toggleTheme, reset }
   },
   {
     persist: {

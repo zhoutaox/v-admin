@@ -1,6 +1,11 @@
 .v-layout {
   min-height: 100vh;
 
+  .base-bg {
+    background-color: var(--v-bg-color-primary);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
   .n-layout-sider {
     min-height: 100vh;
     width: 200px !important;
@@ -60,6 +65,12 @@
 
 .v-layout-open-view {
   background-color: #f0f2f5 !important;
+  height: 100vh !important;
+  padding: 20px;
+
+  .v-layout-view-scrollbar {
+    max-height: 100% !important;
+  }
 }
 
 .v-app-dark {
@@ -74,4 +85,9 @@
       background-color: rgb(24, 24, 28);
     }
   }
+}
+
+.base-grey-bg {
+  background-color: var(--v-bg-color-grey);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }

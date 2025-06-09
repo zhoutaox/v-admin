@@ -1,6 +1,9 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onUnmounted } from 'vue'
+import 'animate.css'
+import { AppConfig } from '@/enums'
 import { RouterView } from 'vue-router'
+import { dateUtil } from 'bstm-utils'
 import { useAppStore } from '@/stores'
 import { useFullscreen } from '@vueuse/core'
 import Logo from './components/Logo.vue'
@@ -8,17 +11,38 @@ import AsideMenu from './components/AsideMenu.vue'
 import PageHeader from './components/PageHeader.vue'
 import TabsView from './components/TabsView.vue'
 
-const { app } = useAppStore()
+const appStore = useAppStore()
 const viewRef = ref<HTMLElement | null>(null)
 
 const { isFullscreen, toggle } = useFullscreen(viewRef)
-function fullscreenView() {
-  toggle()
-}
+
+const timer = setInterval(() => {
+  appStore.watermark = AppConfig.PRODUCT_NAME + '\n' + dateUtil.format(new Date())
+}, 1000)
+
+onUnmounted(() => {
+  clearInterval(timer)
+})
 </script>
 
 <template>
   <n-layout class="v-layout" has-sider position="static">
+    <n-watermark
+      v-if="appStore.app.isShowWatermark"
+      :content="appStore.watermark"
+      selectable
+      cross
+      fullscreen
+      :font-size="14"
+      :line-height="16"
+      :width="304"
+      :height="304"
+      :x-offset="12"
+      :y-offset="60"
+      :rotate="-15"
+      text-align="center"
+    >
+    </n-watermark>
     <n-layout-sider
       bordered
       show-trigger
@@ -26,9 +50,9 @@ function fullscreenView() {
       :collapsed-width="64"
       :width="240"
       :native-scrollbar="false"
-      @collapse="app.isCollapsed = true"
-      @expand="app.isCollapsed = false"
-      :collapsed="app.isCollapsed"
+      @collapse="appStore.app.isCollapsed = true"
+      @expand="appStore.app.isCollapsed = false"
+      :collapsed="appStore.app.isCollapsed"
     >
       <Logo />
       <AsideMenu />
@@ -39,10 +63,14 @@ function fullscreenView() {
           <PageHeader />
         </n-layout-header>
         <n-layout-content class="v-layout-content">
-          <TabsView :fullscreen="fullscreenView" />
+          <TabsView :fullscreen="toggle" />
           <div ref="viewRef" class="v-layout-view" :class="isFullscreen && 'v-layout-open-view'">
-            <n-scrollbar style="max-height: 84vh">
-              <RouterView></RouterView>
+            <n-scrollbar class="v-layout-view-scrollbar" style="max-height: 84vh">
+              <transition>
+                <RouterView v-slot="{ Component }">
+                  <component :is="Component" />
+                </RouterView>
+              </transition>
             </n-scrollbar>
           </div>
         </n-layout-content>

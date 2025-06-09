@@ -1,0 +1,10 @@
+:root {
+  --v-color-primary: #409eff; /* 主要颜色 */
+  --v-bg-color-primary: #fff;
+  --v-bg-color-grey: #f0f2f5;
+}
+
+[data-theme='dark'] {
+  --v-bg-color-primary: rgb(24, 24, 28);
+  --v-bg-color-grey: #101014;
+}

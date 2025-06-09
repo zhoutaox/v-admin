@@ -33,7 +33,7 @@ const { app, avatar } = storeToRefs(useAppStore())
   }
 
   h2 {
-    color: #2d8cf0;
+    color: var(--v-color-primary);
   }
 }
 </style>

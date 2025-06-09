@@ -1,13 +1,16 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { useFullscreen } from '@vueuse/core'
 import { storeToRefs } from 'pinia'
 import type { DropdownOption } from 'naive-ui'
+import { useRoute } from 'vue-router'
 import { Password } from '@/api/user/entities/Password'
 import { User } from '@/api/user/entities/User'
 import { renderIcon, openForm } from '@/utils'
 import { useAppStore } from '@/stores'
-import { useRoute } from 'vue-router'
+import ConfigVue from './Config.vue'
 
+const configRef = ref<InstanceType<typeof ConfigVue> | null>(null)
 const { isFullscreen, toggle } = useFullscreen()
 const routes = useRoute()
 const appStore = useAppStore()
@@ -43,7 +46,7 @@ function handleDropdownSelect(key: string | number, options: DropdownOption) {
     openForm(User)
   } else if (key === Config.EDIT_PROFILE) {
     // Navigate to edit profile page
-    openForm(Password)
+    openForm(Password, 'drawer')
   } else if (key === Config.LOGOUT) {
     // Handle logout
   }
@@ -51,6 +54,7 @@ function handleDropdownSelect(key: string | number, options: DropdownOption) {
 </script>
 
 <template>
+  <ConfigVue ref="configRef" />
   <div class="page-header">
     <div class="left">
       <n-button tertiary round type="primary" class="btn1">常用</n-button>
@@ -61,21 +65,49 @@ function handleDropdownSelect(key: string | number, options: DropdownOption) {
       </n-breadcrumb>
     </div>
     <div class="right">
-      <n-button class="btn" circle tertiary>
-        <template #icon>
-          <v-icon icon="search" color="#767c82" />
+      <n-tooltip trigger="hover">
+        <template #trigger>
+          <n-button class="btn" circle tertiary>
+            <template #icon>
+              <v-icon icon="search" color="#767c82" />
+            </template>
+          </n-button>
         </template>
-      </n-button>
-      <n-button class="btn" circle tertiary @click="appStore.toggleTheme">
-        <template #icon>
-          <v-icon :icon="app.isDark ? 'daytime-mode-fill' : 'night-mode-fill'" color="#767c82" />
+        搜索
+      </n-tooltip>
+      <n-tooltip trigger="hover">
+        <template #trigger>
+          <n-button class="btn" circle tertiary @click="appStore.toggleTheme">
+            <template #icon>
+              <v-icon
+                :icon="app.isDark ? 'daytime-mode-fill' : 'night-mode-fill'"
+                color="#767c82"
+              />
+            </template>
+          </n-button>
         </template>
-      </n-button>
-      <n-button class="btn btn-last" circle tertiary @click="toggle">
-        <template #icon>
-          <v-icon :icon="isFullscreen ? 'compress' : 'fullscreen'" color="#767c82" />
+        主题模式
+      </n-tooltip>
+      <n-tooltip trigger="hover">
+        <template #trigger>
+          <n-button class="btn" circle tertiary @click="toggle">
+            <template #icon>
+              <v-icon :icon="isFullscreen ? 'compress' : 'fullscreen'" color="#767c82" />
+            </template>
+          </n-button>
         </template>
-      </n-button>
+        {{ isFullscreen ? '退出全屏' : '全屏' }}
+      </n-tooltip>
+      <n-tooltip trigger="hover">
+        <template #trigger>
+          <n-button class="btn btn-last" circle tertiary @click="configRef?.open()">
+            <template #icon>
+              <v-icon icon="settings-fill" color="#767c82" />
+            </template>
+          </n-button>
+        </template>
+        主题配置
+      </n-tooltip>
       <n-dropdown :options="options" :on-select="handleDropdownSelect">
         <n-avatar round size="medium" :src="avatar" />
       </n-dropdown>
@@ -103,10 +135,10 @@ function handleDropdownSelect(key: string | number, options: DropdownOption) {
 }
 
 .btn {
-  margin: 0 6px;
+  margin: 0 8px;
 }
 
 .btn-last {
-  margin-right: 12px;
+  margin-right: 20px;
 }
 </style>

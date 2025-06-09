@@ -55,11 +55,31 @@ onMounted(() => {
 </script>
 
 <template>
-  <div><v-chart class="chart" :option="option" autoresize ref="chartRef" /></div>
+  <div class="monitor">
+    <div class="main">
+      <div class="chart1 base-bg">
+        <v-chart class="chart" :option="option" autoresize ref="chartRef" />
+      </div>
+      <div class="chart2"></div>
+    </div>
+  </div>
+  <div class="base-bg"></div>
 </template>
 
 <style scoped>
+/* .main {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.chart1 {
+  border-radius: 12px;
+} */
 .chart {
-  height: 200px;
+  padding: 20px;
+  box-sizing: border-box;
+  height: 300px;
+  border-radius: 8px;
 }
 </style>

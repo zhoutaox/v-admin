@@ -32,7 +32,7 @@ function handleAfterLeave() {
     style="width: 600px"
     :title="formConfig.title"
   >
-    <n-form ref="formRef" :model="formModel" :rules="rules">
+    <n-form ref="formRef" :model="formModel" :rules="rules" :label-width="formConfig.labelWidth">
       <n-form-item
         v-for="field in fieldList"
         :path="field.propertyKey"

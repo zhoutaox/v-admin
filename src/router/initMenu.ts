@@ -1,4 +1,3 @@
-import { stringUtil } from 'bstm-utils'
 import { Menu } from '@/api/menu/entities/Menu'
 
 export function initMenu() {
@@ -57,7 +56,21 @@ export function initMenu() {
   m2_c3.icon = 'gongyinglianfuwu'
   m2_c3.breadcrumb = ['系统管理', '菜单管理']
 
-  menu2.children = [m2_c1, m2_c2, m2_c3]
+  const m2_c4 = new Menu()
+  m2_c4.title = '表单管理'
+  m2_c4.path = '/form'
+  m2_c4.componentUrl = '/system/form'
+  m2_c4.icon = 'goods-inspection'
+  m2_c4.breadcrumb = ['系统管理', '表单管理']
+
+  const m2_c5 = new Menu()
+  m2_c5.title = '字典管理'
+  m2_c5.path = '/dict'
+  m2_c5.componentUrl = '/system/dict'
+  m2_c5.icon = 'logistics-picked-up'
+  m2_c5.breadcrumb = ['系统管理', '字典管理']
+
+  menu2.children = [m2_c1, m2_c2, m2_c3, m2_c4, m2_c5]
 
   const menu3 = new Menu()
   menu3.title = '系统工具'

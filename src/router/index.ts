@@ -32,6 +32,11 @@ export class Router {
         },
       ],
     },
+    {
+      path: '/login',
+      name: 'login',
+      component: () => import('@/views/login/index.vue'),
+    },
     this.layoutRoute,
   ]
   constructor() {

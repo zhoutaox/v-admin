@@ -1,7 +1,7 @@
 import { type Plugin, type App as VueApp, type Directive } from 'vue'
 import { createPinia } from 'pinia'
 import { createPersistedState } from 'pinia-plugin-persistedstate'
-import { useRouterStore } from '@/stores'
+import { useAppStore, useRouterStore } from '@/stores'
 import 'normalize.css'
 import { router } from '@/router'
 import { AppConfig } from '@/enums'
@@ -46,6 +46,7 @@ export function App(app: VueApp, options: AppOptions) {
       setupDirectives(app)
       await setupConfig()
       await setupComponents(app)
+      setupTheme()
 
       const link = document.createElement('link')
       link.rel = 'icon'
@@ -162,4 +163,13 @@ function setupDirectives(app: VueApp) {
       app.directive(path.split('/').pop()?.replace('.ts', '') || '', directive.default)
     }
   }
+}
+
+function setupTheme() {
+  const app = useAppStore()
+  console.error(app.app.theme)
+  document.documentElement.style.setProperty(
+    '--v-color-primary',
+    app.app.theme.common.primaryColor || '#409EFF',
+  )
 }
