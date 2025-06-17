@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref, onUnmounted } from 'vue'
-import 'animate.css'
 import { AppConfig } from '@/enums'
 import { RouterView } from 'vue-router'
 import { dateUtil } from 'bstm-utils'
@@ -66,11 +65,9 @@ onUnmounted(() => {
           <TabsView :fullscreen="toggle" />
           <div ref="viewRef" class="v-layout-view" :class="isFullscreen && 'v-layout-open-view'">
             <n-scrollbar class="v-layout-view-scrollbar" style="max-height: 84vh">
-              <transition>
-                <RouterView v-slot="{ Component }">
-                  <component :is="Component" />
-                </RouterView>
-              </transition>
+              <RouterView v-slot="{ Component }">
+                <component :is="Component" />
+              </RouterView>
             </n-scrollbar>
           </div>
         </n-layout-content>

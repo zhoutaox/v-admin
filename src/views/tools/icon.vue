@@ -37,12 +37,16 @@ const iconList = computed(() => {
   height: 60px;
   line-height: 60px;
   .icon {
-    fill: #fff;
+    fill: #000;
   }
 
   &:hover {
     background-color: #fcb040ff;
     color: #fff;
+
+    .icon {
+      fill: #fff;
+    }
   }
 }
 </style>

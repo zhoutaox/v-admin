@@ -1,6 +1,7 @@
 import { ref } from 'vue'
 import { secureUtil } from 'bstm-utils'
 import { defineStore } from 'pinia'
+import { router } from '@/router'
 
 export const useUserStore = defineStore('user', () => {
   const password = ref('')
@@ -14,9 +15,17 @@ export const useUserStore = defineStore('user', () => {
     return secureUtil.decryptBySM2(password.value)
   }
 
+  function logOut() {
+    router.removeRoute()
+    router.instance.replace({
+      path: '/login',
+    })
+  }
+
   return {
-    setPassword,
     isRememberPassword,
+    setPassword,
     getPassword,
+    logOut,
   }
 })

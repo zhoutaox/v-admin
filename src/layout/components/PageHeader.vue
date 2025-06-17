@@ -7,13 +7,14 @@ import { useRoute } from 'vue-router'
 import { Password } from '@/api/user/entities/Password'
 import { User } from '@/api/user/entities/User'
 import { renderIcon, openForm } from '@/utils'
-import { useAppStore } from '@/stores'
+import { useAppStore, useUserStore } from '@/stores'
 import ConfigVue from './Config.vue'
 
 const configRef = ref<InstanceType<typeof ConfigVue> | null>(null)
 const { isFullscreen, toggle } = useFullscreen()
 const routes = useRoute()
 const appStore = useAppStore()
+const userStore = useUserStore()
 const { app, avatar } = storeToRefs(appStore)
 
 const Config = {
@@ -49,6 +50,7 @@ function handleDropdownSelect(key: string | number, options: DropdownOption) {
     openForm(Password, 'drawer')
   } else if (key === Config.LOGOUT) {
     // Handle logout
+    userStore.logOut()
   }
 }
 </script>

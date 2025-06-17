@@ -19,15 +19,16 @@ export class Router {
     children: [],
   }
 
+  whiteRoutes: string[] = ['login', 'not_found']
+
   routes: RouteRecordRaw[] = [
     {
       path: '/:path(.*)*',
       name: 'ErrorPage',
-      component: Layout,
       children: [
         {
           path: '/:path(.*)*',
-          name: 'ErrorPageSon',
+          name: 'not_found',
           component: () => import('@/views/system/not_found.vue'),
         },
       ],
@@ -65,9 +66,8 @@ export class Router {
     this.instance.addRoute(route)
   }
 
-  //todo: removeRoute
-  removeRoute(route: RouteRecordRaw) {
-    this.routes = this.routes.filter((r) => r.path !== route.path)
+  removeRoute() {
+    this.instance.removeRoute('layout')
   }
 
   // 动态添加路由方法

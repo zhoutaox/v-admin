@@ -9,6 +9,7 @@ import { AppConfig } from '@/enums'
 import '@/icons/iconfont/iconfont.css'
 import '@/icons/iconfont/iconfont'
 // styles
+import 'animate.css'
 import '@/styles/index.scss'
 import icon from '@/assets/avatar1.png'
 

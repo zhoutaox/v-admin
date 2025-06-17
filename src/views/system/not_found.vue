@@ -1,11 +1,31 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+function back() {
+  window.history.back()
+}
+</script>
 
 <template>
-  <n-result status="404" title="404 资源不存在" description="生活总归带点荒谬">
-    <template #footer>
-      <n-button>找点乐子吧</n-button>
-    </template>
-  </n-result>
+  <div class="main">
+    <img class="not-found" src="./images/not_found.svg" alt="" />
+    <n-button class="back" type="primary" @click="back()" size="large">返回上一页</n-button>
+  </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.main {
+  padding-top: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.not-found {
+  width: 32%;
+}
+
+.back {
+  margin-top: 20px;
+}
+</style>
