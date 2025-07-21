@@ -2,12 +2,18 @@
 import { use } from 'echarts/core'
 import { CanvasRenderer } from 'echarts/renderers'
 import { PieChart } from 'echarts/charts'
-import { TitleComponent, TooltipComponent, LegendComponent } from 'echarts/components'
+import {
+  TitleComponent,
+  TooltipComponent,
+  LegendComponent,
+  ToolboxComponent,
+  GridComponent,
+} from 'echarts/components'
 import VChart, { THEME_KEY } from 'vue-echarts'
 import { ref, provide, onMounted } from 'vue'
+import Box from './components/Box.vue'
 
-const chartRef = ref<InstanceType<typeof VChart>>()
-use([CanvasRenderer, PieChart, TitleComponent, TooltipComponent, LegendComponent])
+use([CanvasRenderer, PieChart, TitleComponent, TooltipComponent, LegendComponent, ToolboxComponent])
 
 // provide(THEME_KEY, 'dark')
 
@@ -49,37 +55,118 @@ const option = ref({
   ],
 })
 
-onMounted(() => {
-  console.error('chartRef', chartRef.value)
+const option2 = ref({
+  title: {
+    text: 'Temperature Change in the Coming Week',
+  },
+  tooltip: {
+    trigger: 'axis',
+  },
+  legend: {},
+  toolbox: {
+    show: true,
+    feature: {
+      dataZoom: {
+        yAxisIndex: 'none',
+      },
+      dataView: { readOnly: false },
+      magicType: { type: ['line', 'bar'] },
+      restore: {},
+      saveAsImage: {},
+    },
+  },
+  xAxis: {
+    type: 'category',
+    boundaryGap: false,
+    data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+  },
+  yAxis: {
+    type: 'value',
+    axisLabel: {
+      formatter: '{value} °C',
+    },
+  },
+  series: [
+    {
+      name: 'Highest',
+      type: 'line',
+      data: [10, 11, 13, 11, 12, 12, 9],
+      markPoint: {
+        data: [
+          { type: 'max', name: 'Max' },
+          { type: 'min', name: 'Min' },
+        ],
+      },
+      markLine: {
+        data: [{ type: 'average', name: 'Avg' }],
+      },
+    },
+    {
+      name: 'Lowest',
+      type: 'line',
+      data: [1, -2, 2, 5, 3, 2, 0],
+      markPoint: {
+        data: [{ name: '周最低', value: -2, xAxis: 1, yAxis: -1.5 }],
+      },
+      markLine: {
+        data: [
+          { type: 'average', name: 'Avg' },
+          [
+            {
+              symbol: 'none',
+              x: '90%',
+              yAxis: 'max',
+            },
+            {
+              symbol: 'circle',
+              label: {
+                position: 'start',
+                formatter: 'Max',
+              },
+              type: 'max',
+              name: '最高点',
+            },
+          ],
+        ],
+      },
+    },
+  ],
 })
 </script>
 
 <template>
   <div class="monitor">
-    <div class="main">
-      <div class="chart1 base-bg">
-        <v-chart class="chart" :option="option" autoresize ref="chartRef" />
-      </div>
-      <div class="chart2"></div>
+    <div class="main1">
+      <Box class="box1" title="访问量">
+        <v-chart class="chart" :option="option" autoresize />
+      </Box>
+      <Box class="box2" title="区域排行">
+        <v-chart class="chart" :option="option2" autoresize />
+      </Box>
+    </div>
+    <div class="main1">
+      <Box class="box1" title="销售额">
+        <v-chart class="chart" :option="option" autoresize />
+      </Box>
+      <Box class="box2" title="访问来源">
+        <v-chart class="chart" :option="option" autoresize />
+      </Box>
     </div>
   </div>
-  <div class="base-bg"></div>
 </template>
 
-<style scoped>
-/* .main {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-}
-
-.chart1 {
-  border-radius: 12px;
-} */
+<style scoped lang="scss">
 .chart {
   padding: 20px;
   box-sizing: border-box;
   height: 300px;
   border-radius: 8px;
+}
+
+.main1 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 20px;
 }
 </style>

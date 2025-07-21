@@ -1,3 +1,4 @@
+export * from './BaseEnum'
 export * from './BaseEntity'
 export * from './AbstractApi'
 export * from './App'

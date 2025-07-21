@@ -4,16 +4,11 @@ import { type Dict } from '@/types'
 import type { SelectProps } from 'naive-ui'
 
 // 定义不同类型的 props
-interface PasswordProps {
+
+interface ComponentProps<T> {
+  disabled?: boolean
   isPassword?: boolean
 }
-
-interface DefaultProps {
-  disabled?: boolean
-}
-
-// 根据 type 动态决定 props 类型
-type ComponentProps<T> = T extends ComponentEnum.PASSWORD ? SelectProps : DefaultProps
 
 interface FieldComponentProps<T = ComponentEnum> {
   label: string

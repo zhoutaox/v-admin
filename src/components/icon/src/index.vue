@@ -32,7 +32,7 @@ const iconName = computed(() => {
  */
 const iconSize = computed(() => {
   const size = Number(props.size)
-  if (size >= 10 && size <= 100) {
+  if (size >= 6 && size <= 100) {
     return size * 0.1 + 'em'
   }
   return '1em'

@@ -52,7 +52,10 @@ export class Request {
 
         const contentType = config.headers['Content-Type']
 
-        if (contentType === RequestHeaderEnum.FORM || contentType === RequestHeaderEnum.JSON) {
+        if (
+          contentType === RequestHeaderEnum.FORM.key ||
+          contentType === RequestHeaderEnum.JSON.key
+        ) {
           config.data = this.paramFilter(config.data || {}) // 过滤
         }
 
@@ -62,9 +65,9 @@ export class Request {
           date: new Date().getTime(),
         }
         const adapter = getSecureAdapter()
-        if (contentType === RequestHeaderEnum.FORM) {
+        if (contentType === RequestHeaderEnum.FORM.key) {
           config.data = { data: adapter.encrypt(JSON.stringify(config.data)) }
-        } else if (contentType === RequestHeaderEnum.JSON) {
+        } else if (contentType === RequestHeaderEnum.JSON.key) {
           config.data = adapter.encrypt(JSON.stringify(config.data))
         }
 
@@ -134,7 +137,7 @@ export class Request {
 
     config = Object.assign(config, {
       headers: {
-        'Content-Type': apiConfig.type || RequestHeaderEnum.FORM,
+        'Content-Type': apiConfig.type || RequestHeaderEnum.FORM.key,
       },
     }) // 合并配置
 

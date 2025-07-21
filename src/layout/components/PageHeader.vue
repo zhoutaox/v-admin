@@ -43,13 +43,10 @@ const options = [
 
 function handleDropdownSelect(key: string | number, options: DropdownOption) {
   if (key === Config.PROFILE) {
-    // Navigate to profile page
     openForm(User)
   } else if (key === Config.EDIT_PROFILE) {
-    // Navigate to edit profile page
-    openForm(Password, 'drawer')
+    openForm(Password)
   } else if (key === Config.LOGOUT) {
-    // Handle logout
     userStore.logOut()
   }
 }
@@ -94,7 +91,7 @@ function handleDropdownSelect(key: string | number, options: DropdownOption) {
         <template #trigger>
           <n-button class="btn" circle tertiary @click="toggle">
             <template #icon>
-              <v-icon :icon="isFullscreen ? 'compress' : 'fullscreen'" color="#767c82" />
+              <v-icon :size="8" :icon="isFullscreen ? 'compress' : 'fullscreen'" color="#767c82" />
             </template>
           </n-button>
         </template>
@@ -102,7 +99,7 @@ function handleDropdownSelect(key: string | number, options: DropdownOption) {
       </n-tooltip>
       <n-tooltip trigger="hover">
         <template #trigger>
-          <n-button class="btn btn-last" circle tertiary @click="configRef?.open()">
+          <n-button class="btn" circle tertiary @click="configRef?.open()">
             <template #icon>
               <v-icon icon="settings-fill" color="#767c82" />
             </template>
@@ -110,6 +107,14 @@ function handleDropdownSelect(key: string | number, options: DropdownOption) {
         </template>
         主题配置
       </n-tooltip>
+      <n-button class="btn btn-last" circle tertiary @click="configRef?.open()">
+        <template #icon>
+          <n-badge :value="userStore.todoNum" :max="15">
+            <v-icon icon="remind-btn-fill" color="#767c82" :size="12" />
+          </n-badge>
+        </template>
+      </n-button>
+
       <n-dropdown :options="options" :on-select="handleDropdownSelect">
         <n-avatar round size="medium" :src="avatar" />
       </n-dropdown>

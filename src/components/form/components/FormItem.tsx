@@ -9,7 +9,7 @@ export default defineComponent({
      * # 组件类型
      */
     componentType: {
-      type: Number as PropType<ComponentEnum>,
+      type: ComponentEnum as PropType<ComponentEnum>,
       default: ComponentEnum.INPUT,
     },
   },

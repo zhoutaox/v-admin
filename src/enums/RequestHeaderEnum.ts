@@ -1,5 +1,7 @@
-export enum RequestHeaderEnum {
-  JSON = 'application/json',
-  FORM = 'application/x-www-form-urlencoded', // form表单
-  FILE = 'multipart/form-data', // 文件上传
+import { Enum } from '@/core'
+
+export class RequestHeaderEnum extends Enum<string> {
+  static JSON = new RequestHeaderEnum('application/json')
+  static FORM = new RequestHeaderEnum('application/x-www-form-urlencoded')
+  static FILE = new RequestHeaderEnum('multipart/form-data')
 }

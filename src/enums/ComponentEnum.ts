@@ -1,90 +1,17 @@
-import { BaseEnum } from 'bstm-utils'
+import { Enum } from '@/core'
 
-export enum ComponentEnum {
-  /**
-   * # 输入框
-   */
-  INPUT = 0,
-
-  /**
-   * # 下拉框
-   */
-  SELECT = 1,
-
-  /**
-   * # 单选框
-   */
-  RADIO = 2,
-
-  /**
-   * # 密码输入框
-   */
-  PASSWORD = 3,
-
-  /**
-   * # 单图上传
-   */
-  IMG = 4,
-
-  /**
-   * # 多图上传
-   */
-  IMGS = 5,
-
-  /**
-   * # 图标选择器
-   */
-  ICON_SELECT = 6,
-
-  /**
-   * # 级联选择
-   */
-  CASCADER = 7,
-
-  /**
-   * # 复选框
-   */
-  CHECKBOX = 8,
-
-  /**
-   * # 数字输入
-   */
-  INPUT_NUMBER = 9,
-
-  /**
-   * # 开关
-   */
-  SWITCH = 10,
-
-  /**
-   * # 树形选择
-   */
-  TREE_SELECT = 11,
-
-  /**
-   * # 评分
-   */
-  RATE = 12,
-}
-
-export class ComponentType extends BaseEnum<ComponentType> {
-  static INPUT = new ComponentType(ComponentEnum.INPUT, '输入框')
-  static SELECT = new ComponentType(ComponentEnum.SELECT, '下拉框')
-  static RADIO = new ComponentType(ComponentEnum.RADIO, '单选框')
-  static PASSWORD = new ComponentType(ComponentEnum.PASSWORD, '密码输入框')
-  static IMG = new ComponentType(ComponentEnum.IMG, '单图上传')
-  static IMGS = new ComponentType(ComponentEnum.IMGS, '多图上传')
-  static ICON_SELECT = new ComponentType(ComponentEnum.ICON_SELECT, '图标选择器')
-  static CASCADER = new ComponentType(ComponentEnum.CASCADER, '级联选择')
-  static CHECKBOX = new ComponentType(ComponentEnum.CHECKBOX, '复选框')
-  static INPUT_NUMBER = new ComponentType(ComponentEnum.INPUT_NUMBER, '数字输入')
-  static SWITCH = new ComponentType(ComponentEnum.SWITCH, '开关')
-  static TREE_SELECT = new ComponentType(ComponentEnum.TREE_SELECT, '树形选择')
-  static RATE = new ComponentType(ComponentEnum.RATE, '评分')
-  constructor(
-    public readonly index: ComponentEnum,
-    public readonly name: string,
-  ) {
-    super()
-  }
+export class ComponentEnum extends Enum {
+  static INPUT = new ComponentEnum(0, '输入框')
+  static SELECT = new ComponentEnum(1, '下拉框')
+  static RADIO = new ComponentEnum(2, '单选框')
+  static PASSWORD = new ComponentEnum(3, '密码输入框')
+  static IMG = new ComponentEnum(4, '单图上传')
+  static MULTI_IMG = new ComponentEnum(5, '多图上传')
+  static TEXTAREA = new ComponentEnum(6, '文本区域')
+  static CASCADER = new ComponentEnum(7, '级联选择')
+  static CHECKBOX = new ComponentEnum(8, '复选框')
+  static INPUT_NUMBER = new ComponentEnum(9, '数字输入')
+  static SWITCH = new ComponentEnum(10, '开关')
+  static TREE_SELECT = new ComponentEnum(11, '树形选择')
+  static RATE = new ComponentEnum(12, '评分')
 }
