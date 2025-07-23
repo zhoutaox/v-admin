@@ -20,8 +20,8 @@ function handleValidateClick(e: MouseEvent) {
   e.preventDefault()
   formRef.value?.validate((errors) => {
     if (!errors) {
-      api.user.login(formValue.value.user)
-      api.user.get('1')
+      // api.user.login(formValue.value.user)
+      // api.user.get('1')
     } else {
       console.log(errors)
       // message.error('Invalid')

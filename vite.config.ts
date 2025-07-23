@@ -20,7 +20,6 @@ export default defineConfig(({ mode }) => {
       vue(),
       vueJsx(),
       vueDevTools(),
-      // esbuildPluginTsc(),
       AutoImport({
         imports: [
           'vue',

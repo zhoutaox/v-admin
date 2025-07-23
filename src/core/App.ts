@@ -14,6 +14,7 @@ import '@/styles/index.scss'
 import icon from '@/assets/avatar1.png'
 
 import { Menu } from '@/api/menu'
+import { api } from '@/api'
 
 export type ApiEncipherMode = 'sm2' | 'rsa' | 'aes' | 'sm4'
 
@@ -44,6 +45,10 @@ export function App(app: VueApp, options: AppOptions) {
       AppConfig.ENABLE_API_LOG = options.enableApiLog || false
       AppConfig.ENCRYPT_TYPE = options.apiEncipherMode || 'sm2'
 
+      api.user.login({
+        username: '',
+        password: '',
+      })
       setupDirectives(app)
       await setupConfig()
       await setupComponents(app)

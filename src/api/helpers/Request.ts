@@ -131,13 +131,16 @@ export class Request {
     params: Record<string, unknown> = {},
     config: AxiosRequestConfig = {},
   ): Promise<ApiResponse> {
-    const url = POST_URL || ''
+    console.log('post this', Reflect.getMetadata('path', this))
+
+    const url = Reflect.getMetadata('path', this) + POST_URL
+    console.log(url)
 
     const apiConfig: PostConfig = API_MAP.get(url)
 
     config = Object.assign(config, {
       headers: {
-        'Content-Type': apiConfig.type || RequestHeaderEnum.FORM.key,
+        'Content-Type': apiConfig?.type || RequestHeaderEnum.FORM.key,
       },
     }) // 合并配置
 

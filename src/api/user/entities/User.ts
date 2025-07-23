@@ -47,7 +47,6 @@ export class User extends BaseEntity {
   @IsNotEmpty({ message: '手机号不能为空' })
   @Field({
     label: '手机号',
-    type: ComponentEnum.INPUT,
   })
   phone!: string
 

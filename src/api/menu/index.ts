@@ -1,9 +1,12 @@
 import { AbstractApi, Controller, Post } from '@/core'
+import * as Entities from './entities'
 
 @Controller('/menu')
 export class MenuApi extends AbstractApi {
-  @Post('')
-  get() {
+  entities: typeof Entities = Entities
+
+  @Post('/vList')
+  vList() {
     return this.post()
   }
 }

@@ -8,7 +8,7 @@ import { BaseEntity } from './BaseEntity'
  * AbstractApi 抽象类
  * @description 用于定义 API 接口的基本方法
  */
-export abstract class AbstractApi<T extends BaseEntity = BaseEntity> extends Request {
+export class AbstractApi<T extends BaseEntity = BaseEntity> extends Request {
   @Post('/add')
   add(params: MakeOptional<T, 'iid'>): Promise<ApiResponse> {
     return this.post({

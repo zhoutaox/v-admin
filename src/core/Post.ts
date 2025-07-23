@@ -1,5 +1,7 @@
 import { objectUtil } from 'bstm-utils'
 import { RequestHeaderEnum, SymbolKeys, AppConfig } from '@/enums'
+import Schema, { type Rules, type ValidateError } from 'async-validator'
+import { message } from '@/utils'
 
 export const API_MAP = new Map()
 export let POST_URL = ''
@@ -28,16 +30,11 @@ export type PostConfig = {
 
 export function Post(path: string, config?: PostConfig): MethodDecorator {
   // @ts-expect-error 暂时无法解决
-  return (
-    target,
-    propertyKey,
-    descriptor: TypedPropertyDescriptor<(...args: unknown[]) => unknown>,
-  ) => {
+  return (_, propertyKey, descriptor: TypedPropertyDescriptor<(...args: object[]) => unknown>) => {
     const originalMethod = descriptor.value as (...args: unknown[]) => unknown
 
-    descriptor.value = async function (...args: unknown[]): Promise<unknown> {
-      const baseUrl = Reflect.getMetadata('path', target.constructor)
-      const url = `${baseUrl}${path}`
+    descriptor.value = async function (...args: object[]): Promise<unknown> {
+      const url = `${path}`
       API_MAP.set(url, config || {})
 
       POST_URL = url
@@ -57,6 +54,48 @@ export function Post(path: string, config?: PostConfig): MethodDecorator {
         )
         return objectUtil.cloneDeep(result) // 克隆一下 防止引用类型污染
       }
+      const list = Reflect.getMetadata(
+        SymbolKeys.VERIFY_PARAMETER_KEY,
+        this.constructor,
+        propertyKey,
+      ) as Array<{
+        parameterIndex: number
+        rules: Rules
+        type: 'primitive' | 'class'
+        typeName: string
+      }>
+
+      if (list && list.length) {
+        await Promise.all(
+          args.map(async (arg: object, index: number) => {
+            const meta = list.find((item) => item?.parameterIndex == index)
+            if (!meta) return
+
+            if (meta.type === 'primitive') {
+              // 原始数据类型，直接验证
+              if (!arg || typeof arg !== meta.typeName.toLowerCase()) {
+                message.error(
+                  `参数验证失败: ${String(propertyKey)}方法中，第${index + 1}个参数类型错误，期望类型为${meta.typeName}`,
+                )
+                throw new Error(`参数验证失败: ${meta.rules.name} 类型错误`)
+              }
+            } else {
+              try {
+                await new Schema(meta.rules).validate(arg)
+              } catch (errors) {
+                const { errors: validationErrors } = errors as { errors: ValidateError[] }
+                if (validationErrors) {
+                  validationErrors.forEach((error) => {
+                    message.error(error.message as string)
+                  })
+                }
+                throw new Error(`参数验证失败: ${JSON.stringify(validationErrors)}`)
+              }
+            }
+          }),
+        )
+      }
+
       // 调用原始方法
       const result = await originalMethod.apply(this, args)
       if (config?.isCache) {
