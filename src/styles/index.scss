@@ -1,6 +1,6 @@
 @use './common/layout.scss';
 @use './common/var.scss';
-
+@use './common//progress.scss';
 #app {
   height: 100vh;
   overflow: hidden;

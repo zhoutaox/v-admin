@@ -1,13 +1,9 @@
 import { ref, reactive, type Ref, type Reactive, watch } from 'vue'
 import { NForm } from 'naive-ui'
-import Schema from 'async-validator'
 import { type RuleItem } from 'async-validator'
-import { getMetadataStorage, isEmail, equals, notEquals } from 'class-validator'
-import { AbstractApi } from '@/core/AbstractApi'
 import { BaseEntity } from '@/core/BaseEntity'
 import { type FieldProps, getFormConfig } from '@/core'
-import { message, classValidatorTransform } from '@/utils'
-import type { ValidationMetadata } from 'class-validator/types/metadata/ValidationMetadata'
+import { message, getNaiveUiRules } from '@/utils'
 
 interface UseCrudReturn<T extends BaseEntity> {
   loading: Ref<boolean>
@@ -30,12 +26,6 @@ export function useCrud<T extends BaseEntity>(model: new () => T): UseCrudReturn
   const fieldList: FieldProps[] = Object.getPrototypeOf(formModel).fields || [] // 字段列表
   const formConfig = getFormConfig(model) // 表单配置
   console.error('formConfig', formConfig, formModel)
-
-  const metadataStorage = getMetadataStorage()
-
-  const validationMetaList = metadataStorage.getTargetValidationMetadatas(model, '', true, true)
-
-  console.error('validationMetaList', validationMetaList)
 
   function submit() {
     formRef.value?.validate((errors) => {
@@ -74,7 +64,7 @@ export function useCrud<T extends BaseEntity>(model: new () => T): UseCrudReturn
     title,
     isShowModel,
     fieldList,
-    rules: classValidatorTransform(validationMetaList),
+    rules: getNaiveUiRules(model),
     submit,
   }
 }

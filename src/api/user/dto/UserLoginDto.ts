@@ -1,9 +1,18 @@
 import { IsNotEmpty } from 'class-validator'
 
 export class UserLoginDto {
-  @IsNotEmpty()
+  @IsNotEmpty({
+    message: '用户名不能为空',
+  })
   username!: string
 
-  @IsNotEmpty()
+  @IsNotEmpty({
+    message: '密码不能为空',
+  })
   password!: string
+
+  @IsNotEmpty({
+    message: '验证码不能为空',
+  })
+  code!: string
 }

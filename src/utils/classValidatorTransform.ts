@@ -1,6 +1,6 @@
 import { type RuleItem } from 'async-validator'
 import type { ValidationMetadata } from 'class-validator/types/metadata/ValidationMetadata'
-import { isEmail, equals, notEquals } from 'class-validator'
+import { isEmail, equals, notEquals, getMetadataStorage } from 'class-validator'
 
 function getAsyncValidatorRules(rule: ValidationMetadata): RuleItem {
   const { name, message, constraints } = rule
@@ -66,4 +66,16 @@ export function classValidatorTransform(rules: ValidationMetadata[]) {
   }
 
   return nativeUiRules
+}
+
+export function getValidationMetadata(model: new () => unknown) {
+  const metadataStorage = getMetadataStorage()
+  return metadataStorage.getTargetValidationMetadatas(model, '', true, true)
+}
+
+export function getNaiveUiRules(model: new () => unknown) {
+  const validationMetaList = getValidationMetadata(model)
+  console.error(validationMetaList, classValidatorTransform(validationMetaList))
+
+  return classValidatorTransform(validationMetaList)
 }

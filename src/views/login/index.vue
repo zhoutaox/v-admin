@@ -2,17 +2,16 @@
 import type { FormInst } from 'naive-ui'
 import { ref } from 'vue'
 import { LogoWechat } from '@vicons/ionicons5'
-import { api } from '@/api'
 import { AppConfig } from '@/enums'
-import { showNoOpenMessage } from '@/utils'
+import { api, UserLoginDto } from '@/api'
+import { showNoOpenMessage, getNaiveUiRules } from '@/utils'
 
 const formRef = ref<FormInst | null>(null)
 
 const formValue = ref({
-  user: {
-    username: '',
-    password: '',
-  },
+  username: '',
+  password: '',
+  code: '',
   phone: '',
 })
 
@@ -20,8 +19,7 @@ function handleValidateClick(e: MouseEvent) {
   e.preventDefault()
   formRef.value?.validate((errors) => {
     if (!errors) {
-      // api.user.login(formValue.value.user)
-      // api.user.get('1')
+      api.user.login(formValue.value)
     } else {
       console.log(errors)
       // message.error('Invalid')
@@ -72,16 +70,27 @@ const rules = {
           <div class="tab-item" @click="showNoOpenMessage">手机验证码登录</div>
         </div>
         <div style="position: relative">
-          <n-form ref="formRef" :model="formValue" :rules="rules" :show-label="false" size="large">
-            <n-form-item path="user.username" style="margin-bottom: 10px">
-              <n-input v-model:value="formValue.user.username" placeholder="输入姓名">
+          <n-form
+            ref="formRef"
+            :model="formValue"
+            :rules="getNaiveUiRules(UserLoginDto)"
+            :show-label="false"
+            size="large"
+          >
+            <n-form-item path="username" style="margin-bottom: 10px">
+              <n-input v-model:value="formValue.username" placeholder="输入姓名">
                 <template #prefix
                   ><v-icon :size="12" icon="customer-center" color="rgba(194, 194, 194, 1)"
                 /></template>
               </n-input>
             </n-form-item>
-            <n-form-item path="user.password">
-              <n-input v-model:value="formValue.user.password" placeholder="输入密码">
+            <n-form-item path="password">
+              <n-input
+                v-model:value="formValue.password"
+                type="password"
+                placeholder="输入密码"
+                show-password-on="mousedown"
+              >
                 <template #prefix
                   ><v-icon :size="12" icon="lock-fill" color="rgba(194, 194, 194, 1)"
                 /></template>
@@ -110,7 +119,7 @@ const rules = {
                 </template>
               </n-button>
             </template>
-            <span>微信扫码登录</span>
+            <n-qr-code value="微信扫码登录" />
           </n-popover>
         </div>
       </div>

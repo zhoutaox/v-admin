@@ -84,7 +84,14 @@ export function initMenu() {
   m3_c1.icon = 'vip'
   m3_c1.breadcrumb = ['系统工具', '图标库']
 
-  menu3.children = [m3_c1]
+  const m3_c2 = new Menu()
+  m3_c2.title = 'api文档'
+  m3_c2.path = '/api'
+  m3_c2.componentUrl = '/tools/api'
+  m3_c2.icon = 'code'
+  m3_c2.breadcrumb = ['系统工具', 'api文档']
+
+  menu3.children = [m3_c1, m3_c2]
 
   return [menu1, menu2, menu3]
 }

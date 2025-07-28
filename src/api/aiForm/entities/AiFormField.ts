@@ -1,5 +1,9 @@
-import { BaseEntity } from '@/core'
+import { BaseEntity, Table } from '@/core'
+import { ComponentEnum } from '@/enums'
 
+@Table({
+  comment: '智能表单字段',
+})
 export class AiFormField extends BaseEntity {
   /**
    * # 字段名称
@@ -18,6 +22,7 @@ export class AiFormField extends BaseEntity {
 
   /**
    * # 字段控件类型
+   * @see ComponentEnum
    */
   widgetType: string = ''
 }

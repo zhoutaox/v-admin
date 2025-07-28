@@ -1,6 +1,7 @@
 import { createRouter, type RouteRecordRaw, createWebHashHistory, type RouteMeta } from 'vue-router'
 import Layout from '@/layout/Layout.vue'
 import type { Menu } from '@/api/menu/entities/Menu'
+import { createRouterGuards } from './guard'
 
 export class Router {
   instance = createRouter({
@@ -43,6 +44,7 @@ export class Router {
   constructor() {
     // 初始化默认路由
     // this.initDefaultRoutes()
+    createRouterGuards(this.instance)
 
     this.routes.forEach((route) => {
       this.instance.addRoute(route)

@@ -4,6 +4,7 @@ import { Request } from './helpers/Request'
 import { UserApi } from './user'
 import { MenuApi } from './menu'
 
+export * from './dto'
 export * from './entities'
 
 @Controller('')

@@ -1,8 +1,7 @@
-import { Controller, Post, AbstractApi } from '@/core'
-import { UserLoginDto } from './dto/UserLoginDto'
-import { User } from './entities'
 import type { ApiResponse } from 'bstm-utils'
-import { VerifyParameter } from '@/core/VerifyParameters'
+import { Controller, Post, AbstractApi, VerifyParameter } from '@/core'
+import { UserLoginDto } from './dto'
+import { User } from './entities'
 
 @Controller('/user')
 export class UserApi extends AbstractApi<User> {

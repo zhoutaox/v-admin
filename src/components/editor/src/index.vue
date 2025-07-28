@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import '@wangeditor/editor/dist/css/style.css' // 引入 css
-
 import { onBeforeUnmount, ref, shallowRef, onMounted } from 'vue'
 import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
 
@@ -29,7 +28,7 @@ onBeforeUnmount(() => {
   editor.destroy()
 })
 
-const handleCreated = (editor) => {
+const handleCreated = (editor: unknown) => {
   editorRef.value = editor // 记录 editor 实例，重要！
 }
 </script>

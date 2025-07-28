@@ -1,7 +1,9 @@
-import { objectUtil } from 'bstm-utils'
-import { RequestHeaderEnum, SymbolKeys, AppConfig } from '@/enums'
+import { objectUtil, type ApiResponse } from 'bstm-utils'
 import Schema, { type Rules, type ValidateError } from 'async-validator'
+import { plainToClass } from 'class-transformer'
+import { RequestHeaderEnum, SymbolKeys, AppConfig } from '@/enums'
 import { message } from '@/utils'
+import { BaseEntity } from './BaseEntity'
 
 export const API_MAP = new Map()
 export let POST_URL = ''
@@ -26,6 +28,11 @@ export type PostConfig = {
    * # 鉴权
    */
   auth?: boolean
+
+  /**
+   * # 响应数据映射
+   */
+  map?: new () => BaseEntity
 }
 
 export function Post(path: string, config?: PostConfig): MethodDecorator {
@@ -97,7 +104,11 @@ export function Post(path: string, config?: PostConfig): MethodDecorator {
       }
 
       // 调用原始方法
-      const result = await originalMethod.apply(this, args)
+      const result = (await originalMethod.apply(this, args)) as ApiResponse
+
+      // todo: 处理返回值映射
+      if (result.success) {
+      }
       if (config?.isCache) {
         API_CACHE.set(url, result)
       }

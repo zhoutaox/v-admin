@@ -45,10 +45,6 @@ export function App(app: VueApp, options: AppOptions) {
       AppConfig.ENABLE_API_LOG = options.enableApiLog || false
       AppConfig.ENCRYPT_TYPE = options.apiEncipherMode || 'sm2'
 
-      api.user.login({
-        username: '',
-        password: '',
-      })
       setupDirectives(app)
       await setupConfig()
       await setupComponents(app)

@@ -1,6 +1,10 @@
 import { BooleanEnum } from '@/enums'
+import { BaseEntity, Table } from '@/core'
 
-export class AiFormColumn {
+@Table({
+  comment: '智能表单列表字段',
+})
+export class AiFormColumn extends BaseEntity {
   /**
    * # 列名称
    */
