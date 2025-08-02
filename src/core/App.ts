@@ -14,7 +14,6 @@ import '@/styles/index.scss'
 import icon from '@/assets/avatar1.png'
 
 import { Menu } from '@/api/menu'
-import { api } from '@/api'
 
 export type ApiEncipherMode = 'sm2' | 'rsa' | 'aes' | 'sm4'
 

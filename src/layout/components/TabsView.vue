@@ -1,11 +1,15 @@
 <script setup lang="ts">
+import { useRoute, useRouter } from 'vue-router'
 import { renderIcon } from '@/utils'
 import { useTabStore } from '@/stores'
+import { AppConfig } from '@/enums'
 
 const props = defineProps<{
   fullscreen: () => void
 }>()
 
+const route = useRoute()
+const router = useRouter()
 const tabStore = useTabStore()
 const options = [
   {
@@ -51,7 +55,7 @@ function handleDropdownSelect(key: string | number) {
       props.fullscreen()
       break
     case 'refresh':
-      // Refresh current page logic
+      refreshCurrentTab()
       break
     case 'closeCurrent':
       // Close current tab logic
@@ -70,18 +74,31 @@ function handleDropdownSelect(key: string | number) {
       break
   }
 }
+
+function refreshCurrentTab() {
+  router.replace({ path: route.path, query: { _: Date.now() } })
+}
+
+function handleTabClick(name: string) {
+  if (name !== route.path) {
+    router.push({ path: name })
+  }
+}
 </script>
 
 <template>
   <div class="tabs-view">
     <div class="left">
       <div class="tabs-wrapper">
-        <n-tabs type="card" closable class="tabs" justify-content="start">
+        <n-tabs type="card" closable class="tabs" justify-content="start" :value="route.path">
           <n-tab
             v-for="panel in tabStore.tabList"
             :key="panel.value"
             :tab="panel.label"
-            :name="panel.label"
+            :name="panel.value"
+            :closable="panel.value !== AppConfig.HOME_PATH"
+            @click="handleTabClick(panel.value as string)"
+            :class="{ 'tab-item': true, 'tab-item-active': panel.value === route.path }"
           >
           </n-tab>
         </n-tabs>
@@ -101,7 +118,6 @@ function handleDropdownSelect(key: string | number) {
   align-items: center;
   width: 100%;
   height: 100%;
-  padding: 0 16px;
 }
 
 .left {
@@ -118,6 +134,10 @@ function handleDropdownSelect(key: string | number) {
 .tabs {
   /* 确保tab不换行 */
   white-space: nowrap;
+}
+
+:deep(.tab-item) {
+  background-color: var(--n-color) !important;
 }
 
 :deep(.n-tabs-scroll-padding) {

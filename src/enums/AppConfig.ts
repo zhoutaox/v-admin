@@ -10,4 +10,8 @@ export class AppConfig {
   static readonly NOT_OPEN_MSG = '该功能尚未开放，请联系管理员！'
   static ENABLE_API_LOG: boolean = true
   static ENCRYPT_TYPE: ApiEncipherMode = 'sm2'
+  /**
+   * # 首页路由路径
+   */
+  static readonly HOME_PATH = '/home'
 }

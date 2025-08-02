@@ -51,14 +51,14 @@ export class Router {
     })
   }
 
-  private initDefaultRoutes() {
-    // 添加默认路由
-    this.layoutRoute.children?.push({
-      path: 'home',
-      name: 'home',
-      component: () => import('@/views/dashboard/home.vue'),
-    })
-  }
+  // private initDefaultRoutes() {
+  //   // 添加默认路由
+  //   this.layoutRoute.children?.push({
+  //     path: 'home',
+  //     name: 'home',
+  //     component: () => import('@/views/dashboard/home.vue'),
+  //   })
+  // }
 
   addRoute(route: RouteRecordRaw) {
     this.instance.addRoute(route)

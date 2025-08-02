@@ -1,6 +1,7 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 import { type MenuOption } from 'naive-ui'
+import { useRoute, useRouter } from 'vue-router'
 import { type Dict } from '@/types'
 
 export const useTabStore = defineStore(
@@ -8,6 +9,9 @@ export const useTabStore = defineStore(
   () => {
     const tabList = ref<Dict[]>([])
     const tabListLength = computed(() => tabList.value.length)
+    const route = useRoute()
+    const router = useRouter()
+    const tabValue = ref(route.path)
 
     function addTab(tab: MenuOption) {
       const index = tabList.value.findIndex((item) => item.value === tab.key)
@@ -23,7 +27,12 @@ export const useTabStore = defineStore(
      * # 删除指定标签页
      * @param tab 标签
      */
-    function removeTab(tab: string) {}
+    function removeTab(tab: string) {
+      const index = tabList.value.findIndex((item) => item.value === tab)
+      if (index !== -1) {
+        tabList.value.splice(index, 1)
+      }
+    }
 
     /**
      * # 删除其他标签页
@@ -53,6 +62,7 @@ export const useTabStore = defineStore(
     return {
       tabList,
       tabListLength,
+      tabValue,
       addTab,
       removeTab,
       removeOtherTab,

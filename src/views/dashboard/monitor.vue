@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { use } from 'echarts/core'
+import { use, type EChartsCoreOption } from 'echarts/core'
 import { CanvasRenderer } from 'echarts/renderers'
 import { PieChart } from 'echarts/charts'
 import {
@@ -7,38 +7,26 @@ import {
   TooltipComponent,
   LegendComponent,
   ToolboxComponent,
-  GridComponent,
 } from 'echarts/components'
-import VChart, { THEME_KEY } from 'vue-echarts'
-import { ref, provide, onMounted } from 'vue'
+
+import VChart from 'vue-echarts'
+import { ref } from 'vue'
 import Box from './components/Box.vue'
+import { useAppStore } from '@/stores'
+import { useEcharts } from '@/hooks'
 
 use([CanvasRenderer, PieChart, TitleComponent, TooltipComponent, LegendComponent, ToolboxComponent])
+const appStore = useAppStore()
 
-// provide(THEME_KEY, 'dark')
-
-const option = ref({
-  title: {
-    text: 'Traffic Sources',
-    left: 'center',
-  },
-  tooltip: {
-    trigger: 'item',
-    formatter: '{a} <br/>{b} : {c} ({d}%)',
-  },
-  legend: {
-    orient: 'vertical',
-    left: 'left',
-    data: ['Direct', 'Email', 'Ad Networks', 'Video Ads', 'Search Engines'],
-  },
+const { chartOptions } = useEcharts({
   series: [
     {
       name: 'Traffic Sources',
       type: 'pie',
       radius: '55%',
-      center: ['50%', '60%'],
+      center: ['50%', '50%'],
       data: [
-        { value: 335, name: 'Direct' },
+        { value: 335, name: 'Direct1' },
         { value: 310, name: 'Email' },
         { value: 234, name: 'Ad Networks' },
         { value: 135, name: 'Video Ads' },
@@ -55,26 +43,11 @@ const option = ref({
   ],
 })
 
-const option2 = ref({
-  title: {
-    text: 'Temperature Change in the Coming Week',
-  },
+const { chartOptions: barChartOptions } = useEcharts({
   tooltip: {
     trigger: 'axis',
   },
   legend: {},
-  toolbox: {
-    show: true,
-    feature: {
-      dataZoom: {
-        yAxisIndex: 'none',
-      },
-      dataView: { readOnly: false },
-      magicType: { type: ['line', 'bar'] },
-      restore: {},
-      saveAsImage: {},
-    },
-  },
   xAxis: {
     type: 'category',
     boundaryGap: false,
@@ -132,16 +105,50 @@ const option2 = ref({
     },
   ],
 })
+
+const option = ref<EChartsCoreOption>({
+  backgroundColor: appStore.app.isDark ? '#1a1a1a' : '#fff',
+  tooltip: {
+    trigger: 'item',
+    formatter: '{b} : {c} ({d}%)',
+  },
+  legend: {
+    orient: 'vertical',
+    left: 'right',
+  },
+  series: [
+    {
+      name: 'Traffic Sources',
+      type: 'pie',
+      radius: '55%',
+      center: ['50%', '50%'],
+      data: [
+        { value: 335, name: 'Direct' },
+        { value: 310, name: 'Email' },
+        { value: 234, name: 'Ad Networks' },
+        { value: 135, name: 'Video Ads' },
+        { value: 1548, name: 'Search Engines' },
+      ],
+      emphasis: {
+        itemStyle: {
+          shadowBlur: 10,
+          shadowOffsetX: 0,
+          shadowColor: 'rgba(0, 0, 0, 0.5)',
+        },
+      },
+    },
+  ],
+})
 </script>
 
 <template>
   <div class="monitor">
     <div class="main1">
       <Box class="box1" title="访问量">
-        <v-chart class="chart" :option="option" autoresize />
+        <v-chart class="chart" :option="chartOptions" autoresize />
       </Box>
       <Box class="box2" title="区域排行">
-        <v-chart class="chart" :option="option2" autoresize />
+        <v-chart class="chart" :option="barChartOptions" autoresize />
       </Box>
     </div>
     <div class="main1">

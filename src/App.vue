@@ -8,6 +8,7 @@ const appStore = useAppStore()
 
 <template>
   <n-config-provider
+    id="app-config-provider"
     class="v-app"
     :locale="zhCN"
     :class="appStore.app.isDark ? 'v-app-dark' : 'v-app-light'"

@@ -59,6 +59,9 @@ importers:
       reflect-metadata:
         specifier: 0.2.2
         version: 0.2.2
+      seemly:
+        specifier: ^0.3.10
+        version: 0.3.10
       vue:
         specifier: 3.5.13
         version: 3.5.13(typescript@5.6.3)
@@ -3249,8 +3252,8 @@ packages:
   scule@1.3.0:
     resolution: {integrity: sha512-6FtHJEvt+pVMIB9IBY+IcCJ6Z5f1iQnytgyfKMhDKgmzYG+TeH/wx1y3l27rshSbLiSanrR9ffZDrEsmjlQF2g==}
 
-  seemly@0.3.9:
-    resolution: {integrity: sha512-bMLcaEqhIViiPbaumjLN8t1y+JpD/N8SiyYOyp0i0W6RgdyLWboIsUWAbZojF//JyerxPZR5Tgda+x3Pdne75A==}
+  seemly@0.3.10:
+    resolution: {integrity: sha512-2+SMxtG1PcsL0uyhkumlOU6Qo9TAQ/WyH7tthnPIOQB05/12jz9naq6GZ6iZ6ApVsO3rr2gsnTf3++OV63kE1Q==}
 
   semver@6.3.1:
     resolution: {integrity: sha512-BR7VvDCVHO+q2xBEWskxS6DJE1qRnb7DxzUrogb71CWoSficBxYsiAGd+Kl0mmq/MprG9yArRkyrQxTO6XjMzA==}
@@ -6628,7 +6631,7 @@ snapshots:
       highlight.js: 11.11.1
       lodash: 4.17.21
       lodash-es: 4.17.21
-      seemly: 0.3.9
+      seemly: 0.3.10
       treemate: 0.3.11
       vdirs: 0.1.8(vue@3.5.13(typescript@5.6.3))
       vooks: 0.2.12(vue@3.5.13(typescript@5.6.3))
@@ -7084,7 +7087,7 @@ snapshots:
 
   scule@1.3.0: {}
 
-  seemly@0.3.9: {}
+  seemly@0.3.10: {}
 
   semver@6.3.1: {}
 
@@ -7738,7 +7741,7 @@ snapshots:
       '@juggle/resize-observer': 3.4.0
       css-render: 0.15.14
       evtd: 0.2.4
-      seemly: 0.3.9
+      seemly: 0.3.10
       vdirs: 0.1.8(vue@3.5.13(typescript@5.6.3))
       vooks: 0.2.12(vue@3.5.13(typescript@5.6.3))
       vue: 3.5.13(typescript@5.6.3)

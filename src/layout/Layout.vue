@@ -57,21 +57,21 @@ onUnmounted(() => {
       <AsideMenu />
     </n-layout-sider>
     <n-layout class="v-layout-main">
-      <n-scrollbar style="max-height: 100%">
-        <n-layout-header position="static">
-          <PageHeader />
-        </n-layout-header>
-        <n-layout-content class="v-layout-content">
-          <TabsView :fullscreen="toggle" />
-          <div ref="viewRef" class="v-layout-view" :class="isFullscreen && 'v-layout-open-view'">
-            <n-scrollbar class="v-layout-view-scrollbar" style="max-height: 84vh">
-              <RouterView v-slot="{ Component }">
-                <component :is="Component" />
-              </RouterView>
-            </n-scrollbar>
-          </div>
-        </n-layout-content>
-      </n-scrollbar>
+      <!-- <n-scrollbar style="max-height: 100%"> -->
+      <n-layout-header position="static">
+        <PageHeader />
+      </n-layout-header>
+      <n-layout-content class="v-layout-content">
+        <TabsView :fullscreen="toggle" />
+        <div ref="viewRef" class="v-layout-view" :class="isFullscreen && 'v-layout-open-view'">
+          <n-scrollbar class="v-layout-view-scrollbar" style="max-height: 84vh">
+            <RouterView v-slot="{ Component }">
+              <component :is="Component" />
+            </RouterView>
+          </n-scrollbar>
+        </div>
+      </n-layout-content>
+      <!-- </n-scrollbar> -->
     </n-layout>
   </n-layout>
 </template>
