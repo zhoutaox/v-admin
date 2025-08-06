@@ -131,11 +131,7 @@ export class Request {
     params: Record<string, unknown> = {},
     config: AxiosRequestConfig = {},
   ): Promise<ApiResponse> {
-    console.log('post this', Reflect.getMetadata('path', this))
-
     const url = Reflect.getMetadata('path', this) + POST_URL
-    console.log(url)
-
     const apiConfig: PostConfig = API_MAP.get(url)
 
     config = Object.assign(config, {

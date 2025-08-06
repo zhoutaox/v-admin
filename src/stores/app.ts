@@ -1,6 +1,7 @@
 import { ref, computed, watch } from 'vue'
 import { defineStore } from 'pinia'
 import { dateUtil } from 'bstm-utils'
+import { useFavicon } from '@vueuse/core'
 import { AppConfig } from '@/enums'
 import avatar1 from '@/assets/avatar1.png'
 import avatar2 from '@/assets/avatar2.png'
@@ -53,12 +54,14 @@ export const useAppStore = defineStore(
       },
     }
 
+    const icon = useFavicon()
     const app = ref(config)
 
     watch(
       () => app.value.isDark,
       (isDark) => {
         document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light')
+        icon.value = isDark ? avatar2 : avatar1
       },
       { immediate: true, deep: true },
     )

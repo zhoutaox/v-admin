@@ -33,6 +33,16 @@ export type PostConfig = {
    * # 响应数据映射
    */
   map?: new () => BaseEntity
+
+  /**
+   * # 是否显示加载中...  (仅在浏览器环境有效)
+   */
+  loading?: boolean
+
+  /**
+   * # 加载中提示文本
+   */
+  loadingText?: string
 }
 
 export function Post(path: string, config?: PostConfig): MethodDecorator {

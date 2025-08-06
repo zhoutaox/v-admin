@@ -49,10 +49,10 @@ export function App(app: VueApp, options: AppOptions) {
       await setupComponents(app)
       setupTheme()
 
-      const link = document.createElement('link')
-      link.rel = 'icon'
-      link.href = icon
-      document.head.appendChild(link)
+      // const link = document.createElement('link')
+      // link.rel = 'icon'
+      // link.href = icon
+      // document.head.appendChild(link)
 
       app.mount('#app')
     })()
