@@ -1,8 +1,12 @@
-import { reactive, toRefs, type Ref } from 'vue'
+import { reactive, toRefs, type Ref, computed, ref, onMounted } from 'vue'
 import { NDataTable } from 'naive-ui'
+import type { RecordValues } from '@/types'
 
-export type DataTableInstance = InstanceType<typeof NDataTable>
-export function useTable(tableRef: Ref<DataTableInstance>) {
+export function useTable(
+  api?: (params: RecordValues) => Promise<RecordValues[]>,
+  initParams?: Ref<RecordValues>,
+) {
+  const tableRef = ref<InstanceType<typeof NDataTable>>()
   const state = reactive({
     /**
      * # 表格数据
@@ -25,11 +29,28 @@ export function useTable(tableRef: Ref<DataTableInstance>) {
        */
       total: 0,
     },
+    /**
+     * # 加载状态
+     */
+    loading: false,
+  })
+
+  const params = computed(() => {
+    return {
+      ...state.pageConfig,
+      ...initParams?.value,
+    }
   })
 
   function getTableData() {}
 
+  onMounted(() => {
+    console.error(tableRef.value)
+  })
+
   return {
     ...toRefs(state),
+    tableRef,
+    params,
   }
 }

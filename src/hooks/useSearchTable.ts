@@ -1,8 +1,8 @@
-import { toRefs, reactive, type Ref } from 'vue'
-import { useTable, type DataTableInstance } from './useTable'
+import { toRefs, reactive, type Ref, ref, onMounted } from 'vue'
+import { useTable } from './useTable'
 
-export function useSearchTable(tableRef: Ref<DataTableInstance>) {
-  const { data, pageConfig } = useTable(tableRef)
+export function useSearchTable() {
+  const { data, pageConfig, loading, tableRef } = useTable()
   const state = reactive({
     /**
      * # 分页参数
@@ -12,15 +12,13 @@ export function useSearchTable(tableRef: Ref<DataTableInstance>) {
      * # 总查询参数
      */
     totalParams: {},
-    /**
-     * # 查询状态
-     */
-    loading: false,
   })
 
   return {
     ...toRefs(state),
+    tableRef,
     data,
     pageConfig,
+    loading,
   }
 }
