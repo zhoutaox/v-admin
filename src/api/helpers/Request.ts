@@ -1,13 +1,15 @@
 import axios from 'axios'
 import type {
+  AxiosError,
   AxiosInstance,
   AxiosRequestConfig,
   AxiosResponse,
   InternalAxiosRequestConfig,
 } from 'axios'
 import { secureUtil, type ApiResponse } from 'bstm-utils'
-import { RequestHeaderEnum, AppConfig } from '@/enums'
-import { API_MAP, type PostConfig, POST_URL } from '@/core'
+import { RequestHeaderEnum, AppConfig, SymbolKeys } from '@/enums'
+import { API_MAP, type PostConfig } from '@/core'
+import { notification } from '@/utils'
 
 function sm2Adapter() {
   return {
@@ -110,7 +112,12 @@ export class Request {
           return response.data
         }
       },
-      (error) => {
+      (error: AxiosError) => {
+        notification.error({
+          title: error?.config?.url + '请求错误',
+          description: error.message,
+          duration: 3 * 1000,
+        })
         return Promise.reject(error)
       },
     )
@@ -131,7 +138,9 @@ export class Request {
     params: Record<string, unknown> = {},
     config: AxiosRequestConfig = {},
   ): Promise<ApiResponse> {
-    const url = Reflect.getMetadata('path', this) + POST_URL
+    const url =
+      Reflect.getMetadata(SymbolKeys.CONTROLLER_PATH_KEY, this) +
+      Reflect.getMetadata(SymbolKeys.POST_PATH_KEY, this)
     const apiConfig: PostConfig = API_MAP.get(url)
 
     config = Object.assign(config, {

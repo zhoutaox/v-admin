@@ -25,12 +25,11 @@ export function useCrud<T extends BaseEntity>(model: new () => T): UseCrudReturn
   const isShowModel = ref(false) // 是否显示弹窗
   const fieldList: FieldProps[] = Object.getPrototypeOf(formModel).fields || [] // 字段列表
   const formConfig = getFormConfig(model) // 表单配置
-  console.error('formConfig', formConfig, formModel)
 
   function submit() {
     formRef.value?.validate((errors) => {
       if (!errors) {
-        message.success('验证成功')
+        formConfig.crud?.add(formModel)
       } else {
         console.log(errors)
         message.error('验证失败')

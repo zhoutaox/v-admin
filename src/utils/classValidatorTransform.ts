@@ -75,7 +75,5 @@ export function getValidationMetadata(model: new () => unknown) {
 
 export function getNaiveUiRules(model: new () => unknown) {
   const validationMetaList = getValidationMetadata(model)
-  console.error(validationMetaList, classValidatorTransform(validationMetaList))
-
   return classValidatorTransform(validationMetaList)
 }

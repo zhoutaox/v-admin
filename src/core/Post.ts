@@ -6,7 +6,6 @@ import { message } from '@/utils'
 import { BaseEntity } from './BaseEntity'
 
 export const API_MAP = new Map()
-export let POST_URL = ''
 const API_CACHE = new Map()
 
 // todo: 添加缓存时间 添加鉴权
@@ -53,8 +52,7 @@ export function Post(path: string, config?: PostConfig): MethodDecorator {
     descriptor.value = async function (...args: object[]): Promise<unknown> {
       const url = `${path}`
       API_MAP.set(url, config || {})
-
-      POST_URL = url
+      Reflect.defineMetadata(SymbolKeys.POST_PATH_KEY, url, this)
 
       if (config?.isCache && API_CACHE.has(url)) {
         const result = API_CACHE.get(url)
