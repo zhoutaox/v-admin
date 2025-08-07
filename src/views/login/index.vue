@@ -7,39 +7,15 @@ import { api, UserLoginDto } from '@/api'
 import { showNoOpenMessage, getNaiveUiRules } from '@/utils'
 
 const formRef = ref<FormInst | null>(null)
+const formValue = ref(new UserLoginDto())
 
-const formValue = ref({
-  username: '',
-  password: '',
-  code: '',
-  phone: '',
-})
-
-function handleValidateClick(e: MouseEvent) {
+function doSubmit(e: MouseEvent) {
   e.preventDefault()
   formRef.value?.validate((errors) => {
     if (!errors) {
       api.user.login(formValue.value)
-    } else {
-      console.log(errors)
-      // message.error('Invalid')
     }
   })
-}
-
-const rules = {
-  user: {
-    username: {
-      required: true,
-      message: '请输入姓名',
-      trigger: 'blur',
-    },
-    password: {
-      required: true,
-      message: '请输入密码',
-      trigger: ['input', 'blur'],
-    },
-  },
 }
 </script>
 
@@ -102,7 +78,7 @@ const rules = {
               </div>
             </n-form-item>
             <n-form-item>
-              <n-button attr-type="button" type="primary" block round @click="handleValidateClick">
+              <n-button attr-type="button" type="primary" block round @click="doSubmit">
                 登录
               </n-button>
             </n-form-item>
