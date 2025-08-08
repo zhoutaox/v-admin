@@ -53,7 +53,6 @@ export function useCrud<T extends BaseEntity>(model: new () => T): UseCrudReturn
     })
   }
 
-  formConfig.crud?.get('')
   initWatch() // 初始化监听
 
   return {

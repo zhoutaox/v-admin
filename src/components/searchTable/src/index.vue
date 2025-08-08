@@ -3,7 +3,9 @@ import { useSearchTable } from '@/hooks'
 import { SearchTable } from './SearchTable'
 import type { DataTableColumns } from 'naive-ui'
 import { NButton, NTag, NDataTable } from 'naive-ui'
-import { h, onMounted, ref } from 'vue'
+import { h } from 'vue'
+import { renderIcon } from '@/utils'
+import type { Values } from '@/types'
 
 interface RowData {
   key: number
@@ -113,30 +115,49 @@ const props = defineProps<{
   /**
    * # 配置
    */
-  config: SearchTable
+  searchTable: SearchTable
 }>()
 
-const { tableRef } = useSearchTable()
+const buttonInstance = new props.searchTable.fnClass() as unknown as Record<
+  string,
+  (row?: Record<string, Values>) => void
+>
+
+function doFn(fn: string) {
+  const method = buttonInstance[fn]
+  if (typeof method === 'function') {
+    method(searchParams)
+  }
+}
+
+const { tableRef, searchParams, search, reset } = useSearchTable()
 </script>
 
 <template>
   <div class="search-table">
-    <div class="table-search base-bg">
+    <div v-if="searchTable.searchList.length" class="table-search base-bg">
       <n-form ref="formRef" :label-width="80" label-placement="left" label-align="right">
         <div class="table-search-main">
-          <n-form-item label="姓名" path="user.name">
-            <n-input placeholder="输入姓名" />
-          </n-form-item>
-          <n-form-item label="年龄" path="user.age">
-            <n-input placeholder="输入年龄" />
-          </n-form-item>
-          <n-form-item label="电话号码" path="phone">
-            <n-input placeholder="电话号码" />
+          <n-form-item
+            v-for="search in searchTable.searchList"
+            :key="search.dbName"
+            :label="search.label"
+          >
+            <n-input
+              :placeholder="'请输入' + search.label"
+              v-model:value="searchParams[search.dbName]"
+            />
           </n-form-item>
           <n-form-item>
-            <n-space>
-              <n-button attr-type="button" type="primary">检索</n-button>
-              <n-button>重置</n-button>
+            <n-space style="padding-left: 80px">
+              <n-button
+                attr-type="button"
+                type="primary"
+                :render-icon="renderIcon('search')"
+                @click="search"
+                >检索</n-button
+              >
+              <n-button :render-icon="renderIcon('delete')" @click="reset">重置</n-button>
             </n-space>
           </n-form-item>
         </div>
@@ -145,13 +166,14 @@ const { tableRef } = useSearchTable()
     <div class="table-main base-bg">
       <div class="table-buttons">
         <n-space>
-          <n-button>Default</n-button>
-          <n-button type="tertiary"> Tertiary </n-button>
-          <n-button type="primary"> Primary </n-button>
-          <n-button type="info"> Info </n-button>
-          <n-button type="success"> Success </n-button>
-          <n-button type="warning"> Warning </n-button>
-          <n-button type="error"> Error </n-button>
+          <n-button
+            v-for="button in searchTable.buttonList"
+            :type="button.type"
+            :key="button.iid"
+            :render-icon="renderIcon(button.icon)"
+            @click="doFn(button.methodId)"
+            >{{ button.name }}</n-button
+          >
         </n-space>
       </div>
       <n-space vertical :size="12">
@@ -171,7 +193,9 @@ const { tableRef } = useSearchTable()
 <style scoped lang="scss">
 .search-table {
   .table-search {
-    padding: 20px;
+    margin-bottom: 20px;
+    padding: 0 20px;
+    padding-top: 26px;
     border-radius: 8px;
   }
   .table-search-main {
@@ -182,7 +206,6 @@ const { tableRef } = useSearchTable()
   }
 
   .table-main {
-    margin-top: 20px;
     padding: 20px;
     border-radius: 8px;
 

@@ -21,4 +21,10 @@ export class SearchTable {
    * # 初始化搜索参数
    */
   initSearchParams: Record<string, Values> = {}
+
+  fnClass!: new () => void
+
+  setButtonClass(fnClass: new () => void) {
+    this.fnClass = fnClass
+  }
 }

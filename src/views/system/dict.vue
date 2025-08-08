@@ -5,7 +5,7 @@ const searchTable = new SearchTable()
 </script>
 
 <template>
-  <SearchTableComponent :config="searchTable" />
+  <SearchTableComponent :search-table="searchTable" />
 </template>
 
 <style scoped></style>

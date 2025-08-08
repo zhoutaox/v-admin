@@ -13,7 +13,7 @@ function back() {
 
 <style scoped>
 .main {
-  padding-top: 40px;
+  padding-top: 120px;
   display: flex;
   flex-direction: column;
   align-items: center;

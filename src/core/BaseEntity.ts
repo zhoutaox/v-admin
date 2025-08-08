@@ -5,5 +5,5 @@ export class BaseEntity {
    * 唯一标识
    * @type {string}
    */
-  iid: string = stringUtil.nanoid()
+  readonly iid: string = stringUtil.nanoid()
 }
