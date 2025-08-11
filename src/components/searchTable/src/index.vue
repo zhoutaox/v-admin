@@ -6,6 +6,7 @@ import { NButton, NTag, NDataTable } from 'naive-ui'
 import { h } from 'vue'
 import { renderIcon } from '@/utils'
 import type { Values } from '@/types'
+import SearchForm from '../components/SearchForm.vue'
 
 interface RowData {
   key: number
@@ -136,32 +137,13 @@ const { tableRef, searchParams, search, reset } = useSearchTable()
 <template>
   <div class="search-table">
     <div v-if="searchTable.searchList.length" class="table-search base-bg">
-      <n-form ref="formRef" :label-width="80" label-placement="left" label-align="right">
-        <div class="table-search-main">
-          <n-form-item
-            v-for="search in searchTable.searchList"
-            :key="search.dbName"
-            :label="search.label"
-          >
-            <n-input
-              :placeholder="'请输入' + search.label"
-              v-model:value="searchParams[search.dbName]"
-            />
-          </n-form-item>
-          <n-form-item>
-            <n-space style="padding-left: 80px">
-              <n-button
-                attr-type="button"
-                type="primary"
-                :render-icon="renderIcon('search')"
-                @click="search"
-                >检索</n-button
-              >
-              <n-button :render-icon="renderIcon('delete')" @click="reset">重置</n-button>
-            </n-space>
-          </n-form-item>
-        </div>
-      </n-form>
+      <SearchForm
+        v-model="searchParams"
+        :fields="searchTable.searchList"
+        @search="search"
+        @reset="reset"
+      >
+      </SearchForm>
     </div>
     <div class="table-main base-bg">
       <div class="table-buttons">
@@ -197,12 +179,6 @@ const { tableRef, searchParams, search, reset } = useSearchTable()
     padding: 0 20px;
     padding-top: 26px;
     border-radius: 8px;
-  }
-  .table-search-main {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 0px 20px;
-    align-items: center;
   }
 
   .table-main {

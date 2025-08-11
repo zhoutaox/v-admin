@@ -57,6 +57,7 @@ declare module 'vue' {
     NWatermark: typeof import('naive-ui')['NWatermark']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    SearchForm: typeof import('./src/components/searchTable/components/SearchForm.vue')['default']
     Src: typeof import('./src/components/editor/src/index.vue')['default']
   }
 }

@@ -12,96 +12,96 @@ interface EncryptedPersistOptions {
 }
 
 // todo:优化
-export function createEncryptedPersist(globalOptions: EncryptedPersistOptions = {}) {
-  return ({ store, options }: PiniaPluginContext) => {
-    // 检查是否启用了加密持久化
-    const persistOptions = options.encryptedPersist as EncryptedPersistOptions | boolean
-    if (!persistOptions) return
+// export function createEncryptedPersist(globalOptions: EncryptedPersistOptions = {}) {
+//   return ({ store, options }: PiniaPluginContext) => {
+//     // 检查是否启用了加密持久化
+//     const persistOptions = options.encryptedPersist as EncryptedPersistOptions | boolean
+//     if (!persistOptions) return
 
-    const {
-      key = (id: string) => `encrypted_${id}`,
-      storage = localStorage,
-      pick,
-      omit,
-      beforeRestore,
-      afterRestore,
-    } = typeof persistOptions === 'object' ? { ...globalOptions, ...persistOptions } : globalOptions
+//     const {
+//       key = (id: string) => `encrypted_${id}`,
+//       storage = localStorage,
+//       pick,
+//       omit,
+//       beforeRestore,
+//       afterRestore,
+//     } = typeof persistOptions === 'object' ? { ...globalOptions, ...persistOptions } : globalOptions
 
-    const storageKey = typeof key === 'function' ? key(store.$id) : key
+//     const storageKey = typeof key === 'function' ? key(store.$id) : key
 
-    // 从存储中恢复数据
-    const restoreFromStorage = () => {
-      try {
-        beforeRestore?.({ store, options } as PiniaPluginContext)
+//     // 从存储中恢复数据
+//     const restoreFromStorage = () => {
+//       try {
+//         beforeRestore?.({ store, options } as PiniaPluginContext)
 
-        const encryptedData = storage.getItem(storageKey)
-        if (encryptedData) {
-          // 解密数据
-          const decryptedData = secureUtil.decryptBySM4(encryptedData)
-          const parsedData = JSON.parse(decryptedData)
+//         const encryptedData = storage.getItem(storageKey)
+//         if (encryptedData) {
+//           // 解密数据
+//           const decryptedData = secureUtil.decryptBySM4(encryptedData)
+//           const parsedData = JSON.parse(decryptedData)
 
-          // 过滤需要恢复的字段
-          let dataToRestore = parsedData
-          if (pick) {
-            dataToRestore = pick.reduce((acc, key) => {
-              if (key in parsedData) acc[key] = parsedData[key]
-              return acc
-            }, {} as any)
-          }
-          if (omit) {
-            dataToRestore = Object.keys(parsedData).reduce((acc, key) => {
-              if (!omit.includes(key)) acc[key] = parsedData[key]
-              return acc
-            }, {} as any)
-          }
+//           // 过滤需要恢复的字段
+//           let dataToRestore = parsedData
+//           if (pick) {
+//             dataToRestore = pick.reduce((acc, key) => {
+//               if (key in parsedData) acc[key] = parsedData[key]
+//               return acc
+//             }, {} as any)
+//           }
+//           if (omit) {
+//             dataToRestore = Object.keys(parsedData).reduce((acc, key) => {
+//               if (!omit.includes(key)) acc[key] = parsedData[key]
+//               return acc
+//             }, {} as any)
+//           }
 
-          // 恢复到 store
-          store.$patch(dataToRestore)
-        }
+//           // 恢复到 store
+//           store.$patch(dataToRestore)
+//         }
 
-        afterRestore?.({ store, options } as PiniaPluginContext)
-      } catch (error) {
-        console.error('Failed to restore encrypted data:', error)
-      }
-    }
+//         afterRestore?.({ store, options } as PiniaPluginContext)
+//       } catch (error) {
+//         console.error('Failed to restore encrypted data:', error)
+//       }
+//     }
 
-    // 保存到存储
-    const saveToStorage = () => {
-      try {
-        let dataToSave = { ...store.$state }
+//     // 保存到存储
+//     const saveToStorage = () => {
+//       try {
+//         let dataToSave = { ...store.$state }
 
-        // 过滤需要保存的字段
-        if (pick) {
-          dataToSave = pick.reduce((acc, key) => {
-            if (key in store.$state) acc[key] = store.$state[key]
-            return acc
-          }, {} as any)
-        }
-        if (omit) {
-          dataToSave = Object.keys(store.$state).reduce((acc, key) => {
-            if (!omit.includes(key)) acc[key] = store.$state[key]
-            return acc
-          }, {} as any)
-        }
+//         // 过滤需要保存的字段
+//         if (pick) {
+//           dataToSave = pick.reduce((acc, key) => {
+//             if (key in store.$state) acc[key] = store.$state[key]
+//             return acc
+//           }, {} as any)
+//         }
+//         if (omit) {
+//           dataToSave = Object.keys(store.$state).reduce((acc, key) => {
+//             if (!omit.includes(key)) acc[key] = store.$state[key]
+//             return acc
+//           }, {} as any)
+//         }
 
-        // 加密并保存
-        const serializedData = JSON.stringify(dataToSave)
-        const encryptedData = secureUtil.encryptBySM4(serializedData)
-        storage.setItem(storageKey, encryptedData)
-      } catch (error) {
-        console.error('Failed to save encrypted data:', error)
-      }
-    }
+//         // 加密并保存
+//         const serializedData = JSON.stringify(dataToSave)
+//         const encryptedData = secureUtil.encryptBySM4(serializedData)
+//         storage.setItem(storageKey, encryptedData)
+//       } catch (error) {
+//         console.error('Failed to save encrypted data:', error)
+//       }
+//     }
 
-    // 初始化时恢复数据
-    restoreFromStorage()
+//     // 初始化时恢复数据
+//     restoreFromStorage()
 
-    // 监听状态变化并保存
-    store.$subscribe(
-      () => {
-        saveToStorage()
-      },
-      { detached: true },
-    )
-  }
-}
+//     // 监听状态变化并保存
+//     store.$subscribe(
+//       () => {
+//         saveToStorage()
+//       },
+//       { detached: true },
+//     )
+//   }
+// }

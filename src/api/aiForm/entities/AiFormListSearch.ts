@@ -18,6 +18,8 @@ export class AiFormListSearch extends BaseEntity {
    */
   widgetType: number = ComponentEnum.INPUT.key
 
+  props = {}
+
   constructor(label: string, dbName: string, widgetType: number = ComponentEnum.INPUT.key) {
     super()
     this.label = label

@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { type FieldProps } from '@/core'
+// import { type FieldProps } from '@/core'
 
 const props = withDefaults(
   defineProps<{
     modelValue: Record<string, unknown>
-    field: FieldProps[]
+    // field: FieldProps[]
   }>(),
   {},
 )
@@ -21,7 +21,7 @@ defineOptions({
 
 <template>
   <n-form ref="formRef">
-    <n-form-item
+    <!-- <n-form-item
       v-for="item in field"
       :label="item.label"
       :key="item.propertyKey"
@@ -38,7 +38,7 @@ defineOptions({
         @keydown.enter.prevent
         :placeholder="item.placeholder"
       />
-    </n-form-item>
+    </n-form-item> -->
   </n-form>
 </template>
 

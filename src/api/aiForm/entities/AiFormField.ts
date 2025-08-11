@@ -1,5 +1,6 @@
-import { BaseEntity, Table } from '@/core'
+import { BaseEntity, Table, type AllComProps } from '@/core'
 import { ComponentEnum } from '@/enums'
+import type { Values } from 'async-validator'
 
 @Table({
   comment: '智能表单字段',
@@ -24,5 +25,7 @@ export class AiFormField extends BaseEntity {
    * # 字段控件类型
    * @see ComponentEnum
    */
-  widgetType: string = ''
+  widgetType: number = ComponentEnum.INPUT.key
+
+  props: AllComProps = {}
 }

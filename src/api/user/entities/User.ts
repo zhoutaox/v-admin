@@ -12,7 +12,11 @@ export class User extends BaseEntity {
   @Length(2, 20, { message: '登录名长度在2到20个字符之间' })
   @Field({
     label: '登录名',
-    type: ComponentEnum.INPUT,
+    type: 'Input',
+    props: {
+      placeholder: 'xxx',
+      clearable: true,
+    },
   })
   loginName!: string
 
@@ -20,15 +24,21 @@ export class User extends BaseEntity {
   @Length(2, 20, { message: '用户名长度在2到20个字符之间' })
   @Field({
     label: '姓名',
-    type: ComponentEnum.INPUT,
+    type: 'Input',
   })
   name!: string
 
   @IsNotEmpty({ message: '密码不能为空' })
   @Field({
     label: '密码',
-    type: ComponentEnum.PASSWORD,
-    props: {},
+    type: 'Cascader',
+    props: {
+      options: [
+        { label: '强', value: 'strong' },
+        { label: '中', value: 'medium' },
+        { label: '弱', value: 'weak' },
+      ],
+    },
   })
   password!: string
 
@@ -40,28 +50,32 @@ export class User extends BaseEntity {
   )
   @Field({
     label: '邮箱',
-    type: ComponentEnum.INPUT,
+    type: 'Input',
   })
   email!: string
 
   @IsNotEmpty({ message: '手机号不能为空' })
   @Field({
     label: '手机号',
+    type: 'Input',
   })
   phone!: string
 
   @Field({
     label: '用户头像',
+    type: 'Input',
   })
   avatar!: string
 
   @Field({
     label: '性别',
-    type: ComponentEnum.SELECT,
-    options: [
-      { label: '男', value: 1 },
-      { label: '女', value: 0 },
-    ],
+    type: 'Select',
+    props: {
+      options: [
+        { label: '男', value: '1' },
+        { label: '女', value: '0' },
+      ],
+    },
   })
-  sex: 0 | 1 = 1
+  sex: '0' | '1' = '1'
 }

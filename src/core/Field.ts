@@ -1,37 +1,38 @@
-import type { PropType } from 'vue'
 import { ComponentEnum } from '@/enums'
-import { type Dict } from '@/types'
-import type { SelectProps } from 'naive-ui'
+import type { SelectProps, InputProps, CascaderProps, RadioProps } from 'naive-ui'
 
-// 定义不同类型的 props
-
-interface ComponentProps<T> {
-  disabled?: boolean
-  isPassword?: boolean
+type CompPropsMap = {
+  Input: InputProps
+  Select: SelectProps
+  Radio: RadioProps
+  Cascader: CascaderProps
 }
 
-interface FieldComponentProps<T = ComponentEnum> {
+export type AllComProps = CompPropsMap[keyof CompPropsMap]
+
+type CompType = 'Input' | 'Select' | 'Radio' | 'Cascader'
+
+interface FieldComponentProps<T extends CompType> {
   label: string
   type?: T
-  options?: Dict[]
   dictId?: string // 字典id
-  placeholder?: string
-  props?: ComponentProps<T>
+  props?: CompPropsMap[T extends undefined ? 'Input' : T]
   change?: (form: unknown, value: string) => void
 }
 
-export interface FieldProps extends FieldComponentProps {
-  propertyKey: string
-}
-
-export function Field<T extends ComponentEnum>(props: FieldComponentProps<T>) {
+export function Field<T extends CompType>(props: FieldComponentProps<T>) {
   return function (target: object, propertyKey: string | symbol) {
     if (!target.constructor.prototype.fields) {
       target.constructor.prototype.fields = []
     }
-    if (!props.placeholder) {
-      props.placeholder = '请输入' + props.label
+
+    const aiFormField = {
+      dbName: propertyKey,
+      name: props.label,
+      widgetType: ComponentEnum.getKeyByTag(props.type || ComponentEnum.INPUT.tag),
+      props: props.props || {},
     }
-    target.constructor.prototype.fields.push({ ...props, propertyKey })
+
+    target.constructor.prototype.fields.push(aiFormField)
   }
 }

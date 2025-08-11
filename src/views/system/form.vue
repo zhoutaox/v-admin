@@ -6,11 +6,18 @@ import { AiFormButton, AiFormListSearch, User } from '@/api'
 import { ButtonEnum, ComponentEnum } from '@/enums'
 import { openForm } from '@/utils'
 
-const searchTable = ref(new SearchTable())
+// 明确指定类型，避免类型推断过深
+const searchTable = ref<SearchTable>(new SearchTable())
 
-const nameSearch = new AiFormListSearch('用户名', 'name')
-const ageSearch = new AiFormListSearch('年龄', 'age', ComponentEnum.INPUT_NUMBER.key)
-const phoneSearch = new AiFormListSearch('电话号码', 'phone')
+const nameSearch = new AiFormListSearch('用户名', 'name', ComponentEnum.INPUT.key)
+const ageSearch = new AiFormListSearch('年龄', 'age', ComponentEnum.CASCADER.key)
+ageSearch.props = {
+  options: [
+    { label: '选项1', value: 'option1' },
+    { label: '选项2', value: 'option2' },
+  ],
+}
+const phoneSearch = new AiFormListSearch('电话号码', 'phone', ComponentEnum.INPUT_NUMBER.key)
 
 searchTable.value.searchList.push(nameSearch, ageSearch, phoneSearch)
 
@@ -42,8 +49,6 @@ searchTable.value.setButtonClass(ButtonClass)
 </script>
 
 <template>
-  <!-- <div>表单管理</div> -->
-  <!-- <FormDesign /> -->
   <SearchTableComponent :search-table="searchTable" />
 </template>
 

@@ -27,7 +27,7 @@ function handleAfterLeave() {
   <n-drawer v-model:show="showModal" :width="520" :on-after-leave="handleAfterLeave">
     <n-drawer-content :title="formConfig.title">
       <n-form ref="formRef" :model="formModel" :rules="rules">
-        <n-form-item
+        <!-- <n-form-item
           v-for="field in fieldList"
           :path="field.propertyKey"
           :label="field.label"
@@ -39,7 +39,7 @@ function handleAfterLeave() {
             :options="field.options"
             :placeholder="'请输入' + field.label"
           />
-        </n-form-item>
+        </n-form-item> -->
       </n-form>
       <template #footer>
         <n-button class="cancel-btn" @click="props.close()">取消</n-button>

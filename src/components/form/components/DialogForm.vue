@@ -3,6 +3,7 @@ import { ref } from 'vue'
 import { BaseEntity, getFormConfig } from '@/core'
 import { useCrud } from '@/hooks/useCurd'
 import FormItem from './FormItem'
+import { ComponentEnum } from '@/enums'
 
 const props = withDefaults(
   defineProps<{
@@ -35,15 +36,20 @@ function handleAfterLeave() {
     <n-form ref="formRef" :model="formModel" :rules="rules" :label-width="formConfig.labelWidth">
       <n-form-item
         v-for="field in fieldList"
-        :path="field.propertyKey"
-        :label="field.label"
-        :key="field.propertyKey"
+        :path="field.dbName"
+        :label="field.name"
+        :key="field.dbName"
       >
-        <FormItem
-          v-model:value="formModel[field.propertyKey]"
+        <!-- <FormItem
+          v-model:value="formModel[field.dbName]"
           :componentType="field.type"
           :options="field.options"
           :placeholder="'请输入' + field.label"
+        /> -->
+        <component
+          :is="ComponentEnum.getComponent(field.widgetType)"
+          v-model:value="formModel[field.dbName]"
+          v-bind="field.props"
         />
       </n-form-item>
     </n-form>

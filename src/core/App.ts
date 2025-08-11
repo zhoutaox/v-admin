@@ -5,15 +5,13 @@ import { useAppStore, useRouterStore } from '@/stores'
 import 'normalize.css'
 import { router } from '@/router'
 import { AppConfig } from '@/enums'
+import { Menu } from '@/api'
 // iconfont
 import '@/icons/iconfont/iconfont.css'
 import '@/icons/iconfont/iconfont'
 // styles
 import 'animate.css'
 import '@/styles/index.scss'
-import icon from '@/assets/avatar1.png'
-
-import { Menu } from '@/api/menu'
 
 export type ApiEncipherMode = 'sm2' | 'rsa' | 'aes' | 'sm4'
 
