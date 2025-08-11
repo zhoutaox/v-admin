@@ -14,4 +14,9 @@ export class AppConfig {
    * # 首页路由路径
    */
   static readonly HOME_PATH = '/home'
+
+  /**
+   * # 是否为开发环境
+   */
+  static readonly IS_DEV = import.meta.env.MODE === 'development'
 }

@@ -5,6 +5,7 @@ import { SearchTableComponent, SearchTable } from '@/components/searchTable'
 import { AiFormButton, AiFormListSearch, User } from '@/api'
 import { ButtonEnum, ComponentEnum } from '@/enums'
 import { openForm } from '@/utils'
+import { Log } from '@/core'
 
 // 明确指定类型，避免类型推断过深
 const searchTable = ref<SearchTable>(new SearchTable())
@@ -27,25 +28,19 @@ const button3 = new AiFormButton('删除', 'delete', ButtonEnum.DANGER.key, 'del
 const button4 = new AiFormButton('导出', 'export', ButtonEnum.INFO.key, 'export')
 searchTable.value.buttonList.push(button1, button2, button3, button4)
 
-class ButtonClass {
+searchTable.value.fnClass = {
   add() {
     openForm(User)
-  }
+  },
 
   edit() {
     openForm(User)
-  }
+  },
 
   delete() {
     console.log('Delete button clicked with params:')
-  }
-
-  export() {
-    console.log('Export button clicked with params:')
-  }
+  },
 }
-
-searchTable.value.setButtonClass(ButtonClass)
 </script>
 
 <template>

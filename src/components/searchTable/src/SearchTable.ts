@@ -22,9 +22,5 @@ export class SearchTable {
    */
   initSearchParams: Record<string, Values> = {}
 
-  fnClass!: new () => void
-
-  setButtonClass(fnClass: new () => void) {
-    this.fnClass = fnClass
-  }
+  fnClass: Record<string, (row?: Record<string, Values>) => void> = {}
 }

@@ -1,7 +1,6 @@
 import { IsNotEmpty, Length, IsEmail } from 'class-validator'
 import { api } from '@/api'
 import { BaseEntity, Field, Form } from '@/core'
-import { ComponentEnum } from '@/enums'
 
 @Form({
   title: '用户',

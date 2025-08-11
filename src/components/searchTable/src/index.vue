@@ -5,6 +5,7 @@ import type { DataTableColumns } from 'naive-ui'
 import { NButton, NTag, NDataTable } from 'naive-ui'
 import { h } from 'vue'
 import { renderIcon } from '@/utils'
+import { Log } from '@/core'
 import type { Values } from '@/types'
 import SearchForm from '../components/SearchForm.vue'
 
@@ -119,15 +120,12 @@ const props = defineProps<{
   searchTable: SearchTable
 }>()
 
-const buttonInstance = new props.searchTable.fnClass() as unknown as Record<
-  string,
-  (row?: Record<string, Values>) => void
->
-
 function doFn(fn: string) {
-  const method = buttonInstance[fn]
+  const method = props.searchTable.fnClass[fn]
   if (typeof method === 'function') {
     method(searchParams)
+  } else {
+    Log.error(new Error(`Method ${fn} is not defined in fnClass`))
   }
 }
 
@@ -146,7 +144,7 @@ const { tableRef, searchParams, search, reset } = useSearchTable()
       </SearchForm>
     </div>
     <div class="table-main base-bg">
-      <div class="table-buttons">
+      <div v-if="searchTable.buttonList.length" class="table-buttons">
         <n-space>
           <n-button
             v-for="button in searchTable.buttonList"
