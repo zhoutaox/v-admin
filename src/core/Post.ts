@@ -57,7 +57,7 @@ export function Post(path: string, config?: PostConfig): MethodDecorator {
       if (config?.isCache && API_CACHE.has(url)) {
         const result = API_CACHE.get(url)
         console.log(
-          '\n%c[' + AppConfig.PRODUCT_NAME + ']',
+          '\n%c[' + AppConfig.NAME + ']',
           'color: #fff;background: #f89898;padding: 2px 4px;border-radius: 6px',
           AppConfig.CONTEXT_PATH + url,
           '🍕 ~ ' + '解密结果:',

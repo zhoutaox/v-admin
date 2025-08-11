@@ -22,7 +22,7 @@ function doSubmit(e: MouseEvent) {
 <template>
   <div class="login-container">
     <div class="left">
-      <div class="title">{{ AppConfig.PRODUCT_NAME }}</div>
+      <div class="title">{{ AppConfig.NAME }}</div>
       <div class="desc">开箱即用，中后台前端/设计解决方案</div>
       <p>多生态支持、功能丰富、高颜值模板</p>
       <n-carousel autoplay draggable>

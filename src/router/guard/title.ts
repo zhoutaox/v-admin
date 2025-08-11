@@ -5,7 +5,7 @@ import { AppConfig } from '@/enums'
 export function createDocumentTitleGuard(router: Router) {
   router.afterEach((to) => {
     // 设置文档标题
-    const title = to.meta.title || AppConfig.PRODUCT_NAME
+    const title = to.meta.title || AppConfig.NAME
 
     useTitle(title)
   })

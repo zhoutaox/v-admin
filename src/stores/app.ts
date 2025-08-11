@@ -9,7 +9,7 @@ import avatar2 from '@/assets/avatar2.png'
 export const useAppStore = defineStore(
   'app',
   () => {
-    const watermark = ref(AppConfig.PRODUCT_NAME + '\n' + dateUtil.format(new Date()))
+    const watermark = ref(AppConfig.NAME + '\n' + dateUtil.format(new Date()))
     const config = {
       /**
        * # 是否为深色模式

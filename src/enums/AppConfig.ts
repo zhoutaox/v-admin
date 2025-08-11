@@ -4,8 +4,8 @@ import { type ApiEncipherMode } from '@/core'
 const { V_CONTEXT_PATH } = import.meta.env
 
 export class AppConfig {
-  static readonly PRODUCT_NAME = name
-  static readonly PRODUCT_VERSION = version
+  static readonly NAME = name
+  static readonly VERSION = version
   static readonly CONTEXT_PATH: string = V_CONTEXT_PATH
   static readonly NOT_OPEN_MSG = '该功能尚未开放，请联系管理员！'
   static ENABLE_API_LOG: boolean = true

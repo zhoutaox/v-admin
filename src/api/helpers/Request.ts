@@ -97,7 +97,7 @@ export class Request {
 
           if (AppConfig.ENABLE_API_LOG) {
             console.log(
-              '\n%c[' + AppConfig.PRODUCT_NAME + ']',
+              '\n%c[' + AppConfig.NAME + ']',
               'color: #fff;background: #f89898;padding: 2px 4px;border-radius: 6px',
               response.config.url,
               '🍕 ~ ' + '解密结果:',

@@ -16,7 +16,7 @@ const viewRef = ref<HTMLElement | null>(null)
 const { isFullscreen, toggle } = useFullscreen(viewRef)
 
 const timer = setInterval(() => {
-  appStore.watermark = AppConfig.PRODUCT_NAME + '\n' + dateUtil.format(new Date())
+  appStore.watermark = AppConfig.NAME + '\n' + dateUtil.format(new Date())
 }, 1000)
 
 onUnmounted(() => {

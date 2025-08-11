@@ -12,6 +12,7 @@ import '@/icons/iconfont/iconfont'
 // styles
 import 'animate.css'
 import '@/styles/index.scss'
+import { Log } from './Log'
 
 export type ApiEncipherMode = 'sm2' | 'rsa' | 'aes' | 'sm4'
 
@@ -35,6 +36,8 @@ type AppOptions = {
 export function App(app: VueApp, options: AppOptions) {
   return function (target: new (...args: unknown[]) => unknown) {
     ;(async () => {
+      // printVersionInfo(AppConfig.NAME, AppConfig.VERSION)
+      Log.start('App initialization')
       setupLoading()
       registerPlugins(app, options?.plugins || [])
       setupRouter(app)
@@ -50,6 +53,22 @@ export function App(app: VueApp, options: AppOptions) {
       app.mount('#app')
     })()
   }
+}
+
+/**
+ * 打印带有样式的版本号信息
+ * @param name 包名
+ * @param version 版本号
+ */
+function printVersionInfo(name: string, version: string) {
+  const style = `
+        background: linear-gradient(to right, #4CAF50, #8BC34A);
+        border-radius: 4px;
+        color: white;
+        font-weight: bold;
+        padding: 4px 8px;
+    `
+  console.log(`%c🍔 ${name} v${version}`, style)
 }
 
 function setupLoading() {
@@ -72,7 +91,7 @@ function registerPlugins(app: VueApp, plugins: Plugin[]) {
    */
   const persist = createPersistedState({
     // 存储key的前缀
-    key: (id: string) => `${AppConfig.PRODUCT_NAME}_${id}`.toLocaleUpperCase(),
+    key: (id: string) => `${AppConfig.NAME}_${id}`.toLocaleUpperCase(),
 
     // 自动恢复状态
     auto: true,
