@@ -6,10 +6,10 @@ import { useLoading } from '@/hooks'
 import 'normalize.css'
 import { router } from '@/router'
 import { AppConfig } from '@/enums'
-import { api, Menu } from '@/api'
+import { Menu } from '@/api'
 // iconfont
-import '@/icons/iconfont/iconfont.css'
-import '@/icons/iconfont/iconfont'
+// import '@/icons/iconfont/iconfont.css'
+// import '@/icons/iconfont/iconfont'
 // styles
 import 'animate.css'
 import '@/styles/index.scss'
