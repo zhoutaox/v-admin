@@ -2,10 +2,11 @@ import { type Plugin, type App as VueApp, type Directive } from 'vue'
 import { createPinia } from 'pinia'
 import { createPersistedState } from 'pinia-plugin-persistedstate'
 import { useAppStore, useRouterStore } from '@/stores'
+import { useLoading } from '@/hooks'
 import 'normalize.css'
 import { router } from '@/router'
 import { AppConfig } from '@/enums'
-import { Menu } from '@/api'
+import { api, Menu } from '@/api'
 // iconfont
 import '@/icons/iconfont/iconfont.css'
 import '@/icons/iconfont/iconfont'
@@ -36,7 +37,6 @@ type AppOptions = {
 export function App(app: VueApp, options: AppOptions) {
   return function (target: new (...args: unknown[]) => unknown) {
     ;(async () => {
-      // printVersionInfo(AppConfig.NAME, AppConfig.VERSION)
       Log.start('App initialization')
       setupLoading()
       registerPlugins(app, options?.plugins || [])
@@ -55,31 +55,10 @@ export function App(app: VueApp, options: AppOptions) {
   }
 }
 
-/**
- * 打印带有样式的版本号信息
- * @param name 包名
- * @param version 版本号
- */
-function printVersionInfo(name: string, version: string) {
-  const style = `
-        background: linear-gradient(to right, #4CAF50, #8BC34A);
-        border-radius: 4px;
-        color: white;
-        font-weight: bold;
-        padding: 4px 8px;
-    `
-  console.log(`%c🍔 ${name} v${version}`, style)
-}
-
 function setupLoading() {
   // 加载动画
-  const loadingOverlay = document.createElement('div')
-  loadingOverlay.className = 'bs-loading'
-  loadingOverlay.id = 'bs-loading'
-  loadingOverlay.innerHTML = '<div></div><div></div><div></div><div></div>>'
-  document.getElementById('app')?.appendChild(loadingOverlay)
+  useLoading().openLoading()
 }
-
 /**
  * # 注册插件
  * @param app vue实例
@@ -180,7 +159,6 @@ function setupDirectives(app: VueApp) {
 
 function setupTheme() {
   const app = useAppStore()
-  console.error(app.app.theme)
   document.documentElement.style.setProperty(
     '--v-color-primary',
     app.app.theme.common.primaryColor || '#409EFF',

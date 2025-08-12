@@ -10,6 +10,7 @@ import { secureUtil, type ApiResponse } from 'bstm-utils'
 import { RequestHeaderEnum, AppConfig, SymbolKeys } from '@/enums'
 import { API_MAP, type PostConfig } from '@/core'
 import { notification } from '@/utils'
+import { Log } from '../../core/Log'
 
 function sm2Adapter() {
   return {
@@ -113,11 +114,7 @@ export class Request {
         }
       },
       (error: AxiosError) => {
-        notification.error({
-          title: error?.config?.url + '请求错误',
-          description: error.message,
-          duration: 3 * 1000,
-        })
+        Log.error(error)
         return Promise.reject(error)
       },
     )

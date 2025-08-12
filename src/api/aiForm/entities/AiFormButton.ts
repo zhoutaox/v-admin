@@ -33,6 +33,11 @@ export class AiFormButton extends BaseEntity {
    */
   type: Type = ButtonEnum.PRIMARY.key
 
+  /**
+   * # 子按钮
+   */
+  children: AiFormButton[] = []
+
   constructor(
     name: string,
     methodId: string,

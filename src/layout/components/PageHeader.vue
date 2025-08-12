@@ -9,6 +9,7 @@ import { User } from '@/api/user/entities/User'
 import { renderIcon, openForm } from '@/utils'
 import { useAppStore, useUserStore } from '@/stores'
 import ConfigVue from './Config.vue'
+import Search from './Search.vue'
 
 const configRef = ref<InstanceType<typeof ConfigVue> | null>(null)
 const { isFullscreen, toggle } = useFullscreen()
@@ -54,6 +55,7 @@ function handleDropdownSelect(key: string | number, options: DropdownOption) {
 
 <template>
   <ConfigVue ref="configRef" />
+  <Search />
   <div class="page-header">
     <div class="left">
       <n-button tertiary round type="primary" class="btn1">常用</n-button>

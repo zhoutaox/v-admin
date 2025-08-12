@@ -6,7 +6,6 @@ import { NButton, NTag, NDataTable } from 'naive-ui'
 import { h } from 'vue'
 import { renderIcon } from '@/utils'
 import { Log } from '@/core'
-import type { Values } from '@/types'
 import SearchForm from '../components/SearchForm.vue'
 
 interface RowData {
@@ -101,7 +100,6 @@ function createData(): RowData[] {
   ]
 }
 
-// const tableRef = ref<InstanceType<typeof NDataTable>>()
 const data = createData()
 const columns = createColumns({
   sendMail(rowData) {
@@ -146,14 +144,18 @@ const { tableRef, searchParams, search, reset } = useSearchTable()
     <div class="table-main base-bg">
       <div v-if="searchTable.buttonList.length" class="table-buttons">
         <n-space>
-          <n-button
-            v-for="button in searchTable.buttonList"
-            :type="button.type"
-            :key="button.iid"
-            :render-icon="renderIcon(button.icon)"
-            @click="doFn(button.methodId)"
-            >{{ button.name }}</n-button
-          >
+          <template v-for="button in searchTable.buttonList" :key="button.iid">
+            <n-dropdown v-if="button.children.length" :options="button.children">
+              <n-button>{{ button.name }}</n-button>
+            </n-dropdown>
+            <n-button
+              v-else
+              :type="button.type"
+              :render-icon="renderIcon(button.icon)"
+              @click="doFn(button.methodId)"
+              >{{ button.name }}</n-button
+            >
+          </template>
         </n-space>
       </div>
       <n-space vertical :size="12">
