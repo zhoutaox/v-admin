@@ -1,9 +1,16 @@
+import type { Component } from 'vue'
 import { NInput, NInputNumber, NCascader, NSelect } from 'naive-ui'
 import { Enum } from '@/core'
-import type { Component } from 'vue'
 
 export class ComponentEnum extends Enum {
+  /**
+   * # 组件
+   */
   component: Component
+
+  /**
+   * # 标签
+   */
   tag: string = ''
   public constructor(key: number, label: string, component: Component = NInput, tag = '') {
     super(key, label)

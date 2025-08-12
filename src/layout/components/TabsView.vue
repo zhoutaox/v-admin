@@ -94,12 +94,14 @@ function handleTabClick(name: string) {
           <n-tab
             v-for="panel in tabStore.tabList"
             :key="panel.value"
-            :tab="panel.label"
             :name="panel.value"
             :closable="panel.value !== AppConfig.HOME_PATH"
             @click="handleTabClick(panel.value as string)"
             :class="{ 'tab-item': true, 'tab-item-active': panel.value === route.path }"
           >
+            <v-icon color="" :icon="panel.icon" style="margin-right: 6px" size="12" />{{
+              panel.label
+            }}
           </n-tab>
         </n-tabs>
       </div>

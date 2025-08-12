@@ -19,6 +19,7 @@ export const useTabStore = defineStore(
         tabList.value.push({
           label: tab.label as string,
           value: tab.key as string,
+          icon: route.meta.icon,
         })
       }
     }
