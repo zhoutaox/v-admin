@@ -13,10 +13,6 @@ const props = withDefaults(
 const formData = computed(() => {
   return props.modelValue
 })
-
-defineOptions({
-  name: 'v-form',
-})
 </script>
 
 <template>

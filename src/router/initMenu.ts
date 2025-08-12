@@ -1,6 +1,6 @@
 import { Menu } from '@/api/menu/entities/Menu'
 
-export function initMenu() {
+export function initMenu(menuList: Menu[]) {
   const menu1 = new Menu()
 
   menu1.title = 'Dashboard'
@@ -93,5 +93,5 @@ export function initMenu() {
 
   menu3.children = [m3_c1, m3_c2]
 
-  return [menu1, menu2, menu3]
+  return [menu1, menu2, menu3, ...menuList]
 }

@@ -31,6 +31,10 @@ onBeforeUnmount(() => {
 const handleCreated = (editor: unknown) => {
   editorRef.value = editor // 记录 editor 实例，重要！
 }
+
+defineOptions({
+  name: 'v-editor',
+})
 </script>
 
 <template>

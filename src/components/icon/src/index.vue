@@ -37,11 +37,6 @@ const iconSize = computed(() => {
   }
   return '1em'
 })
-
-defineOptions({
-  name: 'v-icon',
-  menuIcon: 'bs-icon',
-})
 </script>
 
 <template>

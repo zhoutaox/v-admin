@@ -1,4 +1,8 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+defineExpose({
+  name: 'icon-test',
+})
+</script>
 
 <template>
   <div>bs-icon-testccc</div>

@@ -7,9 +7,7 @@ import 'normalize.css'
 import { router } from '@/router'
 import { AppConfig } from '@/enums'
 import { Menu } from '@/api'
-// iconfont
-// import '@/icons/iconfont/iconfont.css'
-// import '@/icons/iconfont/iconfont'
+import { camelToKebabAdvanced } from '@/utils'
 // styles
 import 'animate.css'
 import '@/styles/index.scss'
@@ -40,14 +38,14 @@ export function App(app: VueApp, options: AppOptions) {
       Log.start('App initialization')
       setupLoading()
       registerPlugins(app, options?.plugins || [])
-      setupRouter(app)
+      await setupRouter(app)
 
       AppConfig.ENABLE_API_LOG = options.enableApiLog || false
       AppConfig.ENCRYPT_TYPE = options.apiEncipherMode || 'sm2'
 
       setupDirectives(app)
       await setupConfig()
-      await setupComponents(app)
+
       setupTheme()
 
       app.mount('#app')
@@ -98,9 +96,10 @@ function registerPlugins(app: VueApp, plugins: Plugin[]) {
  * # 设置路由
  * @param app vue实例
  */
-function setupRouter(app: VueApp) {
-  const { addRoute } = useRouterStore()
-  addRoute()
+async function setupRouter(app: VueApp) {
+  const { addRoute, menus } = useRouterStore()
+  const menu = await setupComponents(app)
+  addRoute([menu])
 
   app.use(router.instance)
 }
@@ -110,39 +109,56 @@ async function setupConfig() {
 }
 
 async function setupComponents(app: VueApp) {
+  type PluginConfig = {
+    name: string
+    label?: string
+    icon?: string
+  } & Plugin
+  const record: Map<string, PluginConfig> = new Map()
   const modules = import.meta.glob('@/components/**/index.ts') as Record<
     string,
     () => Promise<{
-      default: Plugin
+      default: PluginConfig
     }>
   >
   for (const path in modules) {
+    const name = path.split('/')[3]
     const module = await modules[path]()
     const component = module.default
-    app.use(component)
+
+    if (component) {
+      Log.info(component)
+      component.name = AppConfig.PREFIX + camelToKebabAdvanced(name)
+      app.use(component)
+      record.set(component.name, component)
+    }
   }
 
   const componentTests = import.meta.glob('@/components/**/__tests__/index.vue')
   const componentMenu = new Menu()
-  componentMenu.title = '组件'
+  componentMenu.title = '组件库'
+  componentMenu.icon = 'component'
+  componentMenu.path = '/components'
 
   for (const path in componentTests) {
     const name = path.split('/')[3]
+    const componentName = 'v-' + camelToKebabAdvanced(name)
+    Log.info(componentName)
     const menu = new Menu()
-    menu.title = name
+    menu.title = record.get(componentName)?.label || name
     menu.path = '/components/' + name
     menu.componentUrl = path.replace('/__tests__/index.vue', '')
-    menu.icon = 'component'
+    menu.icon = record.get(componentName)?.icon || 'component'
     componentMenu.children.push(menu)
 
-    // router.addComponentRoute({
-    //   path: '/components/' + name,
-    //   name: name,
-    //   component: componentTests[path],
-    // })
+    router.layoutRoute.children?.push({
+      path: '/components/' + name,
+      name: name,
+      component: componentTests[path],
+    })
   }
-  router.addLayoutRoutes([componentMenu])
-  router.addComponentRoutes([componentMenu])
+
+  return componentMenu
 }
 
 function setupDirectives(app: VueApp) {

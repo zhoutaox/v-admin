@@ -1,12 +1,13 @@
 <script setup lang="ts">
-import { useAppStore, useTabStore } from '@/stores'
+import { useAppStore, useRouterStore, useTabStore } from '@/stores'
 import { initMenu } from '@/router/initMenu'
 import { type MenuOption } from 'naive-ui'
 import { Menu } from '@/api/menu/entities/Menu'
 import { renderIcon } from '@/utils'
 import { useRoute, useRouter } from 'vue-router'
+import { computed } from 'vue'
 
-const menus = initMenu()
+const { menus } = useRouterStore()
 const { app } = useAppStore()
 const { addTab } = useTabStore()
 const route = useRoute()
@@ -31,7 +32,9 @@ function clickMenuItem(key: string, item: MenuOption) {
   router.push(key)
 }
 
-const menuOptions = convertMenuToMenuOptions(menus)
+const menuOptions = computed(() => {
+  return convertMenuToMenuOptions(menus)
+})
 </script>
 
 <template>

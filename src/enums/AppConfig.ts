@@ -19,4 +19,6 @@ export class AppConfig {
    * # 是否为开发环境
    */
   static readonly IS_DEV = import.meta.env.MODE === 'development'
+
+  static readonly PREFIX = 'v-'
 }

@@ -1,24 +1,21 @@
 <script setup lang="ts">
-import { computed } from 'vue'
-import iconJson from '@/icons/iconfont/iconfont.json'
-
-const iconList = computed(() => {
-  return iconJson.glyphs
-    .map((item: { font_class: string; unicode: string }) => {
-      return {
-        name: item.font_class,
-        code: item.unicode,
-        unicode: `\\${item.unicode}`,
-      }
-    })
-    .reverse()
-})
+function getIconList(): string[] {
+  const rs: string[] = []
+  const list = document.querySelectorAll('svg symbol')
+  for (let i = 0; i < list.length; i++) {
+    // 获取 id 并去除前缀 'bs-icon-'
+    if (list[i].id.startsWith('bs-icon-')) {
+      rs.push(list[i].id.replace('bs-icon-', ''))
+    }
+  }
+  return rs
+}
 </script>
 
 <template>
   <div class="main">
-    <div class="item base-bg" v-for="item in iconList" :key="item.code" v-copy="item.name">
-      <v-icon class="icon" :icon="item.name" :size="16" />
+    <div class="item base-bg" v-for="item in getIconList()" :key="item" v-copy="item">
+      <v-icon class="icon" :icon="item" :size="16" />
     </div>
   </div>
 </template>

@@ -8,11 +8,11 @@ export class Log {
     level: 8,
   })
 
-  static info(message: string) {
+  static info(message: unknown) {
     this.logger.info(message)
   }
 
-  static warn(message: string) {
+  static warn(message: unknown) {
     this.logger.warn(message)
   }
 
@@ -65,11 +65,11 @@ export class Log {
     }
   }
 
-  static success(message: string) {
+  static success(message: unknown) {
     this.logger.withTag('🎖️ ').success(message)
   }
 
-  static start(message: string) {
+  static start(message: unknown) {
     this.logger.withTag('🚀 ' + message).start('')
   }
 }

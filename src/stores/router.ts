@@ -1,15 +1,15 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
 import { router } from '@/router'
-import type { Menu } from '@/api/menu/entities/Menu'
+import type { Menu } from '@/api'
 import { initMenu } from '@/router/initMenu'
 
 export const useRouterStore = defineStore('router', () => {
   const menus = ref<Menu[]>([])
-  menus.value = initMenu()
 
   // 添加路由
-  function addRoute() {
+  function addRoute(menuList: Menu[]) {
+    menus.value = initMenu(menuList)
     router.addLayoutRoutes(menus.value)
   }
 

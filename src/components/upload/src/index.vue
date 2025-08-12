@@ -7,6 +7,11 @@ const props = defineProps({
     default: 'image',
   },
 })
+
+defineOptions({
+  label: '上传控件',
+  icon: 'yunshangchuan',
+})
 </script>
 
 <template>

@@ -1,4 +1,4 @@
-import { withInstall } from '@/utils/withInstall'
+import { withInstall } from '@/utils'
 import Form from './src/index.vue'
 import DialogForm from './components/DialogForm.vue'
 import DrawerForm from './components/DrawerForm.vue'
