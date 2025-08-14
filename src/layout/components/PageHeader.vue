@@ -80,10 +80,7 @@ function handleDropdownSelect(key: string | number, options: DropdownOption) {
         <template #trigger>
           <n-button class="btn" circle tertiary @click="appStore.toggleTheme">
             <template #icon>
-              <v-icon
-                :icon="app.isDark ? 'daytime-mode-fill' : 'night-mode-fill'"
-                color="#767c82"
-              />
+              <v-icon :icon="app.isDark ? 'daytime-mode-fill' : 'night-mode-fill'" />
             </template>
           </n-button>
         </template>
@@ -93,7 +90,7 @@ function handleDropdownSelect(key: string | number, options: DropdownOption) {
         <template #trigger>
           <n-button class="btn" circle tertiary @click="toggle">
             <template #icon>
-              <v-icon :size="8" :icon="isFullscreen ? 'compress' : 'fullscreen'" color="#767c82" />
+              <v-icon :size="8" :icon="isFullscreen ? 'compress' : 'fullscreen'" />
             </template>
           </n-button>
         </template>
@@ -103,7 +100,7 @@ function handleDropdownSelect(key: string | number, options: DropdownOption) {
         <template #trigger>
           <n-button class="btn" circle tertiary @click="configRef?.open()">
             <template #icon>
-              <v-icon icon="settings-fill" color="#767c82" />
+              <v-icon icon="settings-fill" />
             </template>
           </n-button>
         </template>
@@ -112,7 +109,7 @@ function handleDropdownSelect(key: string | number, options: DropdownOption) {
       <n-button class="btn btn-last" circle tertiary @click="configRef?.open()">
         <template #icon>
           <n-badge :value="userStore.todoNum" :max="15">
-            <v-icon icon="remind-btn-fill" color="#767c82" :size="12" />
+            <v-icon icon="remind-btn-fill" :size="12" />
           </n-badge>
         </template>
       </n-button>

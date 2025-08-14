@@ -127,7 +127,17 @@ function doFn(fn: string) {
   }
 }
 
-const { tableRef, searchParams, search, reset } = useSearchTable()
+const {
+  tableRef,
+  searchParams,
+  containerRef,
+  operationButtonList,
+  isFullscreen,
+  toggleFullscreen,
+  search,
+  reset,
+  downloadCsv,
+} = useSearchTable()
 </script>
 
 <template>
@@ -141,9 +151,9 @@ const { tableRef, searchParams, search, reset } = useSearchTable()
       >
       </SearchForm>
     </div>
-    <div class="table-main base-bg">
-      <div v-if="searchTable.buttonList.length" class="table-buttons">
-        <n-space>
+    <div ref="containerRef" class="table-main base-bg">
+      <div class="table-buttons">
+        <n-space v-if="searchTable.buttonList.length">
           <template v-for="button in searchTable.buttonList" :key="button.iid">
             <n-dropdown v-if="button.children.length" :options="button.children">
               <n-button>{{ button.name }}</n-button>
@@ -156,6 +166,32 @@ const { tableRef, searchParams, search, reset } = useSearchTable()
               >{{ button.name }}</n-button
             >
           </template>
+        </n-space>
+        <n-space class="table-actions">
+          {{ isFullscreen }}
+          <n-tooltip v-for="button in operationButtonList" :key="button.label">
+            <template #trigger>
+              <n-button @click="button.onClick" size="small" secondary circle>
+                <template #icon> <v-icon size="8" :icon="button.icon" /> </template>
+              </n-button>
+            </template>
+            {{ button.label }}
+          </n-tooltip>
+          <!-- <n-button size="small" secondary circle>
+            <template #icon>
+              <v-icon icon="search" />
+            </template>
+          </n-button>
+          <n-button @click="toggleFullscreen" size="small" secondary circle>
+            <template #icon>
+              <v-icon size="8" icon="fullscreen" />
+            </template>
+          </n-button>
+          <n-button @click="downloadCsv" size="small" strong secondary circle>
+            <template #icon>
+              <v-icon icon="download" />
+            </template>
+          </n-button> -->
         </n-space>
       </div>
       <n-space vertical :size="12">
@@ -186,7 +222,14 @@ const { tableRef, searchParams, search, reset } = useSearchTable()
     border-radius: 8px;
 
     .table-buttons {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       margin-bottom: 18px;
+    }
+
+    .table-actions {
+      margin-left: auto;
     }
   }
 }

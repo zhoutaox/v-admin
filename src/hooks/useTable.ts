@@ -44,6 +44,10 @@ export function useTable(
 
   function getTableData() {}
 
+  function downloadCsv() {
+    tableRef.value?.downloadCsv()
+  }
+
   onMounted(() => {
     console.error(tableRef.value)
   })
@@ -52,5 +56,6 @@ export function useTable(
     ...toRefs(state),
     tableRef,
     params,
+    downloadCsv,
   }
 }

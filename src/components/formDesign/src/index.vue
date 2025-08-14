@@ -12,13 +12,19 @@ const show = ref(true)
           <n-tabs default-value="oasis" justify-content="space-around" type="line" tab-class="tab">
             <n-tab-pane name="oasis" tab="组件">
               <n-collapse>
-                <n-collapse-item title="青铜" name="1">
+                <n-collapse-item title="基础组件" name="1">
                   <div>可以</div>
                 </n-collapse-item>
-                <n-collapse-item title="白银" name="2">
+                <n-collapse-item title="时间组件" name="2">
                   <div>很好</div>
                 </n-collapse-item>
-                <n-collapse-item title="黄金" name="3">
+                <n-collapse-item title="上传组件" name="3">
+                  <div>真棒</div>
+                </n-collapse-item>
+                <n-collapse-item title="布局组件" name="4">
+                  <div>真棒</div>
+                </n-collapse-item>
+                <n-collapse-item title="高级组件" name="5">
                   <div>真棒</div>
                 </n-collapse-item>
               </n-collapse>
@@ -31,7 +37,14 @@ const show = ref(true)
       </n-gi>
       <n-gi>
         <div class="config-area">
-          <n-tabs default-value="oasis" justify-content="space-around" type="line" tab-class="tab">
+          <n-tabs
+            default-value="oasis"
+            justify-content="space-evenly"
+            type="line"
+            tab-class="tab"
+            animated
+            :tabs-padding="120"
+          >
             <n-tab-pane name="oasis" tab="组件配置">
               <n-collapse>
                 <n-collapse-item title="青铜" name="1">
@@ -73,11 +86,15 @@ const show = ref(true)
   left: 0;
   width: 100%;
   height: 100vh;
-  background-color: #fff;
+  /* background-color: #fff; */
   z-index: 9999;
 }
 
 .grid {
   height: 100%;
+}
+
+.header {
+  border-bottom: 1px solid rgb(239, 239, 245);
 }
 </style>

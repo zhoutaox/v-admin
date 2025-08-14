@@ -25,7 +25,7 @@ searchTable.value.searchList.push(nameSearch, ageSearch, phoneSearch)
 const button1 = new AiFormButton('新增', 'add', ButtonEnum.PRIMARY.key, 'add')
 const button2 = new AiFormButton('编辑', 'edit', ButtonEnum.SUCCESS.key, 'edit')
 const button3 = new AiFormButton('删除', 'delete', ButtonEnum.DANGER.key, 'delete')
-const button4 = new AiFormButton('导出', 'export', ButtonEnum.INFO.key, 'export')
+const button4 = new AiFormButton('导出', 'export', ButtonEnum.INFO.key, 'download')
 searchTable.value.buttonList.push(button1, button2, button3, button4)
 
 searchTable.value.fnClass = {
