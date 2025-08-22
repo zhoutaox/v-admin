@@ -9,9 +9,10 @@ import { User } from '@/api/user/entities/User'
 import { renderIcon, openForm } from '@/utils'
 import { useAppStore, useUserStore } from '@/stores'
 import ConfigVue from './Config.vue'
-import Search from './Search.vue'
+import SearchVue from './Search.vue'
 
 const configRef = ref<InstanceType<typeof ConfigVue> | null>(null)
+const searchRef = ref<InstanceType<typeof SearchVue> | null>(null)
 const { isFullscreen, toggle } = useFullscreen()
 const routes = useRoute()
 const appStore = useAppStore()
@@ -55,7 +56,7 @@ function handleDropdownSelect(key: string | number, options: DropdownOption) {
 
 <template>
   <ConfigVue ref="configRef" />
-  <Search />
+  <SearchVue ref="searchRef" />
   <div class="page-header">
     <div class="left">
       <n-button tertiary round type="primary" class="btn1">常用</n-button>
@@ -68,7 +69,7 @@ function handleDropdownSelect(key: string | number, options: DropdownOption) {
     <div class="right">
       <n-tooltip trigger="hover">
         <template #trigger>
-          <n-button class="btn" circle tertiary>
+          <n-button class="btn" circle tertiary @click="searchRef?.open()">
             <template #icon>
               <v-icon icon="search" color="#767c82" />
             </template>

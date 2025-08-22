@@ -3,6 +3,12 @@ import { ref } from 'vue'
 
 const showModal = ref(false)
 const value = ref('')
+
+defineExpose({
+  open() {
+    showModal.value = true
+  },
+})
 </script>
 
 <template>

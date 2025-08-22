@@ -15,28 +15,44 @@ const handleLoad = () => {
   <div class="home">
     <div class="block">
       <div class="item base-bg">
-        <div class="title">本月注册人数</div>
+        <div class="title">
+          <div class="icon-wrap"><v-icon icon="customer-add" size="16" color="#fff" /></div>
+          本月注册人数
+        </div>
         <div class="count">
           <n-number-animation :from="0" :to="12039" />
         </div>
         <div class="percent">+10%</div>
       </div>
       <div class="item base-bg">
-        <div class="title">本月登录人数</div>
+        <div class="title">
+          <div class="icon-wrap">
+            <v-icon icon="customer-bussinessman" size="16" color="#fff" />
+          </div>
+          本月登录人数
+        </div>
         <div class="count">
           <n-number-animation :from="0" :to="139" />
         </div>
         <div class="percent">+10%</div>
       </div>
       <div class="item base-bg">
-        <div class="title">本月支付金额</div>
+        <div class="title">
+          <div class="icon-wrap"><v-icon icon="goods-inspection" size="16" color="#fff" /></div>
+          本月支付金额
+        </div>
         <div class="count">
           <n-number-animation :from="0" :to="1209" />
         </div>
         <div class="percent">+10%</div>
       </div>
       <div class="item base-bg">
-        <div class="title">本月销售总额</div>
+        <div class="title">
+          <div class="icon-wrap">
+            <v-icon icon="discount" size="16" color="#fff" />
+          </div>
+          本月销售总额
+        </div>
         <div class="count">
           <n-number-animation :from="0" :to="120" />
         </div>
@@ -62,7 +78,20 @@ const handleLoad = () => {
     </div>
     <div class="block2">
       <Box class="box1" title="最新订单"></Box>
-      <Box class="box2" title="消费排行"></Box>
+      <Box class="box2" title="消费排行">
+        <n-infinite-scroll style="height: 380px" :distance="10" @load="handleLoad">
+          <div v-for="i in count" :key="i" class="item-line">
+            <n-avatar round size="large" :src="avatar" />
+            <div class="line">
+              <div class="name">小猪</div>
+              <div class="content">
+                <n-text>高级成本会计师</n-text>
+                <n-progress type="line" :percentage="60" indicator-placement="inside" processing />
+              </div>
+            </div>
+          </div>
+        </n-infinite-scroll>
+      </Box>
     </div>
   </div>
 </template>
@@ -77,8 +106,42 @@ const handleLoad = () => {
     gap: 20px;
 
     .item {
-      padding: 30px;
+      padding: 22px 30px;
       border-radius: 10px;
+
+      .title {
+        display: flex;
+        align-items: center;
+
+        .icon-wrap {
+          width: 40px;
+          height: 40px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 50%;
+          background-color: #fbd786; //#ee9ca7 #12c2e9 #f7797d
+          margin-right: 6px;
+        }
+      }
+
+      &:nth-child(1) {
+        .icon-wrap {
+          background-color: #ee9ca7;
+        }
+      }
+
+      &:nth-child(2) {
+        .icon-wrap {
+          background-color: #f7797d;
+        }
+      }
+
+      &:nth-child(4) {
+        .icon-wrap {
+          background-color: #12c2e9;
+        }
+      }
     }
   }
 

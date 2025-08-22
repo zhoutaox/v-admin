@@ -18,22 +18,16 @@
   .n-layout-header {
     height: 68px;
     color: #000000d9;
-    line-height: 68px;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: 0 1px 4px #00152914;
   }
 
   .v-layout-main {
-    padding: 0 12px;
     display: flex;
     flex: auto;
     flex-direction: column;
-    min-height: 100vh;
+    height: 100vh;
     background: #f0f2f5;
-
-    .v-layout-content {
-      background: #f0f2f5;
-    }
   }
 
   .n-menu-item-content__icon {

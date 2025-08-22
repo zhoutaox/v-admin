@@ -52,6 +52,9 @@ export default defineConfig(({ mode }) => {
         '@': fileURLToPath(new URL('./src', import.meta.url)),
       },
     },
+    css: {
+      devSourcemap: true,
+    },
     esbuild: {
       supported: {
         bigint: true,

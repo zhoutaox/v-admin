@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { ref, onUnmounted } from 'vue'
-import { AppConfig } from '@/enums'
 import { RouterView } from 'vue-router'
 import { dateUtil } from 'bstm-utils'
-import { useAppStore } from '@/stores'
 import { useFullscreen } from '@vueuse/core'
+import { useAppStore } from '@/stores'
+import { AppConfig } from '@/enums'
 import Logo from './components/Logo.vue'
 import AsideMenu from './components/AsideMenu.vue'
 import PageHeader from './components/PageHeader.vue'
@@ -57,21 +57,24 @@ onUnmounted(() => {
       <AsideMenu />
     </n-layout-sider>
     <n-layout class="v-layout-main">
-      <!-- <n-scrollbar style="max-height: 100%"> -->
-      <n-layout-header position="static">
-        <PageHeader />
-      </n-layout-header>
-      <n-layout-content class="v-layout-content">
-        <TabsView :fullscreen="toggle" />
-        <div ref="viewRef" class="v-layout-view" :class="isFullscreen && 'v-layout-open-view'">
-          <n-scrollbar class="v-layout-view-scrollbar" style="max-height: 84vh">
-            <RouterView v-slot="{ Component }">
-              <component :is="Component" />
-            </RouterView>
-          </n-scrollbar>
-        </div>
-      </n-layout-content>
-      <!-- </n-scrollbar> -->
+      <main style="margin: 0 10px">
+        <n-layout-header
+          class="v-layout-main--header"
+          :style="{
+            position: 'fixed',
+            right: '20px',
+            zIndex: 10,
+            width: appStore.app.isCollapsed ? 'calc(100% - 90px)' : 'calc(100% - 230px)',
+          }"
+        >
+          <PageHeader />
+          <TabsView :fullscreen="toggle" />
+        </n-layout-header>
+        <header style="height: 126px"></header>
+        <RouterView v-slot="{ Component, route }">
+          <component :is="Component" :key="route.fullPath" />
+        </RouterView>
+      </main>
     </n-layout>
   </n-layout>
 </template>

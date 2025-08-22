@@ -2,6 +2,7 @@ import { computed, type Ref, ref } from 'vue'
 import { useFullscreen } from '@vueuse/core'
 import { useTable } from './useTable'
 import type { Values } from '@/types'
+import { showNoOpenMessage } from '@/utils'
 
 export function useSearchTable() {
   const { data, pageConfig, loading, tableRef, downloadCsv } = useTable()
@@ -13,19 +14,41 @@ export function useSearchTable() {
       {
         label: '刷新',
         icon: 'change',
+        size: '12',
         onClick: () => {
           // Refresh the table data
+          showNoOpenMessage()
         },
       },
       {
         label: '导出',
         icon: 'download',
+        size: '12',
         onClick: downloadCsv,
       },
       {
         label: isFullscreen.value ? '退出全屏' : '全屏',
         icon: isFullscreen.value ? 'compress' : 'fullscreen',
+        size: '10',
         onClick: toggleFullscreen,
+      },
+      {
+        label: '打印',
+        icon: 'print-fill',
+        size: '12',
+        onClick: () => {
+          // Print the table
+          showNoOpenMessage()
+        },
+      },
+      {
+        label: '设置',
+        icon: 'settings',
+        size: '12',
+        onClick: () => {
+          // Open settings
+          showNoOpenMessage()
+        },
       },
     ]
   })
@@ -41,7 +64,6 @@ export function useSearchTable() {
   return {
     containerRef,
     tableRef,
-    isFullscreen,
     data,
     pageConfig,
     loading,
@@ -49,7 +71,5 @@ export function useSearchTable() {
     operationButtonList,
     reset,
     search,
-    toggleFullscreen,
-    downloadCsv,
   }
 }

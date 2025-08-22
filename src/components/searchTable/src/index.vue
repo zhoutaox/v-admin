@@ -127,17 +127,8 @@ function doFn(fn: string) {
   }
 }
 
-const {
-  tableRef,
-  searchParams,
-  containerRef,
-  operationButtonList,
-  isFullscreen,
-  toggleFullscreen,
-  search,
-  reset,
-  downloadCsv,
-} = useSearchTable()
+const { tableRef, searchParams, containerRef, operationButtonList, search, reset } =
+  useSearchTable()
 </script>
 
 <template>
@@ -168,30 +159,14 @@ const {
           </template>
         </n-space>
         <n-space class="table-actions">
-          {{ isFullscreen }}
+          <n-switch />
+
           <n-tooltip v-for="button in operationButtonList" :key="button.label">
             <template #trigger>
-              <n-button @click="button.onClick" size="small" secondary circle>
-                <template #icon> <v-icon size="8" :icon="button.icon" /> </template>
-              </n-button>
+              <v-icon @click="button.onClick" :size="button.size" :icon="button.icon" />
             </template>
             {{ button.label }}
           </n-tooltip>
-          <!-- <n-button size="small" secondary circle>
-            <template #icon>
-              <v-icon icon="search" />
-            </template>
-          </n-button>
-          <n-button @click="toggleFullscreen" size="small" secondary circle>
-            <template #icon>
-              <v-icon size="8" icon="fullscreen" />
-            </template>
-          </n-button>
-          <n-button @click="downloadCsv" size="small" strong secondary circle>
-            <template #icon>
-              <v-icon icon="download" />
-            </template>
-          </n-button> -->
         </n-space>
       </div>
       <n-space vertical :size="12">
@@ -229,6 +204,8 @@ const {
     }
 
     .table-actions {
+      // display: flex;
+      // align-items: center;
       margin-left: auto;
     }
   }
