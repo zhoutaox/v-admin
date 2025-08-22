@@ -15,6 +15,10 @@ const props = defineProps({
     type: [String, Number],
     default: 10,
   },
+  copy: {
+    type: Boolean,
+    default: false,
+  },
 })
 
 /**
@@ -45,6 +49,7 @@ const iconSize = computed(() => {
     v-if="props.icon"
     aria-hidden="true"
     :style="{ '--icon-color': props.color, '--icon-size': iconSize }"
+    v-copy="props.copy ? iconName : undefined"
   >
     <use :xlink:href="iconName" />
   </svg>

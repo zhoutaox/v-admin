@@ -20,7 +20,7 @@ const handleLoad = () => {
           本月注册人数
         </div>
         <div class="count">
-          <n-number-animation :from="0" :to="12039" />
+          <n-number-animation :from="0" :to="12039" show-separator />
         </div>
         <div class="percent">+10%</div>
       </div>
@@ -32,7 +32,7 @@ const handleLoad = () => {
           本月登录人数
         </div>
         <div class="count">
-          <n-number-animation :from="0" :to="139" />
+          <n-number-animation :from="0" :to="139" show-separator />
         </div>
         <div class="percent">+10%</div>
       </div>
@@ -42,7 +42,7 @@ const handleLoad = () => {
           本月支付金额
         </div>
         <div class="count">
-          <n-number-animation :from="0" :to="1209" />
+          <n-number-animation :from="0" :to="1209" show-separator />
         </div>
         <div class="percent">+10%</div>
       </div>
@@ -54,7 +54,7 @@ const handleLoad = () => {
           本月销售总额
         </div>
         <div class="count">
-          <n-number-animation :from="0" :to="120" />
+          <n-number-animation :from="0" :to="120" show-separator />
         </div>
         <div class="percent">+10%</div>
       </div>
@@ -66,7 +66,7 @@ const handleLoad = () => {
           <div v-for="i in count" :key="i" class="item-line">
             <n-avatar round size="large" :src="avatar" />
             <div class="line">
-              <div class="name">小猪</div>
+              <div class="name">小猪{{ i }}</div>
               <div class="content">
                 <n-text>高级成本会计师</n-text>
                 <n-progress type="line" :percentage="60" indicator-placement="inside" processing />
@@ -83,7 +83,7 @@ const handleLoad = () => {
           <div v-for="i in count" :key="i" class="item-line">
             <n-avatar round size="large" :src="avatar" />
             <div class="line">
-              <div class="name">小猪</div>
+              <div class="name">小猪{{ i }}</div>
               <div class="content">
                 <n-text>高级成本会计师</n-text>
                 <n-progress type="line" :percentage="60" indicator-placement="inside" processing />
@@ -123,6 +123,12 @@ const handleLoad = () => {
           background-color: #fbd786; //#ee9ca7 #12c2e9 #f7797d
           margin-right: 6px;
         }
+      }
+
+      .count {
+        font-size: 20px;
+        font-weight: bold;
+        text-align: center;
       }
 
       &:nth-child(1) {

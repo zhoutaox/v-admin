@@ -9,7 +9,7 @@ const copy: Directive = {
     el.targetContent = binding.value
     const success = binding.arg as ((content: string) => void) | undefined
     el.addEventListener('click', () => {
-      if (!el.targetContent) return message.error('绑定的DOM元素没有可以赋值的内容')
+      if (!el.targetContent) return
       // 创建textarea标签
       const textarea: HTMLTextAreaElement = document.createElement('textarea')
       // 设置相关属性

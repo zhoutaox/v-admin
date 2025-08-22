@@ -13,7 +13,7 @@ import TabsView from './components/TabsView.vue'
 const appStore = useAppStore()
 const viewRef = ref<HTMLElement | null>(null)
 
-const { isFullscreen, toggle } = useFullscreen(viewRef)
+const { toggle } = useFullscreen(viewRef)
 
 const timer = setInterval(() => {
   appStore.watermark = AppConfig.NAME + '\n' + dateUtil.format(new Date())
@@ -43,6 +43,7 @@ onUnmounted(() => {
     >
     </n-watermark>
     <n-layout-sider
+      style="position: fixed; left: 0"
       bordered
       show-trigger
       collapse-mode="width"
@@ -56,27 +57,38 @@ onUnmounted(() => {
       <Logo />
       <AsideMenu />
     </n-layout-sider>
-    <n-layout class="v-layout-main">
-      <main style="margin: 0 10px">
-        <n-layout-header
-          class="v-layout-main--header"
-          :style="{
-            position: 'fixed',
-            right: '20px',
-            zIndex: 10,
-            width: appStore.app.isCollapsed ? 'calc(100% - 90px)' : 'calc(100% - 230px)',
-          }"
-        >
-          <PageHeader />
-          <TabsView :fullscreen="toggle" />
-        </n-layout-header>
-        <header style="height: 126px"></header>
+    <div
+      :style="{
+        width: appStore.app.isCollapsed ? '64px' : '200px',
+      }"
+    ></div>
+    <main class="v-layout-main">
+      <n-layout-header
+        class="v-layout-main--header"
+        :style="{
+          position: 'fixed',
+          right: 0,
+          zIndex: 10,
+          width: appStore.app.isCollapsed ? 'calc(100% - 88px)' : 'calc(100% - 224px)',
+          margin: '0 12px',
+        }"
+      >
+        <PageHeader />
+        <TabsView :fullscreen="toggle" />
+      </n-layout-header>
+
+      <header style="height: 126px"></header>
+      <main style="padding: 0 12px">
         <RouterView v-slot="{ Component, route }">
           <component :is="Component" :key="route.fullPath" />
         </RouterView>
       </main>
-    </n-layout>
+    </main>
   </n-layout>
 </template>
 
-<style scoped></style>
+<style scoped>
+.v-layout {
+  display: flex;
+}
+</style>
