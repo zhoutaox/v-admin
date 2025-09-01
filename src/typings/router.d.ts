@@ -1,15 +1,8 @@
 import 'vue-router'
+import { Menu } from '@/api'
 
 declare module 'vue-router' {
-  interface RouteMeta {
-    /**
-     * # 菜单标题
-     */
-    title: string
-
-    /**
-     * # 菜单图标
-     */
-    icon: string
+  interface RouteMeta extends Menu {
+    name?: string
   }
 }

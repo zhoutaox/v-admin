@@ -13,7 +13,6 @@ export class User extends BaseEntity {
     label: '登录名',
     type: 'Input',
     props: {
-      placeholder: 'xxx',
       clearable: true,
     },
   })
@@ -62,7 +61,7 @@ export class User extends BaseEntity {
 
   @Field({
     label: '用户头像',
-    type: 'Input',
+    type: 'Upload',
   })
   avatar!: string
 

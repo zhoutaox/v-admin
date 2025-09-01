@@ -81,7 +81,9 @@ export class Router {
             path: route.path,
             name: route.title,
             component: this.layoutModules[`/src/views${route.componentUrl}.vue`],
-            meta: route as unknown as RouteMeta,
+            meta: {
+              ...route,
+            },
           }
           this.layoutRoute.children?.push(currRoute)
         }
@@ -110,7 +112,9 @@ export class Router {
               this.componentTestsModules[
                 `/src/components/${route.componentUrl}/__tests__/index.vue`
               ],
-            meta: route as unknown as RouteMeta,
+            meta: {
+              ...route,
+            },
           }
           this.layoutRoute.children?.push(currRoute)
         }

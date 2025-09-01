@@ -68,8 +68,9 @@ const handleLoad = () => {
             <div class="line">
               <div class="name">小猪{{ i }}</div>
               <div class="content">
-                <n-text>高级成本会计师</n-text>
+                <n-text class="text">高级成本会计师</n-text>
                 <n-progress type="line" :percentage="60" indicator-placement="inside" processing />
+                <n-button round size="small" type="primary">查看</n-button>
               </div>
             </div>
           </div>
@@ -166,11 +167,12 @@ const handleLoad = () => {
 
       .item-line {
         display: flex;
-        padding: 6px 12px;
+        padding: 16px 22px;
       }
 
       .line {
         margin-left: 12px;
+        flex: 1;
 
         .name {
           font-weight: bold;
@@ -178,6 +180,12 @@ const handleLoad = () => {
 
         .content {
           display: flex;
+          align-items: center;
+
+          .text {
+            margin-right: 30px;
+            flex-shrink: 0;
+          }
         }
       }
     }

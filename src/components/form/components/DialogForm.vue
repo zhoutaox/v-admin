@@ -40,12 +40,6 @@ function handleAfterLeave() {
         :label="field.name"
         :key="field.dbName"
       >
-        <!-- <FormItem
-          v-model:value="formModel[field.dbName]"
-          :componentType="field.type"
-          :options="field.options"
-          :placeholder="'请输入' + field.label"
-        /> -->
         <component
           :is="ComponentEnum.getComponent(field.widgetType)"
           v-model:value="formModel[field.dbName]"

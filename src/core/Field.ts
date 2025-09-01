@@ -19,6 +19,7 @@ type CompPropsMap = {
   Checkbox: CheckboxProps
   DatePicker: DatePickerProps
   Switch: SwitchProps
+  Upload: object
 }
 
 export type AllComProps = CompPropsMap[keyof CompPropsMap]
@@ -32,6 +33,7 @@ type CompType =
   | 'Checkbox'
   | 'DatePicker'
   | 'Switch'
+  | 'Upload'
 
 interface FieldComponentProps<T extends CompType> {
   label: string
@@ -51,8 +53,14 @@ export function Field<T extends CompType>(props: FieldComponentProps<T>) {
       props.props = {}
     }
 
+    let placeholderPrefix = '请选择'
+
+    if (props.type === 'Input') {
+      placeholderPrefix = '请输入'
+    }
+
     if (!(props?.props as InputProps)?.placeholder) {
-      ;(props.props! as InputProps).placeholder = '请输入' + props.label
+      ;(props.props! as InputProps).placeholder = placeholderPrefix + props.label
     }
 
     const aiFormField = {

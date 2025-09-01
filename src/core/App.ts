@@ -149,12 +149,16 @@ async function setupComponents(app: VueApp) {
     menu.path = '/components/' + name
     menu.componentUrl = path.replace('/__tests__/index.vue', '')
     menu.icon = record.get(componentName)?.icon || 'component'
+    menu.breadcrumb = [componentMenu.title, menu.title]
     componentMenu.children.push(menu)
 
     router.layoutRoute.children?.push({
       path: '/components/' + name,
       name: name,
       component: componentTests[path],
+      meta: {
+        ...menu,
+      },
     })
   }
 

@@ -1,5 +1,6 @@
 import type { Component } from 'vue'
 import { NInput, NInputNumber, NCascader, NSelect } from 'naive-ui'
+import { Upload } from '@/components'
 import { Enum } from '@/core'
 
 export class ComponentEnum extends Enum {
@@ -21,7 +22,7 @@ export class ComponentEnum extends Enum {
   static SELECT = new ComponentEnum(1, '下拉框', NSelect, 'Select')
   static RADIO = new ComponentEnum(2, '单选框', NInput, 'Radio')
   static PASSWORD = new ComponentEnum(3, '密码输入框', NInput, 'Input')
-  static IMG = new ComponentEnum(4, '单图上传', NInput, 'Input')
+  static IMG = new ComponentEnum(4, '单图上传', Upload, 'Upload')
   static MULTI_IMG = new ComponentEnum(5, '多图上传', NInput, 'Input')
   static TEXTAREA = new ComponentEnum(6, '文本区域', NInput, 'Input')
   static CASCADER = new ComponentEnum(7, '级联选择', NCascader, 'Cascader')
