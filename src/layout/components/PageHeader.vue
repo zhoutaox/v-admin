@@ -60,7 +60,7 @@ function handleDropdownSelect(key: string | number, options: DropdownOption) {
   <div class="page-header">
     <div class="left">
       <n-button tertiary round type="primary" class="btn1">常用</n-button>
-      <n-breadcrumb>
+      <n-breadcrumb v-if="app.isShowBreadcrumb">
         <n-breadcrumb-item v-for="breadcrumb in routes.meta.breadcrumb" :key="breadcrumb">{{
           breadcrumb
         }}</n-breadcrumb-item>

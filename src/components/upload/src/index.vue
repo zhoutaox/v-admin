@@ -15,7 +15,13 @@ defineOptions({
 </script>
 
 <template>
+  <div class="upload-container"></div>
   <n-upload action="https://www.mocky.io/v2/5e4bafc63100007100d8b70f" list-type="image"> </n-upload>
 </template>
 
-<style scoped></style>
+<style scoped>
+.upload-container {
+  width: 200px;
+  height: 200px;
+}
+</style>

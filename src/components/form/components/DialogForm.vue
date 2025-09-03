@@ -34,18 +34,20 @@ function handleAfterLeave() {
     :title="formConfig.title"
   >
     <n-form ref="formRef" :model="formModel" :rules="rules" :label-width="formConfig.labelWidth">
-      <n-form-item
-        v-for="field in fieldList"
-        :path="field.dbName"
-        :label="field.name"
-        :key="field.dbName"
-      >
-        <component
-          :is="ComponentEnum.getComponent(field.widgetType)"
-          v-model:value="formModel[field.dbName]"
-          v-bind="field.props"
-        />
-      </n-form-item>
+      <n-grid x-gap="20" :cols="formConfig.cols">
+        <n-form-item-gi
+          v-for="field in fieldList"
+          :key="field.dbName"
+          :path="field.dbName"
+          :label="field.name"
+        >
+          <component
+            :is="ComponentEnum.getComponent(field.widgetType)"
+            v-model:value="formModel[field.dbName]"
+            v-bind="field.props"
+          />
+        </n-form-item-gi>
+      </n-grid>
     </n-form>
 
     <template #footer>
@@ -60,5 +62,14 @@ function handleAfterLeave() {
 <style scoped>
 .cancel-btn {
   margin-right: 10px;
+}
+
+.light-green {
+  height: 108px;
+  background-color: rgba(0, 128, 0, 0.12);
+}
+.green {
+  height: 108px;
+  background-color: rgba(0, 128, 0, 0.24);
 }
 </style>

@@ -46,7 +46,11 @@ export type PostConfig = {
 
 export function Post(path: string, config?: PostConfig): MethodDecorator {
   // @ts-expect-error 暂时无法解决
-  return (_, propertyKey, descriptor: TypedPropertyDescriptor<(...args: object[]) => unknown>) => {
+  return (
+    target,
+    propertyKey,
+    descriptor: TypedPropertyDescriptor<(...args: object[]) => unknown>,
+  ) => {
     const originalMethod = descriptor.value as (...args: unknown[]) => unknown
 
     descriptor.value = async function (...args: object[]): Promise<unknown> {

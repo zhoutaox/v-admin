@@ -77,7 +77,11 @@ onUnmounted(() => {
         <TabsView :fullscreen="toggle" />
       </n-layout-header>
 
-      <header style="height: 126px"></header>
+      <header
+        :style="{
+          height: appStore.app.isShowTag ? '126px' : '82px',
+        }"
+      ></header>
       <main style="padding: 0 12px">
         <RouterView v-slot="{ Component, route }">
           <component :is="Component" :key="route.fullPath" />

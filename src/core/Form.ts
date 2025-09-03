@@ -40,6 +40,11 @@ interface FormOptions extends Partial<FormProps> {
    * # 标题
    */
   title?: string
+
+  /**
+   * # 显示的栅格数量
+   */
+  cols?: number
 }
 
 /**
@@ -55,6 +60,7 @@ export function Form(options: FormOptions = {}) {
       showRequireMark: true,
       showFeedback: true,
       title: '',
+      cols: 1,
       ...options,
     }
 

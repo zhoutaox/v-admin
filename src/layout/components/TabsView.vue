@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { useRoute, useRouter } from 'vue-router'
+import { storeToRefs } from 'pinia'
 import { renderIcon } from '@/utils'
-import { useTabStore } from '@/stores'
+import { useTabStore, useAppStore } from '@/stores'
 import { AppConfig } from '@/enums'
 
 const props = defineProps<{
@@ -11,6 +12,7 @@ const props = defineProps<{
 const route = useRoute()
 const router = useRouter()
 const tabStore = useTabStore()
+const { app } = storeToRefs(useAppStore())
 const options = [
   {
     label: '内容全屏',
@@ -84,13 +86,24 @@ function handleTabClick(name: string) {
     router.push({ path: name })
   }
 }
+
+function handleTabClose(name: string) {
+  tabStore.removeTab(name)
+}
 </script>
 
 <template>
-  <div class="tabs-view">
+  <div class="tabs-view" v-if="app.isShowTag">
     <div class="left">
       <div class="tabs-wrapper">
-        <n-tabs type="card" closable class="tabs" justify-content="start" :value="route.path">
+        <n-tabs
+          type="card"
+          closable
+          class="tabs"
+          justify-content="start"
+          :value="route.path"
+          @close="handleTabClose"
+        >
           <n-tab
             v-for="panel in tabStore.tabList"
             :key="panel.value"
@@ -99,9 +112,12 @@ function handleTabClick(name: string) {
             @click="handleTabClick(panel.value as string)"
             :class="{ 'tab-item': true, 'tab-item-active': panel.value === route.path }"
           >
-            <v-icon color="" :icon="panel.icon" style="margin-right: 6px" size="12" />{{
-              panel.label
-            }}
+            <v-icon
+              v-if="app.isShowTagIcon"
+              :icon="panel.icon"
+              style="margin-right: 6px"
+              size="12"
+            />{{ panel.label }}
           </n-tab>
         </n-tabs>
       </div>

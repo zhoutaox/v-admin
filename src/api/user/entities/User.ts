@@ -5,6 +5,7 @@ import { BaseEntity, Field, Form } from '@/core'
 @Form({
   title: '用户',
   crud: api.user,
+  cols: 2,
 })
 export class User extends BaseEntity {
   @IsNotEmpty({ message: '登录名不能为空' })
@@ -60,12 +61,6 @@ export class User extends BaseEntity {
   phone!: string
 
   @Field({
-    label: '用户头像',
-    type: 'Upload',
-  })
-  avatar!: string
-
-  @Field({
     label: '性别',
     type: 'Select',
     props: {
@@ -76,4 +71,10 @@ export class User extends BaseEntity {
     },
   })
   sex: '0' | '1' = '1'
+
+  @Field({
+    label: '用户头像',
+    type: 'Upload',
+  })
+  avatar!: string
 }

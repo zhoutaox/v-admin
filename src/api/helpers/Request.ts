@@ -9,7 +9,6 @@ import type {
 import { secureUtil, type ApiResponse } from 'bstm-utils'
 import { RequestHeaderEnum, AppConfig, SymbolKeys } from '@/enums'
 import { API_MAP, type PostConfig } from '@/core'
-import { notification } from '@/utils'
 import { Log } from '../../core/Log'
 
 function sm2Adapter() {

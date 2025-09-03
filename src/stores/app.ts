@@ -32,6 +32,11 @@ export const useAppStore = defineStore(
       isShowBreadcrumb: true,
 
       /**
+       * # 是否显示面包屑图标
+       */
+      isShowBreadcrumbIcon: true,
+
+      /**
        * # 是否显示多标签
        */
       isShowTag: true,

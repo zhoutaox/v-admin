@@ -3,6 +3,8 @@ import { Controller, Post } from '@/core'
 import { Request } from './helpers/Request'
 import { UserApi } from './user'
 import { MenuApi } from './menu'
+import { DictApi } from './dict'
+import { QuestionnaireApi } from './questionnaire'
 
 export * from './dto'
 export * from './entities'
@@ -11,6 +13,8 @@ export * from './entities'
 class Api extends Request {
   user = new UserApi()
   menu = new MenuApi()
+  dict = new DictApi()
+  questionnaire = new QuestionnaireApi()
 
   @Post('/app')
   app(): Promise<ApiResponse> {

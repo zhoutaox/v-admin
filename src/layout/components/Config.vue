@@ -23,19 +23,19 @@ defineExpose({
       </div>
       <div class="item">
         <div class="item-title">是否显示面包屑</div>
-        <n-switch :checked-value="BooleanEnum.YES" :unchecked-value="BooleanEnum.NO" />
+        <n-switch v-model:value="app.isShowBreadcrumb" />
       </div>
       <div class="item">
         <div class="item-title">是否显示面包屑图标</div>
-        <n-switch :checked-value="BooleanEnum.YES" :unchecked-value="BooleanEnum.NO" />
+        <n-switch v-model:value="app.isShowBreadcrumbIcon" />
       </div>
       <div class="item">
         <div class="item-title">是否显示多标签</div>
-        <n-switch :checked-value="BooleanEnum.YES" :unchecked-value="BooleanEnum.NO" />
+        <n-switch v-model:value="app.isShowTag" />
       </div>
       <div class="item">
         <div class="item-title">是否显示多标签图标</div>
-        <n-switch :checked-value="BooleanEnum.YES" :unchecked-value="BooleanEnum.NO" />
+        <n-switch v-model:value="app.isShowTagIcon" />
       </div>
     </n-drawer-content>
   </n-drawer>
