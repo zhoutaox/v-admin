@@ -93,5 +93,40 @@ export function initMenu(menuList: Menu[]) {
 
   menu3.children = [m3_c1, m3_c2]
 
-  return [menu1, menu2, menu3, ...menuList]
+  const menu4 = new Menu()
+  menu4.title = '系统配置'
+  menu4.icon = 'settings'
+  menu4.path = '/system/config'
+
+  const m4_c1 = new Menu()
+  m4_c1.title = '应用参数'
+
+  menu4.children = [m4_c1]
+
+  const menu5 = new Menu()
+  menu5.title = '问卷管理'
+  menu5.icon = 'customer-service'
+  menu5.path = '/questionnaire'
+
+  const menu6 = new Menu()
+  menu6.title = '搜索页'
+  menu6.icon = 'search'
+  menu6.path = '/search'
+
+  const menu7 = new Menu()
+  menu7.title = '常用模版'
+  menu7.icon = 'template'
+  menu7.path = '/template'
+
+  const menu8 = new Menu()
+  menu8.title = '异常页面'
+  menu8.icon = 'bug'
+  menu8.path = '/error'
+
+  const menu9 = new Menu()
+  menu9.title = '文档'
+  menu9.icon = 'documentation'
+  menu9.path = '/documentation'
+
+  return [menu1, menu2, menu3, menu4, menu5, menu6, menu7, menu8, menu9, ...menuList]
 }

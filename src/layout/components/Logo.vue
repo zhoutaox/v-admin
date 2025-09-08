@@ -14,11 +14,16 @@ const { app, avatar } = storeToRefs(useAppStore())
 
 <style scoped lang="scss">
 .logo {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   padding-top: 12px;
   margin-bottom: 10px;
+  background-color: #fff;
 
   h2 {
     display: inline-block;

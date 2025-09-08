@@ -43,7 +43,7 @@ onUnmounted(() => {
     >
     </n-watermark>
     <n-layout-sider
-      style="position: fixed; left: 0"
+      style="position: fixed; left: 0; height: 100vh"
       bordered
       show-trigger
       collapse-mode="width"
@@ -55,6 +55,7 @@ onUnmounted(() => {
       :collapsed="appStore.app.isCollapsed"
     >
       <Logo />
+      <div style="height: 52px"></div>
       <AsideMenu />
     </n-layout-sider>
     <div
