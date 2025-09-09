@@ -1,5 +1,11 @@
 <script setup lang="ts">
-import { dependencies, devDependencies, description, version } from '../../../package.json'
+import {
+  dependencies,
+  devDependencies,
+  description,
+  version,
+  previewUrl,
+} from '../../../package.json'
 </script>
 
 <template>
@@ -9,7 +15,7 @@ import { dependencies, devDependencies, description, version } from '../../../pa
       <n-descriptions-item label="版本"> {{ version }}</n-descriptions-item>
       <n-descriptions-item label="最新构建时间"> </n-descriptions-item>
       <n-descriptions-item label="Github 地址"> </n-descriptions-item>
-      <n-descriptions-item label="预览地址"> </n-descriptions-item>
+      <n-descriptions-item label="预览地址">{{ previewUrl }} </n-descriptions-item>
     </n-descriptions>
   </v-card>
   <v-card class="card" title="生产依赖">

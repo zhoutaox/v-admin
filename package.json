@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "description": "A management system template built based on Vue3 and NaiveUI.",
+  "previewUrl": "https://v-admin-docs.vercel.app",
   "scripts": {
     "prepare": "husky install",
     "dev": "vite",
