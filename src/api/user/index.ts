@@ -1,5 +1,5 @@
 import type { ApiResponse } from 'bstm-utils'
-import { Controller, Post, AbstractApi, VerifyParameter, Loading } from '@/core'
+import { Controller, Post, AbstractApi, VerifyParameter } from '@/core'
 import { UserLoginDto } from './dto'
 import { User } from './entities'
 

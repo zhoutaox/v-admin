@@ -55,12 +55,13 @@ onUnmounted(() => {
       :collapsed="appStore.app.isCollapsed"
     >
       <Logo />
-      <div style="height: 52px"></div>
       <AsideMenu />
     </n-layout-sider>
     <div
       :style="{
         width: appStore.app.isCollapsed ? '64px' : '200px',
+        flexShrink: 0,
+        transition: 'width 0.2s',
       }"
     ></div>
     <main class="v-layout-main">

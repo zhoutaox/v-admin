@@ -8,7 +8,7 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
-    __tests__: typeof import('./src/components/icon/__tests__/index.vue')['default']
+    __tests__: typeof import('./src/components/card/__tests__/index.vue')['default']
     DialogForm: typeof import('./src/components/form/components/DialogForm.vue')['default']
     DrawerForm: typeof import('./src/components/form/components/DrawerForm.vue')['default']
     NAvatar: typeof import('naive-ui')['NAvatar']
@@ -24,6 +24,8 @@ declare module 'vue' {
     NCollapseItem: typeof import('naive-ui')['NCollapseItem']
     NConfigProvider: typeof import('naive-ui')['NConfigProvider']
     NDataTable: typeof import('naive-ui')['NDataTable']
+    NDescriptions: typeof import('naive-ui')['NDescriptions']
+    NDescriptionsItem: typeof import('naive-ui')['NDescriptionsItem']
     NDivider: typeof import('naive-ui')['NDivider']
     NDrawer: typeof import('naive-ui')['NDrawer']
     NDrawerContent: typeof import('naive-ui')['NDrawerContent']
@@ -62,6 +64,6 @@ declare module 'vue' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SearchForm: typeof import('./src/components/searchTable/components/SearchForm.vue')['default']
-    Src: typeof import('./src/components/editor/src/index.vue')['default']
+    Src: typeof import('./src/components/card/src/index.vue')['default']
   }
 }

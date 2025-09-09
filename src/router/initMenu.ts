@@ -96,12 +96,21 @@ export function initMenu(menuList: Menu[]) {
   const menu4 = new Menu()
   menu4.title = '系统配置'
   menu4.icon = 'settings'
-  menu4.path = '/system/config'
+  menu4.path = '/parameter'
 
   const m4_c1 = new Menu()
   m4_c1.title = '应用参数'
+  m4_c1.path = '/parameter/app'
+  m4_c1.componentUrl = '/parameter/app'
+  m4_c1.breadcrumb = ['系统配置', '应用参数']
 
-  menu4.children = [m4_c1]
+  const m4_c2 = new Menu()
+  m4_c2.title = '数据库信息'
+  m4_c2.path = '/parameter/db'
+  m4_c2.componentUrl = '/parameter/db'
+  m4_c2.breadcrumb = ['系统配置', '数据库信息']
+
+  menu4.children = [m4_c1, m4_c2]
 
   const menu5 = new Menu()
   menu5.title = '问卷管理'
@@ -113,20 +122,95 @@ export function initMenu(menuList: Menu[]) {
   menu6.icon = 'search'
   menu6.path = '/search'
 
+  const menu6_c1 = new Menu()
+  menu6_c1.title = '搜索模版'
+  menu6_c1.icon = 'template'
+  menu6_c1.path = '/search/template'
+  menu6_c1.componentUrl = '/search/template'
+  menu6_c1.breadcrumb = ['搜索页', '搜索模版']
+
+  menu6.children.push(menu6_c1)
+
   const menu7 = new Menu()
   menu7.title = '常用模版'
   menu7.icon = 'template'
   menu7.path = '/template'
 
+  const menu7_c1 = new Menu()
+  menu7_c1.title = '成功页'
+  menu7_c1.icon = 'template'
+  menu7_c1.path = '/template/success'
+  menu7_c1.componentUrl = '/template/success'
+  menu7_c1.breadcrumb = ['常用模版', '成功页']
+
+  const menu7_c2 = new Menu()
+  menu7_c2.title = '失败页'
+  menu7_c2.icon = 'template'
+  menu7_c2.path = '/template/fail'
+  menu7_c2.componentUrl = '/template/fail'
+  menu7_c2.breadcrumb = ['常用模版', '失败页']
+
+  const menu7_c3 = new Menu()
+  menu7_c3.title = '信息页'
+  menu7.icon = 'template'
+  menu7_c3.path = '/template/info'
+  menu7_c3.componentUrl = '/template/info'
+  menu7_c3.breadcrumb = ['常用模版', '信息页']
+
+  menu7.children.push(menu7_c1, menu7_c2, menu7_c3)
+
   const menu8 = new Menu()
   menu8.title = '异常页面'
-  menu8.icon = 'bug'
+  menu8.icon = 'error'
   menu8.path = '/error'
+
+  const menu8_c1 = new Menu()
+  menu8_c1.title = '403'
+  menu8_c1.path = '/403'
+  menu8_c1.componentUrl = '/error/403'
+  menu8_c1.breadcrumb = ['异常页面', '403']
+
+  const menu8_c2 = new Menu()
+  menu8_c2.title = '404'
+  menu8_c2.path = '/404'
+  menu8_c2.componentUrl = '/error/404'
+  menu8_c2.breadcrumb = ['异常页面', '404']
+
+  const menu8_c3 = new Menu()
+  menu8_c3.title = '500'
+  menu8_c3.path = '/500'
+  menu8_c3.componentUrl = '/error/500'
+  menu8_c3.breadcrumb = ['异常页面', '500']
+
+  menu8.children = [menu8_c1, menu8_c2, menu8_c3]
 
   const menu9 = new Menu()
   menu9.title = '文档'
-  menu9.icon = 'documentation'
+  menu9.icon = 'sousuopaixu'
   menu9.path = '/documentation'
+  menu9.componentUrl = '/documentation'
+  menu9.breadcrumb = ['文档']
 
-  return [menu1, menu2, menu3, menu4, menu5, menu6, menu7, menu8, menu9, ...menuList]
+  const menu9_c1 = new Menu()
+  menu9_c1.title = 'vue'
+  menu9_c1.path = '/documentation/vue'
+  menu9_c1.componentUrl = '/documentation/vue'
+  menu9_c1.breadcrumb = ['文档', 'vue']
+
+  const menu9_c2 = new Menu()
+  menu9_c2.title = 'pinia'
+  menu9_c2.path = '/documentation/pinia'
+  menu9_c2.componentUrl = '/documentation/pinia'
+  menu9_c2.breadcrumb = ['文档', 'pinia']
+
+  menu9.children = [menu9_c1, menu9_c2]
+
+  const menu10 = new Menu()
+  menu10.title = '关于'
+  menu10.path = '/about'
+  menu10.icon = 'business-icon-feeds-logo'
+  menu10.componentUrl = '/documentation/about'
+  menu10.breadcrumb = ['关于']
+
+  return [menu1, menu2, menu3, menu4, menu5, menu6, menu7, menu8, menu9, ...menuList, menu10]
 }

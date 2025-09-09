@@ -1,11 +1,10 @@
 <script setup lang="ts">
-import { useAppStore, useRouterStore, useTabStore } from '@/stores'
-import { initMenu } from '@/router/initMenu'
-import { type MenuOption } from 'naive-ui'
-import { Menu } from '@/api/menu/entities/Menu'
-import { renderIcon } from '@/utils'
-import { useRoute, useRouter } from 'vue-router'
 import { computed } from 'vue'
+import { type MenuOption } from 'naive-ui'
+import { useRoute, useRouter } from 'vue-router'
+import { useAppStore, useRouterStore, useTabStore } from '@/stores'
+import { Menu } from '@/api'
+import { renderIcon } from '@/utils'
 
 const { menus } = useRouterStore()
 const { app } = useAppStore()
@@ -18,7 +17,7 @@ function convertMenuToMenuOptions(menus: Menu[]): MenuOption[] {
     const menuOption: MenuOption = {
       label: menu.title,
       key: menu.path,
-      icon: renderIcon(menu.icon),
+      icon: renderIcon(menu.icon || 'lable'),
     }
     if (menu.children && menu.children.length) {
       menuOption.children = convertMenuToMenuOptions(menu.children)

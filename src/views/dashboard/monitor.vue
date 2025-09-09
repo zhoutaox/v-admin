@@ -163,6 +163,9 @@ const option = ref<EChartsCoreOption>({
 </template>
 
 <style scoped lang="scss">
+.monitor {
+  width: 100%;
+}
 .chart {
   padding: 20px;
   box-sizing: border-box;

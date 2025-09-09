@@ -22,6 +22,7 @@ function handleUpdateValue(newValue: number) {
           <n-avatar round :size="60" :src="avatar" />
           <div class="info">
             <div class="name">早安，SUN，开始您一天的工作吧！</div>
+            <div class="desc">今日阴转大雨，15℃ - 25℃，出门记得带伞哦。</div>
           </div>
         </div>
         <div class="right"></div>
@@ -59,6 +60,17 @@ function handleUpdateValue(newValue: number) {
 
   .left {
     display: flex;
+    align-items: center;
+
+    .info {
+      margin-left: 20px;
+    }
+
+    .name {
+      margin-bottom: 4px;
+      font-size: 16px;
+      font-weight: bold;
+    }
   }
 }
 </style>
