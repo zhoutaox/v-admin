@@ -6,7 +6,7 @@ import { useLoading } from '@/hooks'
 import 'normalize.css'
 import { router } from '@/router'
 import { AppConfig } from '@/enums'
-import { Menu } from '@/api'
+import { Menu } from '@/api/menu/entities'
 import { camelToKebabAdvanced } from '@/utils'
 // styles
 import 'animate.css'

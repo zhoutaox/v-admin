@@ -7,5 +7,3 @@ export class MenuApi extends AbstractApi {
     return this.post()
   }
 }
-
-export * from './entities'

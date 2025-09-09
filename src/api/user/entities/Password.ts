@@ -1,6 +1,5 @@
 import { IsNotEmpty } from 'class-validator'
 import { BaseEntity, Field, Form } from '@/core'
-import { ComponentEnum } from '@/enums'
 
 @Form({
   title: '修改密码',

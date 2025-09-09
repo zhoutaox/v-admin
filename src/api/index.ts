@@ -6,9 +6,6 @@ import { MenuApi } from './menu'
 import { DictApi } from './dict'
 import { QuestionnaireApi } from './questionnaire'
 
-export * from './dto'
-export * from './entities'
-
 @Controller('')
 class Api extends Request {
   user = new UserApi()
