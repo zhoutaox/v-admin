@@ -1,7 +1,7 @@
 import { useLoading } from '@/hooks'
 
 export function Loading() {
-  return function (_: Object, key: string, descriptor: PropertyDescriptor) {
+  return function (_: object, key: string, descriptor: PropertyDescriptor) {
     const originalMethod = descriptor.value
     descriptor.value = function (...args: unknown[]) {
       console.log(args)

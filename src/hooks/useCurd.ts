@@ -1,9 +1,9 @@
 import { ref, reactive, type Ref, type Reactive, watch } from 'vue'
 import { NForm } from 'naive-ui'
 import { type RuleItem } from 'async-validator'
-import { BaseEntity } from '@/core/BaseEntity'
+import { BaseEntity, getNaiveUiRules } from '@/core/BaseEntity'
 import { getFormConfig } from '@/core'
-import { message, getNaiveUiRules } from '@/utils'
+import { message } from '@/utils'
 import { AiFormField } from '@/api'
 
 interface UseCrudReturn<T extends BaseEntity> {

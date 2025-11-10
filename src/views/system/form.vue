@@ -1,12 +1,10 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import FormDesign from '@/components/formDesign/src/index.vue'
 import { SearchTableComponent, SearchTable } from '@/components/searchTable'
 import { AiFormButton, AiFormListSearch } from '@/api/aiForm/entities'
 import { User } from '@/api/user/entities'
 import { ButtonEnum, ComponentEnum } from '@/enums'
 import { openForm } from '@/utils'
-import { Log } from '@/core'
 
 // 明确指定类型，避免类型推断过深
 const searchTable = ref<SearchTable>(new SearchTable())

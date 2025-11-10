@@ -1,6 +1,6 @@
 import 'reflect-metadata'
 import { getMetadataStorage } from 'class-validator'
-import { classValidatorTransform } from '@/utils'
+import { classValidatorTransform } from '@/core'
 import { SymbolKeys } from '@/enums'
 
 /**
@@ -8,7 +8,7 @@ import { SymbolKeys } from '@/enums'
  * 用于在方法参数上添加元数据，便于后续参数校验
  * @param options 校验参数配置
  */
-export function VerifyParameter(target: Object, propertyKey: string, parameterIndex: number) {
+export function VerifyParameter(target: object, propertyKey: string, parameterIndex: number) {
   const paramTypes = Reflect.getMetadata('design:paramtypes', target, propertyKey)
   const instance = paramTypes[parameterIndex]
 

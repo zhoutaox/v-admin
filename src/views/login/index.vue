@@ -3,8 +3,9 @@ import type { FormInst } from 'naive-ui'
 import { ref } from 'vue'
 import { LogoWechat } from '@vicons/ionicons5'
 import { AppConfig } from '@/enums'
-import { api, UserLoginDto } from '@/api'
-import { showNoOpenMessage, getNaiveUiRules } from '@/utils'
+import { UserLoginDto } from '@/api/dto'
+import { UserApi } from '@/api/user'
+import { showNoOpenMessage } from '@/utils'
 
 const formRef = ref<FormInst | null>(null)
 const formValue = ref(new UserLoginDto())
@@ -13,7 +14,7 @@ function doSubmit(e: MouseEvent) {
   e.preventDefault()
   formRef.value?.validate((errors) => {
     if (!errors) {
-      api.user.login(formValue.value)
+      new UserApi().login(formValue.value)
     }
   })
 }
@@ -49,7 +50,7 @@ function doSubmit(e: MouseEvent) {
           <n-form
             ref="formRef"
             :model="formValue"
-            :rules="getNaiveUiRules(UserLoginDto)"
+            :rules="UserLoginDto.getRules()"
             :show-label="false"
             size="large"
           >

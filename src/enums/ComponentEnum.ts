@@ -1,6 +1,6 @@
 import type { Component } from 'vue'
 import { NInput, NInputNumber, NCascader, NSelect } from 'naive-ui'
-import { Upload } from '@/components'
+import { Upload } from '../components'
 import { Enum } from '@/core'
 
 export class ComponentEnum extends Enum {

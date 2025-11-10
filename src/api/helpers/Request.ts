@@ -92,7 +92,9 @@ export class Request {
           if (data) {
             try {
               response.data = JSON.parse(secureUtil.decryptBySM4(response.data))
-            } catch (e) {}
+            } catch (e) {
+              Log.error(e)
+            }
           }
 
           if (AppConfig.ENABLE_API_LOG) {
