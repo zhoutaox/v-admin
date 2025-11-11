@@ -99,7 +99,7 @@ function registerPlugins(app: VueApp, plugins: Plugin[]) {
  * @param app vue实例
  */
 async function setupRouter(app: VueApp) {
-  const { addRoute, menus } = useRouterStore()
+  const { addRoute } = useRouterStore()
   const menu = await setupComponents(app)
   addRoute([menu])
 

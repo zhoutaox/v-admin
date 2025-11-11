@@ -7,6 +7,7 @@ import type {
   CheckboxProps,
   DatePickerProps,
   SwitchProps,
+  TreeSelectProps,
 } from 'naive-ui'
 import { ComponentEnum } from '../enums/ComponentEnum'
 
@@ -20,6 +21,7 @@ type CompPropsMap = {
   DatePicker: DatePickerProps
   Switch: SwitchProps
   Upload: object
+  TreeSelect: TreeSelectProps
 }
 
 export type AllComProps = CompPropsMap[keyof CompPropsMap]
@@ -34,6 +36,7 @@ type CompType =
   | 'DatePicker'
   | 'Switch'
   | 'Upload'
+  | 'TreeSelect'
 
 interface FieldComponentProps<T extends CompType> {
   label: string
@@ -67,7 +70,11 @@ export function Field<T extends CompType>(props: FieldComponentProps<T>) {
       dbName: propertyKey,
       name: props.label,
       widgetType: ComponentEnum.getKeyByTag(props.type || ComponentEnum.INPUT.tag),
-      props: props.props || {},
+      props:
+        Object.assign(
+          ComponentEnum.getParamByTag(props.type || ComponentEnum.INPUT.tag),
+          props.props,
+        ) || {},
     }
 
     target.constructor.prototype.fields.push(aiFormField)

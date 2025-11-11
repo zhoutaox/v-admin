@@ -38,6 +38,7 @@ function handleAfterLeave() {
     style="width: 600px"
     :title="formConfig.title"
   >
+    {{ formModel }}
     <n-form ref="formRef" :model="formModel" :rules="rules" :label-width="formConfig.labelWidth">
       <n-grid x-gap="20" :cols="formConfig.cols">
         <n-form-item-gi

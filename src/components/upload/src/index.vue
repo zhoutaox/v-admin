@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { type PropType } from 'vue'
+import { useAttrs, type PropType } from 'vue'
 
 const props = defineProps({
   type: {
@@ -15,7 +15,7 @@ defineOptions({
 </script>
 
 <template>
-  <div class="upload-container"></div>
+  <div class="upload-container" v-bind="useAttrs()">22</div>
   <n-upload action="https://www.mocky.io/v2/5e4bafc63100007100d8b70f" list-type="image"> </n-upload>
 </template>
 

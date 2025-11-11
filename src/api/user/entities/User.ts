@@ -30,7 +30,7 @@ export class User extends BaseEntity {
   @IsNotEmpty({ message: '密码不能为空' })
   @Field({
     label: '密码',
-    type: 'Cascader',
+    type: 'Select',
     props: {
       options: [
         { label: '强', value: 'strong' },
@@ -62,7 +62,7 @@ export class User extends BaseEntity {
 
   @Field({
     label: '性别',
-    type: 'Select',
+    type: 'TreeSelect',
     props: {
       options: [
         { label: '男', value: '1' },
