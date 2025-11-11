@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-// import { type FieldProps } from '@/core'
 
 const props = withDefaults(
   defineProps<{
@@ -16,26 +15,7 @@ const formData = computed(() => {
 </script>
 
 <template>
-  <n-form ref="formRef">
-    <!-- <n-form-item
-      v-for="item in field"
-      :label="item.label"
-      :key="item.propertyKey"
-      :path="item.propertyKey"
-    >
-      <n-select
-        v-if="item.options"
-        v-model:value="formData[item.propertyKey]"
-        :options="item.options"
-      />
-      <n-input
-        v-else
-        v-model:value="formData[item.propertyKey]"
-        @keydown.enter.prevent
-        :placeholder="item.placeholder"
-      />
-    </n-form-item> -->
-  </n-form>
+  <n-form ref="formRef"> </n-form>
 </template>
 
 <style scoped></style>

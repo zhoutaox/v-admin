@@ -8,7 +8,7 @@ import type {
 } from 'axios'
 import { secureUtil, type ApiResponse } from 'bstm-utils'
 import { RequestHeaderEnum, AppConfig, SymbolKeys } from '@/enums'
-import { API_MAP, type PostConfig } from '@/core'
+import { API_MAP, type PostConfig } from './plugins/Post'
 import { Log } from '../../core/Log'
 
 function sm2Adapter() {

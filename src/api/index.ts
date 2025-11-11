@@ -1,6 +1,5 @@
 import { type ApiResponse } from 'bstm-utils'
-import { Controller, Post } from '@/core'
-import { Request } from './helpers/Request'
+import { Request, Controller, Post } from './helpers'
 import { AiFormApi } from './aiForm'
 import { DictApi } from './dict'
 import { MenuApi } from './menu'

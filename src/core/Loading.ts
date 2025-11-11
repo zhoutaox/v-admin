@@ -1,4 +1,4 @@
-import { useLoading } from '@/hooks'
+import { useLoading } from '../hooks/useLoading'
 
 export function Loading() {
   return function (_: object, key: string, descriptor: PropertyDescriptor) {

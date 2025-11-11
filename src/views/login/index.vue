@@ -4,17 +4,17 @@ import { ref } from 'vue'
 import { LogoWechat } from '@vicons/ionicons5'
 import { AppConfig } from '@/enums'
 import { UserLoginDto } from '@/api/dto'
-import { UserApi } from '@/api/user'
+import { api } from '@/api'
 import { showNoOpenMessage } from '@/utils'
 
 const formRef = ref<FormInst | null>(null)
-const formValue = ref(new UserLoginDto())
+const formValue = ref(UserLoginDto.create())
 
 function doSubmit(e: MouseEvent) {
   e.preventDefault()
   formRef.value?.validate((errors) => {
     if (!errors) {
-      new UserApi().login(formValue.value)
+      api.user.login(formValue.value)
     }
   })
 }

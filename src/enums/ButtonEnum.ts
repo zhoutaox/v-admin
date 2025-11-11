@@ -1,5 +1,6 @@
 import type { Type } from 'naive-ui/es/button/src/interface'
 import { Enum } from '@/core'
+
 export class ButtonEnum extends Enum<Type> {
   static PRIMARY = new ButtonEnum('primary', '主按钮')
   static SUCCESS = new ButtonEnum('success', '成功按钮')

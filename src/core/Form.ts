@@ -1,5 +1,5 @@
 import type { FormProps } from 'naive-ui'
-import type { AbstractApi } from './AbstractApi'
+import type { AbstractApi } from '../api/helpers'
 import type { BaseEntity } from './BaseEntity'
 
 /**

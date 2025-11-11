@@ -1,4 +1,3 @@
-import 'reflect-metadata'
 import { getMetadataStorage } from 'class-validator'
 import { classValidatorTransform } from '@/core'
 import { SymbolKeys } from '@/enums'

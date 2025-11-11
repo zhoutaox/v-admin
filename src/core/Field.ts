@@ -8,7 +8,7 @@ import type {
   DatePickerProps,
   SwitchProps,
 } from 'naive-ui'
-import { ComponentEnum } from '@/enums'
+import { ComponentEnum } from '../enums/ComponentEnum'
 
 type CompPropsMap = {
   Input: InputProps

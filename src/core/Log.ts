@@ -1,7 +1,7 @@
 import { createConsola } from 'consola/browser'
-import { AppConfig } from '@/enums'
-import { notification } from '@/utils'
-import type { Values } from '@/types'
+import { AppConfig } from '../enums'
+import { notification } from '../utils'
+import type { Values } from '../types'
 
 export class Log {
   private static logger = createConsola({

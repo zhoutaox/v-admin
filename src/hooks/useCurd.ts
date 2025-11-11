@@ -1,10 +1,10 @@
-import { ref, reactive, type Ref, type Reactive, watch } from 'vue'
+import { ref, reactive, type Ref, type Reactive } from 'vue'
 import { NForm } from 'naive-ui'
 import { type RuleItem } from 'async-validator'
 import { BaseEntity, getNaiveUiRules } from '@/core/BaseEntity'
 import { getFormConfig } from '@/core'
 import { message } from '@/utils'
-import { AiFormField } from '@/api'
+import { AiFormField } from '@/api/entities'
 
 interface UseCrudReturn<T extends BaseEntity> {
   loading: Ref<boolean>

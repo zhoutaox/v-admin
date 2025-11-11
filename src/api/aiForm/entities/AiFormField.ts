@@ -1,6 +1,5 @@
 import { BaseEntity, Table, type AllComProps } from '@/core'
 import { ComponentEnum } from '@/enums'
-import type { Values } from 'async-validator'
 
 @Table({
   comment: '智能表单字段',

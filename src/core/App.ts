@@ -1,17 +1,19 @@
 import { type Plugin, type App as VueApp, type Directive } from 'vue'
 import { createPinia } from 'pinia'
 import { createPersistedState } from 'pinia-plugin-persistedstate'
+import { AppConfig } from '@/enums'
+import { Menu } from '@/api'
 import { useAppStore, useRouterStore } from '@/stores'
 import { useLoading } from '@/hooks'
 import 'normalize.css'
 import { router } from '@/router'
-import { AppConfig } from '@/enums'
-import { Menu } from '@/api/menu/entities'
 import { camelToKebabAdvanced } from '@/utils'
+
 // styles
 import 'animate.css'
 import '@/styles/index.scss'
 import { Log } from './Log'
+import type { RouteMeta } from 'vue-router'
 
 export type ApiEncipherMode = 'sm2' | 'rsa' | 'aes' | 'sm4'
 
@@ -33,7 +35,7 @@ type AppOptions = {
 }
 
 export function App(app: VueApp, options: AppOptions) {
-  return function (target: new (...args: unknown[]) => unknown) {
+  return function (_: new (...args: unknown[]) => unknown) {
     ;(async () => {
       Log.start('App initialization')
       setupLoading()
@@ -158,7 +160,7 @@ async function setupComponents(app: VueApp) {
       component: componentTests[path],
       meta: {
         ...menu,
-      },
+      } as RouteMeta,
     })
   }
 

@@ -1,9 +1,8 @@
 import { objectUtil, type ApiResponse } from 'bstm-utils'
 import Schema, { type Rules, type ValidateError } from 'async-validator'
-import { plainToClass } from 'class-transformer'
 import { RequestHeaderEnum, SymbolKeys, AppConfig } from '@/enums'
 import { message } from '@/utils'
-import { BaseEntity } from './BaseEntity'
+import { BaseEntity } from '@/core/BaseEntity'
 
 export const API_MAP = new Map()
 const API_CACHE = new Map()

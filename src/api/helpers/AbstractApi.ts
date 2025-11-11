@@ -1,8 +1,8 @@
 import { type ApiResponse } from 'bstm-utils'
-import { Post } from './Post'
-import { Request } from '@/api/helpers/Request'
+import { BaseEntity } from '@/core'
+import { Post } from './plugins/Post'
+import { Request } from './Request'
 import type { MakeOptional } from '@/types'
-import { BaseEntity } from './BaseEntity'
 
 /**
  * AbstractApi 抽象类

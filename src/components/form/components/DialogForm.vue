@@ -1,13 +1,18 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { BaseEntity, getFormConfig } from '@/core'
-import { useCrud } from '@/hooks/useCurd'
-import FormItem from './FormItem'
+import { useCrud } from '@/hooks'
 import { ComponentEnum } from '@/enums'
 
 const props = withDefaults(
   defineProps<{
+    /**
+     * # 关闭回调
+     */
     close: () => void
+    /**
+     * # 实体
+     */
     entity: new () => BaseEntity
   }>(),
   {

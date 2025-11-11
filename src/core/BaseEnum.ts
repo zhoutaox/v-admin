@@ -1,4 +1,4 @@
-import type { IEnum, EnumKey } from '@/types'
+import type { IEnum, EnumKey } from '../types'
 
 /**
  * ### 枚举类
