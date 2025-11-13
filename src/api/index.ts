@@ -4,7 +4,6 @@ import { AiFormApi } from './aiForm'
 import { DictApi } from './dict'
 import { MenuApi } from './menu'
 import { QuestionnaireApi } from './questionnaire'
-import { UserApi } from './user'
 
 export * from './dto'
 export * from './entities'
@@ -18,8 +17,6 @@ class Api extends Request {
   menu = new MenuApi()
 
   questionnaire = new QuestionnaireApi()
-
-  user = new UserApi()
 
   @Post('/app')
   app(): Promise<ApiResponse> {

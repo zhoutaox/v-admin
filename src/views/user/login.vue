@@ -3,8 +3,7 @@ import type { FormInst } from 'naive-ui'
 import { ref } from 'vue'
 import { LogoWechat } from '@vicons/ionicons5'
 import { AppParams } from '@/constants'
-import { UserLoginDto } from '@/api/dto'
-import { api } from '@/api'
+import { userApi, UserLoginDto } from './api'
 import { showNoOpenMessage } from '@/utils'
 
 const formRef = ref<FormInst | null>(null)
@@ -14,7 +13,7 @@ function doSubmit(e: MouseEvent) {
   e.preventDefault()
   formRef.value?.validate((errors) => {
     if (!errors) {
-      api.user.login(formValue.value)
+      userApi.login(formValue.value)
     }
   })
 }
