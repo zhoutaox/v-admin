@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { storeToRefs } from 'pinia'
-import { BooleanEnum } from '@/enums'
 import { useAppStore } from '@/stores'
 
 const isShowAppConfigDrawer = ref(false)

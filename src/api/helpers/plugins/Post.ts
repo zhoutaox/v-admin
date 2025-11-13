@@ -1,6 +1,7 @@
 import { objectUtil, type ApiResponse } from 'bstm-utils'
 import Schema, { type Rules, type ValidateError } from 'async-validator'
-import { RequestHeaderEnum, SymbolKeys, AppConfig } from '@/enums'
+import { RequestHeaderEnum } from '@/enums'
+import { AppParams, SymbolKeys } from '@/constants'
 import { message } from '@/utils'
 import { BaseEntity } from '@/core/BaseEntity'
 
@@ -60,9 +61,9 @@ export function Post(path: string, config?: PostConfig): MethodDecorator {
       if (config?.isCache && API_CACHE.has(url)) {
         const result = API_CACHE.get(url)
         console.log(
-          '\n%c[' + AppConfig.NAME + ']',
+          '\n%c[' + AppParams.NAME + ']',
           'color: #fff;background: #f89898;padding: 2px 4px;border-radius: 6px',
-          AppConfig.CONTEXT_PATH + url,
+          AppParams.CONTEXT_PATH + url,
           '🍕 ~ ' + '解密结果:',
           result,
           '🌮 ~ ' + '请求参数:',

@@ -3,7 +3,7 @@ import { useRoute, useRouter } from 'vue-router'
 import { storeToRefs } from 'pinia'
 import { renderIcon } from '@/utils'
 import { useTabStore, useAppStore } from '@/stores'
-import { AppConfig } from '@/enums'
+import { AppParams } from '@/constants'
 
 const props = defineProps<{
   fullscreen: () => void
@@ -108,7 +108,7 @@ function handleTabClose(name: string) {
             v-for="panel in tabStore.tabList"
             :key="panel.value"
             :name="panel.value"
-            :closable="panel.value !== AppConfig.HOME_PATH"
+            :closable="panel.value !== AppParams.HOME_PATH"
             @click="handleTabClick(panel.value as string)"
             :class="{ 'tab-item': true, 'tab-item-active': panel.value === route.path }"
           >

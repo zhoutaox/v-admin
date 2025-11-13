@@ -1,4 +1,4 @@
-export enum BooleanEnum {
-  NO = 0,
-  YES = 1,
+export class BooleanEnum {
+  static NO = 0
+  static YES = 1
 }

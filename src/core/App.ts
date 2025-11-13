@@ -1,19 +1,18 @@
 import { type Plugin, type App as VueApp, type Directive } from 'vue'
 import { createPinia } from 'pinia'
 import { createPersistedState } from 'pinia-plugin-persistedstate'
-import { AppConfig } from '@/enums'
+import { AppParams } from '@/constants'
 import { Menu } from '@/api'
 import { useAppStore, useRouterStore } from '@/stores'
 import { useLoading } from '@/hooks'
 import 'normalize.css'
 import { router } from '@/router'
 import { camelToKebabAdvanced } from '@/utils'
+import { Log } from './Log'
 
 // styles
 import 'animate.css'
 import '@/styles/index.scss'
-import { Log } from './Log'
-import type { RouteMeta } from 'vue-router'
 
 export type ApiEncipherMode = 'sm2' | 'rsa' | 'aes' | 'sm4'
 
@@ -42,9 +41,6 @@ export function App(app: VueApp, options: AppOptions) {
       registerPlugins(app, options?.plugins || [])
       await setupRouter(app)
 
-      AppConfig.ENABLE_API_LOG = options.enableApiLog || false
-      AppConfig.ENCRYPT_TYPE = options.apiEncipherMode || 'sm2'
-
       setupDirectives(app)
       await setupConfig()
 
@@ -70,7 +66,7 @@ function registerPlugins(app: VueApp, plugins: Plugin[]) {
    */
   const persist = createPersistedState({
     // 存储key的前缀
-    key: (id: string) => `${AppConfig.NAME}_${id}`.toLocaleUpperCase(),
+    key: (id: string) => `${AppParams.NAME}_${id}`.toLocaleUpperCase(),
 
     // 自动恢复状态
     auto: true,
@@ -130,7 +126,7 @@ async function setupComponents(app: VueApp) {
 
     if (component) {
       Log.info(component)
-      component.name = AppConfig.PREFIX + camelToKebabAdvanced(name)
+      component.name = AppParams.PREFIX + camelToKebabAdvanced(name)
       app.use(component)
       record.set(component.name, component)
     }
@@ -160,7 +156,7 @@ async function setupComponents(app: VueApp) {
       component: componentTests[path],
       meta: {
         ...menu,
-      } as RouteMeta,
+      },
     })
   }
 

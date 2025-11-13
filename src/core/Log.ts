@@ -1,5 +1,5 @@
 import { createConsola } from 'consola/browser'
-import { AppConfig } from '../enums'
+import { AppParams } from '../constants'
 import { notification } from '../utils'
 import type { Values } from '../types'
 
@@ -17,7 +17,7 @@ export class Log {
   }
 
   static error(message: unknown) {
-    if (message instanceof Error && AppConfig.IS_DEV) {
+    if (message instanceof Error && AppParams.IS_DEV) {
       notification.error({
         title: '💩 ' + message.message,
         description: message.stack,

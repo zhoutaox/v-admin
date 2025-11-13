@@ -1,4 +1,3 @@
-import { AppConfig } from '@/enums'
 import { createDiscreteApi } from 'naive-ui'
 
 const { message, notification, dialog, loadingBar, modal } = createDiscreteApi([
@@ -12,5 +11,5 @@ const { message, notification, dialog, loadingBar, modal } = createDiscreteApi([
 export { message, notification, dialog, loadingBar, modal }
 
 export function showNoOpenMessage() {
-  message.warning(AppConfig.NOT_OPEN_MSG)
+  message.warning('该功能暂未开放，敬请期待！')
 }

@@ -1,6 +1,6 @@
 import { getMetadataStorage } from 'class-validator'
 import { classValidatorTransform } from '@/core'
-import { SymbolKeys } from '@/enums'
+import { SymbolKeys } from '@/constants'
 
 /**
  * 参数验证装饰器

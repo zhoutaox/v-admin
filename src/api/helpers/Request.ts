@@ -7,7 +7,8 @@ import type {
   InternalAxiosRequestConfig,
 } from 'axios'
 import { secureUtil, type ApiResponse } from 'bstm-utils'
-import { RequestHeaderEnum, AppConfig, SymbolKeys } from '@/enums'
+import { RequestHeaderEnum } from '@/enums'
+import { AppParams, SymbolKeys } from '@/constants'
 import { API_MAP, type PostConfig } from './plugins/Post'
 import { Log } from '../../core/Log'
 
@@ -22,7 +23,7 @@ function sm2Adapter() {
  * 获取加密适配器
  */
 function getSecureAdapter() {
-  switch (AppConfig.ENCRYPT_TYPE) {
+  switch (AppParams.API_ENCRYPT_TYPE) {
     case 'sm2':
       return sm2Adapter()
     default:
@@ -97,9 +98,9 @@ export class Request {
             }
           }
 
-          if (AppConfig.ENABLE_API_LOG) {
+          if (AppParams.API_LOG) {
             console.log(
-              '\n%c[' + AppConfig.NAME + ']',
+              '\n%c[' + AppParams.NAME + ']',
               'color: #fff;background: #f89898;padding: 2px 4px;border-radius: 6px',
               response.config.url,
               '🍕 ~ ' + '解密结果:',
@@ -147,6 +148,6 @@ export class Request {
       },
     }) // 合并配置
 
-    return this.axiosInstance.post(AppConfig.CONTEXT_PATH + url, params.data, config)
+    return this.axiosInstance.post(AppParams.CONTEXT_PATH + url, params.data, config)
   }
 }

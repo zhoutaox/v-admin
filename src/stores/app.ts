@@ -2,14 +2,14 @@ import { ref, computed, watch } from 'vue'
 import { defineStore } from 'pinia'
 import { dateUtil } from 'bstm-utils'
 import { useFavicon } from '@vueuse/core'
-import { AppConfig } from '@/enums'
+import { AppParams } from '@/constants'
 import avatar1 from '@/assets/avatar1.png'
 import avatar2 from '@/assets/avatar2.png'
 
 export const useAppStore = defineStore(
   'app',
   () => {
-    const watermark = ref(AppConfig.NAME + '\n' + dateUtil.format(new Date()))
+    const watermark = ref(AppParams.NAME + '\n' + dateUtil.format(new Date()))
     const config = {
       /**
        * # 是否为深色模式

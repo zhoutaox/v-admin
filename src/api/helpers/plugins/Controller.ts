@@ -1,4 +1,4 @@
-import { SymbolKeys } from '@/enums'
+import { SymbolKeys } from '@/constants'
 
 type ControllerConfig = {
   controllers?: unknown[]

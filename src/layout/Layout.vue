@@ -4,7 +4,7 @@ import { RouterView } from 'vue-router'
 import { dateUtil } from 'bstm-utils'
 import { useFullscreen } from '@vueuse/core'
 import { useAppStore } from '@/stores'
-import { AppConfig } from '@/enums'
+import { AppParams } from '@/constants'
 import Logo from './components/Logo.vue'
 import AsideMenu from './components/AsideMenu.vue'
 import PageHeader from './components/PageHeader.vue'
@@ -16,7 +16,7 @@ const viewRef = ref<HTMLElement | null>(null)
 const { toggle } = useFullscreen(viewRef)
 
 const timer = setInterval(() => {
-  appStore.watermark = AppConfig.NAME + '\n' + dateUtil.format(new Date())
+  appStore.watermark = AppParams.NAME + '\n' + dateUtil.format(new Date())
 }, 1000)
 
 onUnmounted(() => {

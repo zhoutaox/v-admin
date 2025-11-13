@@ -37,7 +37,7 @@ export class Router {
     {
       path: '/login',
       name: 'login',
-      component: () => import('@/views/login/index.vue'),
+      component: () => import('@/views/user/login.vue'),
     },
     this.layoutRoute,
   ]
