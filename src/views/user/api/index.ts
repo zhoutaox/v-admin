@@ -1,8 +1,9 @@
-import { AbstractApi, Post } from '@/api/helpers'
+import { AbstractApi, Post, Controller } from '@/api/helpers'
 import type { User } from './model/User'
-import type { UserLoginDto } from './dto/UserLoginDto'
+import { UserLoginDto } from './dto/UserLoginDto'
 import { VerifyParameter } from '@/core'
 
+@Controller('/user')
 class UserApi extends AbstractApi<User> {
   @Post('layout')
   layout() {
@@ -23,4 +24,6 @@ class UserApi extends AbstractApi<User> {
 }
 
 export const userApi = new UserApi()
+
 export * from './dto/UserLoginDto'
+export * from './model'

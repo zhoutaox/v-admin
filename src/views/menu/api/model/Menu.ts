@@ -1,5 +1,4 @@
 import { BaseEntity, Field } from '@/core'
-// import { BaseEntity } from '@/core/BaseEntity'
 
 export class Menu extends BaseEntity {
   @Field({

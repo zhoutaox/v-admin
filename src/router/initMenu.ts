@@ -1,4 +1,4 @@
-import { Menu } from '@/api/menu/entities/Menu'
+import { Menu } from '@/views/menu/api'
 
 export function initMenu(menuList: Menu[]) {
   const menu1 = new Menu()
