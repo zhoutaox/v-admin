@@ -11,6 +11,11 @@ class Api extends Request {
   uploadConfig() {
     return this.post()
   }
+
+  @Post('/doc')
+  doc() {
+    return this.post()
+  }
 }
 
 export const api = new Api()

@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { SearchTableComponent, SearchTable } from '@/components/searchTable'
-import { AiFormButton, AiFormListSearch } from '@/api/aiForm/entities'
-import { User } from '@/api/user/entities'
+import { AiFormButton, AiFormListSearch } from '@/views/aiForm/api'
+import { User } from '@/views/user/api'
 import { ButtonEnum, ComponentEnum } from '@/enums'
 import { openForm } from '@/utils'
 
