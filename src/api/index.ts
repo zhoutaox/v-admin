@@ -1,15 +1,14 @@
-import { type ApiResponse } from 'bstm-utils'
 import { Request, Controller, Post } from './helpers'
 
 @Controller('')
 class Api extends Request {
   @Post('/app')
-  app(): Promise<ApiResponse> {
+  app() {
     return this.post()
   }
 
   @Post('/uploadConfig')
-  uploadConfig(): Promise<ApiResponse> {
+  uploadConfig() {
     return this.post()
   }
 }
