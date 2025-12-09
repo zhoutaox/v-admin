@@ -1,4 +1,5 @@
 import { BaseEntity, Field } from '@/core'
+import { MenuTypeEnum } from '../../enums/MenuTypeEnum'
 
 export class Menu extends BaseEntity {
   @Field({
@@ -19,7 +20,7 @@ export class Menu extends BaseEntity {
   @Field({
     label: '菜单类型',
   })
-  menuType!: number
+  menuType!: MenuTypeEnum
 
   @Field({
     label: '图标',

@@ -1,4 +1,5 @@
 import { Menu } from '@/views/menu/api'
+import { MenuTypeEnum } from '@/views/menu/enums/MenuTypeEnum'
 
 export function initMenu(menuList: Menu[]) {
   const menu1 = new Menu()
@@ -195,12 +196,14 @@ export function initMenu(menuList: Menu[]) {
   menu9_c1.title = 'vue'
   menu9_c1.path = '/documentation/vue'
   menu9_c1.componentUrl = '/documentation/vue'
+  menu9_c1.menuType = MenuTypeEnum.IFRAME
   menu9_c1.breadcrumb = ['文档', 'vue']
 
   const menu9_c2 = new Menu()
   menu9_c2.title = 'pinia'
   menu9_c2.path = '/documentation/pinia'
   menu9_c2.componentUrl = '/documentation/pinia'
+  menu9_c2.menuType = MenuTypeEnum.IFRAME
   menu9_c2.breadcrumb = ['文档', 'pinia']
 
   menu9.children = [menu9_c1, menu9_c2]

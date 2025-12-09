@@ -1,7 +1,6 @@
 import { AbstractApi, Post, Controller } from '@/api/helpers'
 import type { User } from './model/User'
 import { UserLoginDto } from './dto/UserLoginDto'
-import { VerifyParameter } from '@/core'
 
 @Controller('/user')
 class UserApi extends AbstractApi<User> {
@@ -11,7 +10,7 @@ class UserApi extends AbstractApi<User> {
   }
 
   @Post('login')
-  login(@VerifyParameter userLoginDto: UserLoginDto) {
+  login(userLoginDto: UserLoginDto) {
     return this.post({
       data: userLoginDto,
     })

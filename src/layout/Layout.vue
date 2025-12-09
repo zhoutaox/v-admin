@@ -9,6 +9,7 @@ import Logo from './components/Logo.vue'
 import AsideMenu from './components/AsideMenu.vue'
 import PageHeader from './components/PageHeader.vue'
 import TabsView from './components/TabsView.vue'
+import { MenuTypeEnum } from '@/views/menu/enums/MenuTypeEnum'
 
 const appStore = useAppStore()
 const viewRef = ref<HTMLElement | null>(null)
@@ -86,7 +87,16 @@ onUnmounted(() => {
       ></header>
       <main style="padding: 0 12px">
         <RouterView v-slot="{ Component, route }">
-          <component :is="Component" :key="route.fullPath" />
+          <template v-if="route.meta && route.meta.type == MenuTypeEnum.IFRAME">
+            <iframe
+              :src="route.meta.componentUrl"
+              style="width: 100%; height: 100vh; border: none"
+              :key="route.fullPath"
+            />
+          </template>
+          <template v-else>
+            <component :is="Component" :key="route.fullPath" />
+          </template>
         </RouterView>
       </main>
     </main>

@@ -108,6 +108,14 @@ export async function createModule(name: string) {
     const modelDir = path.join(apiDir, 'model')
     await hfs.createDirectory(modelDir)
 
+    if (response.isNeedDto) {
+      const dtoDir = path.join(apiDir, 'dto')
+      await hfs.createDirectory(dtoDir)
+
+      const dtoPath = path.join(dtoDir, `Update${upperFirst(response.apiName)}Dto.ts`)
+      await hfs.write(dtoPath, createModelTemplate(`Update${upperFirst(response.apiName)}Dto`))
+    }
+
     const modelPath = path.join(modelDir, `${upperFirst(response.apiName)}.ts`)
     await hfs.write(modelPath, createModelTemplate(response.apiName))
     const modelIndexPath = path.join(modelDir, 'index.ts')

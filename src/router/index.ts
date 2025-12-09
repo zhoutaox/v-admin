@@ -1,7 +1,9 @@
 import { createRouter, type RouteRecordRaw, createWebHashHistory, type RouteMeta } from 'vue-router'
 import Layout from '@/layout/Layout.vue'
-import type { Menu } from '@/api/menu/entities/Menu'
+import type { Menu } from '@modules/menu/api/model/Menu'
+import { MenuTypeEnum } from '@modules/menu/enums/MenuTypeEnum'
 import { createRouterGuards } from './guard'
+import { Log } from '@/core'
 
 export class Router {
   instance = createRouter({
@@ -76,11 +78,18 @@ export class Router {
   addLayoutRoutes(routes: Menu[]) {
     routes.forEach((route) => {
       if (route.componentUrl) {
-        if (this.layoutModules[`/src/views${route.componentUrl}.vue`]) {
+        if (
+          this.layoutModules[`/src/views${route.componentUrl}.vue`] ||
+          route.menuType == MenuTypeEnum.IFRAME
+        ) {
+          console.error('==>', route)
           const currRoute: RouteRecordRaw = {
             path: route.path,
             name: route.title,
-            component: this.layoutModules[`/src/views${route.componentUrl}.vue`],
+            component:
+              route.menuType == MenuTypeEnum.IFRAME
+                ? this.layoutModules[`/src/views/iframe/iframe.vue`]
+                : this.layoutModules[`/src/views${route.componentUrl}.vue`],
             meta: {
               ...route,
             },
@@ -97,6 +106,7 @@ export class Router {
     // 重新注册布局路由
     this.instance.removeRoute('layout')
     this.instance.addRoute(this.layoutRoute)
+    // Log.error(this.instance.getRoutes())
   }
 
   addComponentRoutes(routes: Menu[]) {
