@@ -52,6 +52,7 @@ export function Post(path: string, config?: PostConfig): MethodDecorator {
     descriptor: TypedPropertyDescriptor<(...args: object[]) => unknown>,
   ) => {
     const originalMethod = descriptor.value as (...args: unknown[]) => unknown
+    path = path.startsWith('/') ? path : '/' + path
 
     descriptor.value = async function (...args: object[]): Promise<unknown> {
       const url = `${path}`

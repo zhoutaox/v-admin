@@ -1,7 +1,7 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div>user</div>
+  <div>fieldConfig</div>
 </template>
 
 <style scoped></style>

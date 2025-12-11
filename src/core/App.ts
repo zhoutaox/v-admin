@@ -5,6 +5,7 @@ import { AppParams } from '@/constants'
 import { useAppStore, useRouterStore } from '@/stores'
 import { useLoading } from '@/hooks'
 import 'normalize.css'
+import { appApi } from '@/api'
 import { router } from '@/router'
 import { camelToKebabAdvanced } from '@/utils'
 import { Log } from './Log'
@@ -45,6 +46,8 @@ export function App(app: VueApp, options: AppOptions) {
       await setupConfig()
 
       setupTheme()
+
+      appApi.docs()
 
       app.mount('#app')
     })()

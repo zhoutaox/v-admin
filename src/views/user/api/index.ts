@@ -11,7 +11,9 @@ class UserApi extends AbstractApi<User> {
 
   @Post('login')
   login(userLoginDto: UserLoginDto) {
-    return this.post({
+    return this.post<{
+      token: string
+    }>({
       data: userLoginDto,
     })
   }

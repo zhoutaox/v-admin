@@ -11,6 +11,8 @@ declare module 'vue' {
     __tests__: typeof import('./src/components/card/__tests__/index.vue')['default']
     DialogForm: typeof import('./src/components/form/components/DialogForm.vue')['default']
     DrawerForm: typeof import('./src/components/form/components/DrawerForm.vue')['default']
+    FieldConfig: typeof import('./src/components/formDesign/components/FieldConfig.vue')['default']
+    FormConfig: typeof import('./src/components/formDesign/components/FormConfig.vue')['default']
     NAvatar: typeof import('naive-ui')['NAvatar']
     NBadge: typeof import('naive-ui')['NBadge']
     NBreadcrumb: typeof import('naive-ui')['NBreadcrumb']

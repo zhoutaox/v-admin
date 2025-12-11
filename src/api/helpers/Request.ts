@@ -62,17 +62,16 @@ export class Request {
           config.data = this.paramFilter(config.data || {}) // 过滤
         }
 
-        // @ts-expect-error 存放信息
-        config.env.requestInfo = {
-          params: config.data,
-          date: new Date().getTime(),
-        }
-        const adapter = getSecureAdapter()
-        if (contentType === RequestHeaderEnum.FORM.key) {
-          config.data = { data: adapter.encrypt(JSON.stringify(config.data)) }
-        } else if (contentType === RequestHeaderEnum.JSON.key) {
-          config.data = adapter.encrypt(JSON.stringify(config.data))
-        }
+        // config.env.requestInfo = {
+        //   params: config.data,
+        //   date: new Date().getTime(),
+        // }
+        // const adapter = getSecureAdapter()
+        // if (contentType === RequestHeaderEnum.FORM.key) {
+        //   config.data = { data: adapter.encrypt(JSON.stringify(config.data)) }
+        // } else if (contentType === RequestHeaderEnum.JSON.key) {
+        //   config.data = adapter.encrypt(JSON.stringify(config.data))
+        // }
 
         return config
       },
@@ -90,27 +89,28 @@ export class Request {
           // 下载文件
           return response
         } else {
-          if (data) {
-            try {
-              response.data = JSON.parse(secureUtil.decryptBySM4(response.data))
-            } catch (e) {
-              Log.error(e)
-            }
-          }
+          Log.start(data)
+          // if (data) {
+          //   try {
+          //     response.data = JSON.parse(secureUtil.decryptBySM4(response.data))
+          //   } catch (e) {
+          //     Log.error(e)
+          //   }
+          // }
 
-          if (AppParams.API_LOG) {
-            console.log(
-              '\n%c[' + AppParams.NAME + ']',
-              'color: #fff;background: #f89898;padding: 2px 4px;border-radius: 6px',
-              response.config.url,
-              '🍕 ~ ' + '解密结果:',
-              response.data,
-              '🌮 ~ ' + '请求参数:', // @ts-expect-error 存放信息
-              response.config.env!.requestInfo.params,
-              '🍔 ~ ' + '请求时间:', // @ts-expect-error 存放信息
-              new Date().getTime() - response.config.env!.requestInfo.date + 'ms' + '\n',
-            )
-          }
+          // if (AppParams.API_LOG) {
+          //   console.log(
+          //     '\n%c[' + AppParams.NAME + ']',
+          //     'color: #fff;background: #f89898;padding: 2px 4px;border-radius: 6px',
+          //     response.config.url,
+          //     '🍕 ~ ' + '解密结果:',
+          //     response.data,
+          //     '🌮 ~ ' + '请求参数:', // @ts-expect-error 存放信息
+          //     response.config.env!.requestInfo.params,
+          //     '🍔 ~ ' + '请求时间:', // @ts-expect-error 存放信息
+          //     new Date().getTime() - response.config.env!.requestInfo.date + 'ms' + '\n',
+          //   )
+          // }
 
           return response.data
         }
@@ -133,10 +133,10 @@ export class Request {
     return result
   }
 
-  protected post(
+  protected post<T>(
     params: Record<string, unknown> = {},
     config: AxiosRequestConfig = {},
-  ): Promise<ApiResponse> {
+  ): Promise<ApiResponse<T>> {
     const url =
       Reflect.getMetadata(SymbolKeys.CONTROLLER_PATH_KEY, this) +
       Reflect.getMetadata(SymbolKeys.POST_PATH_KEY, this)

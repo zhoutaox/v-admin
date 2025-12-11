@@ -1,21 +1,21 @@
 import { Request, Controller, Post } from './helpers'
 
-@Controller('')
+@Controller('/app')
 class Api extends Request {
-  @Post('/app')
+  @Post('app')
   app() {
     return this.post()
   }
 
-  @Post('/uploadConfig')
+  @Post('uploadConfig')
   uploadConfig() {
     return this.post()
   }
 
-  @Post('/doc')
-  doc() {
+  @Post('docs')
+  docs() {
     return this.post()
   }
 }
 
-export const api = new Api()
+export const appApi = new Api()

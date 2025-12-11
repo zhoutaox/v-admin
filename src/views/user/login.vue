@@ -1,19 +1,27 @@
 <script setup lang="ts">
 import type { FormInst } from 'naive-ui'
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 import { LogoWechat } from '@vicons/ionicons5'
 import { AppParams } from '@/constants'
 import { userApi, UserLoginDto } from './api'
 import { showNoOpenMessage } from '@/utils'
+import { useUserStore } from '@/stores'
 
 const formRef = ref<FormInst | null>(null)
 const formValue = ref(UserLoginDto.create())
-
+const router = useRouter()
+const userStore = useUserStore()
 function doSubmit(e: MouseEvent) {
   e.preventDefault()
   formRef.value?.validate((errors) => {
     if (!errors) {
-      userApi.login(formValue.value)
+      userApi.login(formValue.value).then((res) => {
+        if (res.success) {
+          userStore.setToken(res.data.token)
+          router.push(AppParams.HOME_PATH)
+        }
+      })
     }
   })
 }

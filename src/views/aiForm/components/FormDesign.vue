@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import FieldConfig from '../components/FieldConfig.vue'
-import FormConfig from '../components/FormConfig.vue'
+import FieldConfig from './FieldConfig.vue'
+import FormConfig from './FormConfig.vue'
 
 const show = ref(true)
 </script>

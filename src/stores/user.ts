@@ -7,6 +7,7 @@ export const useUserStore = defineStore('user', () => {
   const password = ref('')
   const isRememberPassword = ref(false)
   const todoNum = ref(0) // 待办事项数量
+  const token = ref('') // 登录令牌
 
   function setPassword(pwd: string) {
     password.value = secureUtil.encryptBySM2(pwd)
@@ -23,9 +24,15 @@ export const useUserStore = defineStore('user', () => {
     })
   }
 
+  function setToken(t: string) {
+    token.value = t
+  }
+
   return {
     isRememberPassword,
     todoNum,
+    token,
+    setToken,
     setPassword,
     getPassword,
     logOut,
