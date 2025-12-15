@@ -3,7 +3,7 @@ import Layout from '@/layout/Layout.vue'
 import type { Menu } from '@modules/menu/api/model/Menu'
 import { MenuTypeEnum } from '@modules/menu/enums/MenuTypeEnum'
 import { createRouterGuards } from './guard'
-import { Log } from '@/core'
+import { AppParams } from '@/constants'
 
 export class Router {
   instance = createRouter({
@@ -18,7 +18,7 @@ export class Router {
     name: 'layout', // 添加名称以便后续操作
     component: Layout,
     path: '/',
-    redirect: '/home',
+    redirect: AppParams.HOME_PATH,
     children: [],
   }
 

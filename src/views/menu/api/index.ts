@@ -1,11 +1,11 @@
 import { AbstractApi, Controller, Post } from '@/api/helpers'
 import { Menu } from './model'
 
-@Controller('/api/menu')
+@Controller('/menu')
 class MenuApi extends AbstractApi<Menu> {
-  @Post('/test')
-  test() {
-    return this.post()
+  @Post('/menus')
+  menus() {
+    return this.post<Menu[]>()
   }
 }
 

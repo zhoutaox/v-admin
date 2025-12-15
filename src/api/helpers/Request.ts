@@ -7,10 +7,11 @@ import type {
   InternalAxiosRequestConfig,
 } from 'axios'
 import { secureUtil, type ApiResponse } from 'bstm-utils'
-import { RequestHeaderEnum } from '@/enums'
+import { RequestHeaderEnum, HttpStatusEnum } from '@/enums'
 import { AppParams, SymbolKeys } from '@/constants'
 import { API_MAP, type PostConfig } from './plugins/Post'
 import { Log } from '../../core/Log'
+import { router } from '@/router'
 
 function sm2Adapter() {
   return {
@@ -89,7 +90,16 @@ export class Request {
           // 下载文件
           return response
         } else {
-          Log.start(data)
+          const code = data.code as number
+
+          switch (code) {
+            case HttpStatusEnum.UNAUTHORIZED.key:
+              Log.error('未授权')
+              router.instance.replace({
+                path: '/login',
+              })
+              break
+          }
           // if (data) {
           //   try {
           //     response.data = JSON.parse(secureUtil.decryptBySM4(response.data))
