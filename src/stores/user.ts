@@ -2,6 +2,7 @@ import { ref } from 'vue'
 import { secureUtil } from 'bstm-utils'
 import { defineStore } from 'pinia'
 import { router } from '@/router'
+import { userApi } from '@/views/user/api'
 
 export const useUserStore = defineStore('user', () => {
   const password = ref('')
@@ -26,6 +27,10 @@ export const useUserStore = defineStore('user', () => {
 
   function setToken(t: string) {
     token.value = t
+  }
+
+  function initUser() {
+    userApi.keepAlive().then((res) => {})
   }
 
   return {
