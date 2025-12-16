@@ -2,10 +2,15 @@ import { createApp } from 'vue'
 import { BaseEntity } from '../core/BaseEntity'
 import { DialogForm, DrawerForm } from '../components'
 
-export function openForm(entity: new () => BaseEntity, mode: 'dialog' | 'drawer' = 'dialog') {
+interface IConfig {
+  mode: 'dialog' | 'drawer'
+  submitFn?: () => Promise<unknown>
+}
+
+export function openForm(entity: new () => BaseEntity, config: IConfig = { mode: 'dialog' }) {
   const mountNode = document.createElement('div')
 
-  const instance = createApp(mode === 'dialog' ? DialogForm : DrawerForm, {
+  const instance = createApp(config.mode === 'dialog' ? DialogForm : DrawerForm, {
     dialogForm: true,
     entity,
     close: () => {

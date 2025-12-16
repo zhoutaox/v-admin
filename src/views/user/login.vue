@@ -20,7 +20,7 @@ function doSubmit(e: MouseEvent) {
       userApi.login(formValue.value).then((res) => {
         if (res.success) {
           userStore.setToken(res.data.token)
-          routerStore.addRoute([])
+          routerStore.initRoute()
           setTimeout(() => {
             router.push(AppParams.HOME_PATH)
           })

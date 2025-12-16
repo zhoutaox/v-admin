@@ -10,6 +10,7 @@ import { router } from '@/router'
 import { camelToKebabAdvanced } from '@/utils'
 import { Log } from './Log'
 import { Menu } from '@/views/menu/api'
+import { userApi } from '@/views/user/api'
 
 // styles
 import 'animate.css'
@@ -98,6 +99,7 @@ function registerPlugins(app: VueApp, plugins: Plugin[]) {
  * @param app vue实例
  */
 async function setupRouter(app: VueApp) {
+  userApi.getUserInfo()
   const { initRoute } = useRouterStore()
   await setupComponents(app)
   await initRoute()
