@@ -2,20 +2,34 @@ import { ref } from 'vue'
 import { defineStore } from 'pinia'
 import { router } from '@/router'
 import type { Menu } from '@modules/menu/api/model/Menu'
-import { initMenu } from '@/router/initMenu'
-import { Log } from '@/core'
-import { menuApi } from '@/views/menu/api'
+import { menuApi } from '@modules/menu/api'
 
 export const useRouterStore = defineStore('router', () => {
   const menus = ref<Menu[]>([])
 
+  function renderMenList(menuList: Menu[]): Menu[] {
+    const renderedMenus: Menu[] = []
+    menuList.forEach((menu) => {
+      if (!menu.pid) {
+        renderedMenus.push(menu)
+      }
+      const children = menuList.filter((m) => m.pid === menu.iid)
+      if (children.length) {
+        menu.children = children
+      }
+    })
+    return renderedMenus
+  }
+
   // 添加路由
-  function addRoute(menuList: Menu[]) {
-    menuApi.menus()
-    menus.value = initMenu(menuList)
-    Log.warn(menus.value)
+  async function initRoute() {
+    const menuData = await menuApi.menus()
+    const menuList = renderMenList(menuData.data)
+
+    menus.value = menuList
+
     router.addLayoutRoutes(menus.value)
   }
 
-  return { menus, addRoute }
+  return { menus, initRoute }
 })

@@ -98,9 +98,9 @@ function registerPlugins(app: VueApp, plugins: Plugin[]) {
  * @param app vue实例
  */
 async function setupRouter(app: VueApp) {
-  // const { addRoute } = useRouterStore()
-  // const menu = await setupComponents(app)
-  // addRoute([menu])
+  const { initRoute } = useRouterStore()
+  await setupComponents(app)
+  await initRoute()
 
   app.use(router.instance)
 }

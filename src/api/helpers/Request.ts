@@ -10,8 +10,10 @@ import { secureUtil, type ApiResponse } from 'bstm-utils'
 import { RequestHeaderEnum, HttpStatusEnum } from '@/enums'
 import { AppParams, SymbolKeys } from '@/constants'
 import { API_MAP, type PostConfig } from './plugins/Post'
+import { useUserStore } from '@/stores/user'
 import { Log } from '../../core/Log'
 import { router } from '@/router'
+import { dialog, message } from '@/utils'
 
 function sm2Adapter() {
   return {
@@ -48,7 +50,9 @@ export class Request {
     // 请求拦截器
     this.axiosInstance.interceptors.request.use(
       (config: InternalAxiosRequestConfig) => {
+        const userStore = useUserStore()
         config.headers.set('Is-Server', '1')
+        config.headers.set('authorization', userStore.token)
 
         if (config.method !== 'post') {
           throw new Error('请求方法错误')
@@ -93,12 +97,20 @@ export class Request {
           const code = data.code as number
 
           switch (code) {
+            case HttpStatusEnum.OK.key:
+              break
             case HttpStatusEnum.UNAUTHORIZED.key:
               Log.error('未授权')
               router.instance.replace({
                 path: '/login',
               })
               break
+            default:
+              dialog.error({
+                title: response.config.url,
+                content: data.message,
+                positiveText: '确定',
+              })
           }
           // if (data) {
           //   try {

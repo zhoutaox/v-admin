@@ -6,12 +6,13 @@ import { LogoWechat } from '@vicons/ionicons5'
 import { AppParams } from '@/constants'
 import { userApi, UserLoginDto } from './api'
 import { showNoOpenMessage } from '@/utils'
-import { useUserStore } from '@/stores'
+import { useUserStore, useRouterStore } from '@/stores'
 
 const formRef = ref<FormInst | null>(null)
 const formValue = ref(UserLoginDto.create())
 const router = useRouter()
 const userStore = useUserStore()
+const routerStore = useRouterStore()
 function doSubmit(e: MouseEvent) {
   e.preventDefault()
   formRef.value?.validate((errors) => {
@@ -19,7 +20,10 @@ function doSubmit(e: MouseEvent) {
       userApi.login(formValue.value).then((res) => {
         if (res.success) {
           userStore.setToken(res.data.token)
-          router.push(AppParams.HOME_PATH)
+          routerStore.addRoute([])
+          setTimeout(() => {
+            router.push(AppParams.HOME_PATH)
+          })
         }
       })
     }

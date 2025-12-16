@@ -22,7 +22,7 @@ export class Router {
     children: [],
   }
 
-  whiteRoutes: string[] = ['login', 'not_found']
+  whiteRoutes: string[] = ['/login']
 
   routes: RouteRecordRaw[] = [
     {
@@ -39,28 +39,20 @@ export class Router {
     {
       path: '/login',
       name: 'login',
+      meta: {
+        title: '登录',
+      } as RouteMeta,
       component: () => import('@/views/user/login.vue'),
     },
     this.layoutRoute,
   ]
   constructor() {
-    // 初始化默认路由
-    // this.initDefaultRoutes()
-    createRouterGuards(this.instance)
+    createRouterGuards(this.instance, this.whiteRoutes)
 
     this.routes.forEach((route) => {
       this.instance.addRoute(route)
     })
   }
-
-  // private initDefaultRoutes() {
-  //   // 添加默认路由
-  //   this.layoutRoute.children?.push({
-  //     path: 'home',
-  //     name: 'home',
-  //     component: () => import('@/views/dashboard/home.vue'),
-  //   })
-  // }
 
   addRoute(route: RouteRecordRaw) {
     this.instance.addRoute(route)

@@ -9,6 +9,7 @@ export const useUserStore = defineStore('user', () => {
   const isRememberPassword = ref(false)
   const todoNum = ref(0) // 待办事项数量
   const token = ref('') // 登录令牌
+  const isLogin = ref(false) // 是否已登录
 
   function setPassword(pwd: string) {
     password.value = secureUtil.encryptBySM2(pwd)
@@ -23,10 +24,12 @@ export const useUserStore = defineStore('user', () => {
     router.instance.replace({
       path: '/login',
     })
+    isLogin.value = false
   }
 
   function setToken(t: string) {
     token.value = t
+    isLogin.value = true
   }
 
   function initUser() {
@@ -37,6 +40,7 @@ export const useUserStore = defineStore('user', () => {
     isRememberPassword,
     todoNum,
     token,
+    isLogin,
     setToken,
     setPassword,
     getPassword,
