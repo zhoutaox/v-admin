@@ -1,4 +1,4 @@
-import { AiFormColumn, AiFormListSearch, AiFormButton } from '@/api'
+import { AiFormColumn, AiFormListSearch, AiFormButton } from '@modules/aiForm/api'
 import { type Values } from '@/types'
 
 export class SearchTable {
