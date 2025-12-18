@@ -9,7 +9,6 @@ import { useAppStore, useUserStore } from '@/stores'
 import { User, Password } from '@/views/user/api'
 import ConfigVue from './Config.vue'
 import SearchVue from './Search.vue'
-import { userApi } from '@modules/user/api'
 
 const configRef = ref<InstanceType<typeof ConfigVue> | null>(null)
 const searchRef = ref<InstanceType<typeof SearchVue> | null>(null)

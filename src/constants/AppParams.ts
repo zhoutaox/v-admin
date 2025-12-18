@@ -27,6 +27,11 @@ export class AppParams {
   static readonly HOME_PATH = '/home'
 
   /**
+   * # 登录路径
+   */
+  static readonly LOGIN_PATH = '/login'
+
+  /**
    * # 请求加密方式
    */
   static readonly API_ENCRYPT_TYPE = 'sm2'

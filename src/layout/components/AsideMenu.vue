@@ -3,7 +3,7 @@ import { computed } from 'vue'
 import { type MenuOption } from 'naive-ui'
 import { useRoute, useRouter } from 'vue-router'
 import { useAppStore, useRouterStore, useTabStore } from '@/stores'
-import { Menu } from '@/api/menu/entities'
+import { Menu } from '@modules/menu/api'
 import { renderIcon } from '@/utils'
 
 const { menus } = useRouterStore()

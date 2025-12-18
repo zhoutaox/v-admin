@@ -3,6 +3,7 @@ import { secureUtil } from 'bstm-utils'
 import { defineStore } from 'pinia'
 import { router } from '@/router'
 import { userApi } from '@/views/user/api'
+import { AppParams } from '@/constants/AppParams'
 
 export const useUserStore = defineStore('user', () => {
   const password = ref('')
@@ -19,21 +20,22 @@ export const useUserStore = defineStore('user', () => {
     return secureUtil.decryptBySM2(password.value)
   }
 
-  function logOut() {
+  async function logOut() {
+    const { success } = await userApi.logout()
+    if (!success) {
+      return
+    }
     router.removeRoute()
     router.instance.replace({
-      path: '/login',
+      path: AppParams.LOGIN_PATH,
     })
     isLogin.value = false
+    token.value = ''
   }
 
   function setToken(t: string) {
     token.value = t
     isLogin.value = true
-  }
-
-  function initUser() {
-    userApi.keepAlive().then((res) => {})
   }
 
   return {

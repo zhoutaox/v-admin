@@ -18,6 +18,11 @@ class UserApi extends AbstractApi<User> {
     })
   }
 
+  @Post('logout')
+  logout() {
+    return this.post()
+  }
+
   @Post('getUserInfo')
   getUserInfo() {
     return this.post()

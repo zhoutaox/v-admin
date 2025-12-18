@@ -23,12 +23,14 @@ export const useRouterStore = defineStore('router', () => {
 
   // 添加路由
   async function initRoute() {
-    const menuData = await menuApi.menus()
-    const menuList = renderMenList(menuData.data)
+    const { success, data } = await menuApi.menus()
 
-    menus.value = menuList
+    if (success) {
+      const menuList = renderMenList(data)
+      menus.value = menuList
 
-    router.addLayoutRoutes(menus.value)
+      router.addLayoutRoutes(menus.value)
+    }
   }
 
   return { menus, initRoute }
