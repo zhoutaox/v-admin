@@ -2,8 +2,9 @@ import { ref } from 'vue'
 import { secureUtil } from 'bstm-utils'
 import { defineStore } from 'pinia'
 import { router } from '@/router'
-import { userApi } from '@/views/user/api'
+import { userApi, UserLoginDto } from '@/views/user/api'
 import { AppParams } from '@/constants/AppParams'
+import { useRouterStore } from './router'
 
 export const useUserStore = defineStore('user', () => {
   const password = ref('')
@@ -11,6 +12,7 @@ export const useUserStore = defineStore('user', () => {
   const todoNum = ref(0) // 待办事项数量
   const token = ref('') // 登录令牌
   const isLogin = ref(false) // 是否已登录
+  const routerStore = useRouterStore()
 
   function setPassword(pwd: string) {
     password.value = secureUtil.encryptBySM2(pwd)
@@ -20,7 +22,16 @@ export const useUserStore = defineStore('user', () => {
     return secureUtil.decryptBySM2(password.value)
   }
 
-  async function logOut() {
+  async function login(userLoginDto: UserLoginDto) {
+    const { success, data } = await userApi.login(userLoginDto)
+    if (success) {
+      setToken(data.token)
+      await routerStore.initRoute()
+      router.instance.push(AppParams.HOME_PATH)
+    }
+  }
+
+  async function logout() {
     const { success } = await userApi.logout()
     if (!success) {
       return
@@ -46,6 +57,7 @@ export const useUserStore = defineStore('user', () => {
     setToken,
     setPassword,
     getPassword,
-    logOut,
+    login,
+    logout,
   }
 })

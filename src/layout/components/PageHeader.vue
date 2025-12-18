@@ -48,7 +48,7 @@ function handleDropdownSelect(key: string | number, options: DropdownOption) {
   } else if (key === Config.EDIT_PROFILE) {
     openForm(Password)
   } else if (key === Config.LOGOUT) {
-    userStore.logOut()
+    userStore.logout()
   }
 }
 </script>

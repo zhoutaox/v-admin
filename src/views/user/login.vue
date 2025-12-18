@@ -1,31 +1,21 @@
 <script setup lang="ts">
 import type { FormInst } from 'naive-ui'
 import { ref } from 'vue'
-import { useRouter } from 'vue-router'
 import { LogoWechat } from '@vicons/ionicons5'
 import { AppParams } from '@/constants'
-import { userApi, UserLoginDto } from './api'
+import { UserLoginDto } from './api'
 import { showNoOpenMessage } from '@/utils'
-import { useUserStore, useRouterStore } from '@/stores'
+import { useUserStore } from '@/stores'
 
 const formRef = ref<FormInst | null>(null)
 const formValue = ref(UserLoginDto.create())
-const router = useRouter()
 const userStore = useUserStore()
-const routerStore = useRouterStore()
+const iconColor = 'rgba(194, 194, 194, 1)'
 function doSubmit(e: MouseEvent) {
   e.preventDefault()
   formRef.value?.validate((errors) => {
     if (!errors) {
-      userApi.login(formValue.value).then((res) => {
-        if (res.success) {
-          userStore.setToken(res.data.token)
-          routerStore.initRoute()
-          setTimeout(() => {
-            router.push(AppParams.HOME_PATH)
-          })
-        }
-      })
+      userStore.login(formValue.value)
     }
   })
 }
@@ -49,9 +39,7 @@ function doSubmit(e: MouseEvent) {
       <div class="main">
         <div class="title">登录您的账户</div>
         <div class="desc">
-          没有账户？<span @click="showNoOpenMessage"
-            >免费注册 <v-icon icon="right-btn"></v-icon
-          ></span>
+          没有账户？<span @click="showNoOpenMessage">免费注册 <v-icon icon="right-btn" /></span>
         </div>
         <div class="tabs">
           <div class="tab-item active">账号密码登录</div>
@@ -68,7 +56,7 @@ function doSubmit(e: MouseEvent) {
             <n-form-item path="username" style="margin-bottom: 10px">
               <n-input v-model:value="formValue.username" placeholder="输入姓名">
                 <template #prefix
-                  ><v-icon :size="12" icon="customer-center" color="rgba(194, 194, 194, 1)"
+                  ><v-icon :size="12" icon="customer-center" :color="iconColor"
                 /></template>
               </n-input>
             </n-form-item>
@@ -80,7 +68,7 @@ function doSubmit(e: MouseEvent) {
                 show-password-on="mousedown"
               >
                 <template #prefix
-                  ><v-icon :size="12" icon="lock-fill" color="rgba(194, 194, 194, 1)"
+                  ><v-icon :size="12" icon="lock-fill" :color="iconColor"
                 /></template>
               </n-input>
             </n-form-item>
