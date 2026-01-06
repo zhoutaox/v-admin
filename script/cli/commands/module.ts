@@ -58,7 +58,7 @@ export class ${upperFirst(name)} extends BaseEntity {
 export async function createModule(name: string) {
   const dirPath = path.join(process.cwd(), 'src', 'views', name)
   if (await hfs.isDirectory(dirPath)) {
-    console.error('目录已存在:', dirPath)
+    console.error(`${name}模块已存在`, dirPath)
     return
   }
 

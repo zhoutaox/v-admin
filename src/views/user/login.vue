@@ -1,23 +1,13 @@
 <script setup lang="ts">
-import type { FormInst } from 'naive-ui'
 import { ref } from 'vue'
-import { LogoWechat } from '@vicons/ionicons5'
 import { AppParams } from '@/constants'
-import { UserLoginDto } from './api'
-import { showNoOpenMessage } from '@/utils'
-import { useUserStore } from '@/stores'
+import LoginMain from './components/LoginMain.vue'
+import RegisterUser from './components/RegisterUser.vue'
 
-const formRef = ref<FormInst | null>(null)
-const formValue = ref(UserLoginDto.create())
-const userStore = useUserStore()
-const iconColor = 'rgba(194, 194, 194, 1)'
-function doSubmit(e: MouseEvent) {
-  e.preventDefault()
-  formRef.value?.validate((errors) => {
-    if (!errors) {
-      userStore.login(formValue.value)
-    }
-  })
+const isLogin = ref(true)
+
+function toggle() {
+  isLogin.value = !isLogin.value
 }
 </script>
 
@@ -37,67 +27,14 @@ function doSubmit(e: MouseEvent) {
     </div>
     <div class="right">
       <div class="main">
-        <div class="title">登录您的账户</div>
+        <div class="title">{{ isLogin ? '登录' : '注册' }}您的账户</div>
         <div class="desc">
-          没有账户？<span @click="showNoOpenMessage">免费注册 <v-icon icon="right-btn" /></span>
+          没有账户？<span @click="toggle"
+            >{{ isLogin ? '免费注册' : '前往登录' }} <v-icon icon="right-btn"
+          /></span>
         </div>
-        <div class="tabs">
-          <div class="tab-item active">账号密码登录</div>
-          <div class="tab-item" @click="showNoOpenMessage">手机验证码登录</div>
-        </div>
-        <div style="position: relative">
-          <n-form
-            ref="formRef"
-            :model="formValue"
-            :rules="UserLoginDto.getRules()"
-            :show-label="false"
-            size="large"
-          >
-            <n-form-item path="username" style="margin-bottom: 10px">
-              <n-input v-model:value="formValue.username" placeholder="输入姓名">
-                <template #prefix
-                  ><v-icon :size="12" icon="customer-center" :color="iconColor"
-                /></template>
-              </n-input>
-            </n-form-item>
-            <n-form-item path="password">
-              <n-input
-                v-model:value="formValue.password"
-                type="password"
-                placeholder="输入密码"
-                show-password-on="mousedown"
-              >
-                <template #prefix
-                  ><v-icon :size="12" icon="lock-fill" :color="iconColor"
-                /></template>
-              </n-input>
-            </n-form-item>
-            <n-form-item>
-              <div class="remember">
-                <n-checkbox>记住密码</n-checkbox><span @click="showNoOpenMessage">忘记密码?</span>
-              </div>
-            </n-form-item>
-            <n-form-item>
-              <n-button attr-type="button" type="primary" block round @click="doSubmit">
-                登录
-              </n-button>
-            </n-form-item>
-          </n-form>
-        </div>
-
-        <n-divider> 其他登录方式 </n-divider>
-        <div class="other-login-way">
-          <n-popover trigger="hover">
-            <template #trigger>
-              <n-button circle>
-                <template #icon>
-                  <n-icon class="icon" :component="LogoWechat" :size="22" />
-                </template>
-              </n-button>
-            </template>
-            <n-qr-code value="微信扫码登录" />
-          </n-popover>
-        </div>
+        <LoginMain v-if="isLogin" />
+        <RegisterUser v-else />
       </div>
     </div>
   </div>
@@ -175,47 +112,6 @@ function doSubmit(e: MouseEvent) {
       align-items: center;
       cursor: pointer;
     }
-  }
-
-  .tabs {
-    padding: 4px 6px;
-    width: auto;
-    display: inline-flex;
-    align-items: center;
-    margin-bottom: 26px;
-    background-color: #f3f7fb;
-    border-radius: 4px;
-    .tab-item {
-      padding: 4px 12px;
-      cursor: pointer;
-
-      &.active {
-        background-color: #fff;
-        border-radius: 4px;
-        color: var(--v-color-primary);
-      }
-    }
-  }
-
-  .remember {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    span {
-      cursor: pointer;
-      color: var(--v-color-primary);
-    }
-  }
-}
-
-.other-login-way {
-  display: flex;
-  justify-content: center;
-
-  .icon {
-    cursor: pointer;
   }
 }
 </style>

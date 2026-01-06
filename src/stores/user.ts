@@ -5,6 +5,7 @@ import { router } from '@/router'
 import { userApi, UserLoginDto } from '@/views/user/api'
 import { AppParams } from '@/constants/AppParams'
 import { useRouterStore } from './router'
+import { notification } from '@/utils'
 
 export const useUserStore = defineStore('user', () => {
   const password = ref('')
@@ -27,7 +28,11 @@ export const useUserStore = defineStore('user', () => {
     if (success) {
       setToken(data.token)
       await routerStore.initRoute()
-      router.instance.push(AppParams.HOME_PATH)
+      await router.instance.push(AppParams.HOME_PATH)
+      notification.success({
+        title: '登录成功',
+        duration: 3 * 1000,
+      })
     }
   }
 

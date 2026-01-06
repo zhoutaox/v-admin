@@ -1,6 +1,8 @@
 import { AbstractApi, Post, Controller } from '@/api/helpers'
 import type { User } from './model/User'
 import { UserLoginDto } from './dto/UserLoginDto'
+import type { ResetPasswordDto } from './dto/ResetPasswordDto'
+import type { RegisterUserDto } from './dto/RegisterUserDto'
 
 @Controller('/user')
 class UserApi extends AbstractApi<User> {
@@ -28,9 +30,28 @@ class UserApi extends AbstractApi<User> {
     return this.post()
   }
 
-  @Post('keepAlive')
-  keepAlive() {
-    return this.post()
+  @Post('sendEmail')
+  sendEmail(email: string) {
+    return this.post({
+      data: { email },
+    })
+  }
+
+  @Post('register')
+  register(registerUserDto: RegisterUserDto) {
+    return this.post({
+      data: registerUserDto,
+    })
+  }
+
+  /**
+   * # 重置密码
+   * @param {ResetPasswordDto} resetPasswordDto
+   */
+  resetPassword(resetPasswordDto: ResetPasswordDto) {
+    return this.post({
+      data: resetPasswordDto,
+    })
   }
 }
 
