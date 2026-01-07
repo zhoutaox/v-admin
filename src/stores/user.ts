@@ -23,17 +23,20 @@ export const useUserStore = defineStore('user', () => {
     return secureUtil.decryptBySM2(password.value)
   }
 
-  async function login(userLoginDto: UserLoginDto) {
-    const { success, data } = await userApi.login(userLoginDto)
-    if (success) {
-      setToken(data.token)
-      await routerStore.initRoute()
-      await router.instance.push(AppParams.HOME_PATH)
-      notification.success({
-        title: '登录成功',
-        duration: 3 * 1000,
-      })
-    }
+  function login(userLoginDto: UserLoginDto) {
+    return new Promise(async (resolve, reject) => {
+      const { success, data } = await userApi.login(userLoginDto)
+      if (success) {
+        await routerStore.initRoute()
+        await router.instance.push(AppParams.HOME_PATH)
+        notification.success({
+          title: '登录成功',
+          duration: 3 * 1000,
+        })
+        resolve(data)
+      }
+      reject(data)
+    })
   }
 
   async function logout() {

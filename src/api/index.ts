@@ -16,6 +16,13 @@ class Api extends Request {
   docs() {
     return this.post()
   }
+
+  @Post('captcha')
+  captcha() {
+    return this.post<{
+      img: string
+    }>()
+  }
 }
 
 export const appApi = new Api()

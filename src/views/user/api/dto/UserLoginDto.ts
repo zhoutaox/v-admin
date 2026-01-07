@@ -11,4 +11,9 @@ export class UserLoginDto extends BaseDto {
     message: '密码不能为空',
   })
   password!: string
+
+  @IsNotEmpty({
+    message: '验证码不能为空',
+  })
+  captcha!: string
 }

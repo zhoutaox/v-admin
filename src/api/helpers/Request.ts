@@ -67,17 +67,6 @@ export class Request {
           config.data = this.paramFilter(config.data || {}) // 过滤
         }
 
-        // config.env.requestInfo = {
-        //   params: config.data,
-        //   date: new Date().getTime(),
-        // }
-        // const adapter = getSecureAdapter()
-        // if (contentType === RequestHeaderEnum.FORM.key) {
-        //   config.data = { data: adapter.encrypt(JSON.stringify(config.data)) }
-        // } else if (contentType === RequestHeaderEnum.JSON.key) {
-        //   config.data = adapter.encrypt(JSON.stringify(config.data))
-        // }
-
         return config
       },
       (error) => {
@@ -98,6 +87,10 @@ export class Request {
 
           switch (code) {
             case HttpStatusEnum.OK.key:
+              if (data.token) {
+                const userStore = useUserStore()
+                userStore.setToken(data.token)
+              }
               break
             case HttpStatusEnum.UNAUTHORIZED.key:
               Log.error('未授权')

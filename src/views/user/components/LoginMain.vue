@@ -1,11 +1,13 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { LogoWechat } from '@vicons/ionicons5'
 import type { FormInst } from 'naive-ui'
 import { useUserStore } from '@/stores'
 import { showNoOpenMessage } from '@/utils'
 import { UserLoginDto } from '../api'
+import { appApi } from '@/api'
 
+const captcha = ref('')
 const iconColor = 'rgba(194, 194, 194, 1)'
 const formValue = ref(UserLoginDto.create())
 const formRef = ref<FormInst | null>(null)
@@ -14,16 +16,31 @@ function doSubmit(e: MouseEvent) {
   e.preventDefault()
   formRef.value?.validate((errors) => {
     if (!errors) {
-      userStore.login(formValue.value)
+      userStore.login(formValue.value).catch(() => {
+        getCaptcha()
+        formValue.value.captcha = ''
+      })
     }
   })
 }
+
+function getCaptcha() {
+  appApi.captcha().then((res) => {
+    if (res.success) {
+      captcha.value = res.data.img
+    }
+  })
+}
+
+onMounted(() => {
+  getCaptcha()
+})
 </script>
 
 <template>
   <div class="tabs">
     <div class="tab-item active">账号密码登录</div>
-    <div class="tab-item" @click="showNoOpenMessage">手机验证码登录</div>
+    <div class="tab-item" @click="showNoOpenMessage">邮箱验证码登录</div>
   </div>
   <div style="position: relative">
     <n-form
@@ -33,7 +50,7 @@ function doSubmit(e: MouseEvent) {
       :show-label="false"
       size="large"
     >
-      <n-form-item path="loginName" style="margin-bottom: 10px">
+      <n-form-item path="loginName">
         <n-input v-model:value="formValue.loginName" placeholder="输入登录名">
           <template #prefix>
             <v-icon :size="12" icon="customer-center" :color="iconColor" />
@@ -49,6 +66,24 @@ function doSubmit(e: MouseEvent) {
         >
           <template #prefix>
             <v-icon :size="12" icon="lock-fill" :color="iconColor" />
+          </template>
+        </n-input>
+      </n-form-item>
+      <n-form-item path="captcha">
+        <n-input
+          v-model:value="formValue.captcha"
+          placeholder="输入验证码"
+          show-password-on="mousedown"
+        >
+          <template #prefix>
+            <v-icon :size="12" icon="lock-fill" :color="iconColor" />
+          </template>
+          <template #suffix>
+            <span
+              style="line-height: 0; cursor: pointer"
+              v-html="captcha"
+              @click="getCaptcha"
+            ></span>
           </template>
         </n-input>
       </n-form-item>
